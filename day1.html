@@ -769,7 +769,7 @@ function createSparkles() {
 
 /* OPEN MEMORY */
 
-openBtn.addEventListener("click", function() {
+openBtn.addEventListener("click", async function() {
 
   /*
     THE ANSWER DOES NOT HAVE TO BE CORRECT.
@@ -784,6 +784,18 @@ openBtn.addEventListener("click", function() {
 
     return;
   }
+  /* SAVE ANSWER */
+const { error: answerSaveError } = await supabaseClient
+  .from("responses")
+  .insert({
+    day: 1,
+    answer: answer.value.trim(),
+    feedback: ""
+  });
+
+if (answerSaveError) {
+  console.error("Could not save answer:", answerSaveError);
+}
 
 
   /* SPARKLE BURST */
