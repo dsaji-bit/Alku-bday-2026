@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Alku's Birthday 2026</title>
+<title>Alku's Birthday 2026 ♡</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@300;400&family=Montserrat:wght@300;400;500&display=swap');
+
+
+/* =====================================================
+   BASIC RESET
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -15,562 +23,2043 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background: #f9f3ef;
-    color: #3f3030;
+
+    background:
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(220,170,170,0.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 35%,
+            rgba(190,150,150,0.10),
+            transparent 25%
+        ),
+        #f8f2ee;
+
+    color: #3d3030;
+
     font-family: 'Montserrat', sans-serif;
+
     overflow-x: hidden;
 }
 
+
+/* =====================================================
+   DECORATIVE BACKGROUND
+===================================================== */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.28;
+
+    background-image:
+        radial-gradient(#8f6d6d 0.5px, transparent 0.5px);
+
+    background-size: 22px 22px;
+
+    z-index: -1;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
 .hero {
+
     min-height: 100vh;
-    padding: 60px 20px 40px;
+
+    padding:
+        55px
+        20px
+        70px;
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
+
     text-align: center;
 }
 
-.small-title {
-    font-size: 11px;
+
+.eyebrow {
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 9px;
+
     letter-spacing: 5px;
+
     text-transform: uppercase;
-    color: #9b7777;
-    margin-bottom: 18px;
+
+    color: #a27e7e;
+
+    margin-bottom: 22px;
 }
 
-h1 {
+
+.hero h1 {
+
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(48px, 14vw, 90px);
+
     font-weight: 500;
-    line-height: 0.9;
-    letter-spacing: -2px;
+
+    font-size:
+        clamp(
+            60px,
+            15vw,
+            110px
+        );
+
+    line-height: 0.78;
+
+    letter-spacing: -3px;
+
+    color: #463535;
 }
 
-.year {
+
+.hero-year {
+
     font-family: 'Cormorant Garamond', serif;
-    font-size: 27px;
-    letter-spacing: 9px;
-    margin-top: 12px;
-    color: #8f6666;
+
+    font-size: 28px;
+
+    letter-spacing: 11px;
+
+    margin-top: 22px;
+
+    margin-left: 11px;
+
+    color: #987171;
 }
 
-/* PHOTO SECTION */
 
-.photos {
+.hero-subtitle {
+
+    max-width: 440px;
+
+    margin-top: 25px;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 20px;
+
+    line-height: 1.5;
+
+    font-style: italic;
+
+    color: #755d5d;
+}
+
+
+/* =====================================================
+   PHOTO SCRAPBOOK
+===================================================== */
+
+.photo-wrap {
+
+    width: min(
+        680px,
+        94vw
+    );
+
+    height: 300px;
+
+    position: relative;
+
+    margin:
+        55px
+        auto
+        50px;
+}
+
+
+.polaroid {
+
+    position: absolute;
+
+    width: 185px;
+
+    height: 230px;
+
+    padding: 9px;
+
+    background: #fff;
+
+    box-shadow:
+        0 18px 40px
+        rgba(65,40,40,0.13);
+
+    transition:
+        transform 0.5s ease;
+}
+
+
+.polaroid img {
+
     width: 100%;
-    max-width: 650px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 45px auto;
-}
 
-.photo {
-    width: 31%;
-    aspect-ratio: 0.75;
+    height: 100%;
+
     object-fit: cover;
-    border: 7px solid #fff;
-    box-shadow: 0 12px 30px rgba(70,40,40,0.12);
 }
 
-.photo:nth-child(1) {
-    transform: rotate(-6deg);
+
+.polaroid small {
+
+    position: absolute;
+
+    bottom: -27px;
+
+    left: 0;
+
+    right: 0;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 15px;
+
+    color: #765b5b;
 }
 
-.photo:nth-child(2) {
-    transform: translateY(-18px);
+
+/* Individual photo positions */
+
+.photo-one {
+
+    left: 4%;
+
+    top: 30px;
+
+    transform:
+        rotate(-8deg);
+}
+
+
+.photo-two {
+
+    left: 50%;
+
+    top: 0;
+
+    transform:
+        translateX(-50%)
+        rotate(1deg);
+
+    z-index: 3;
+}
+
+
+.photo-three {
+
+    right: 4%;
+
+    top: 35px;
+
+    transform:
+        rotate(8deg);
+
     z-index: 2;
 }
 
-.photo:nth-child(3) {
-    transform: rotate(6deg);
+
+.polaroid:hover {
+
+    transform:
+        translateY(-10px)
+        rotate(0deg);
+
+    z-index: 10;
 }
 
-/* COUNTDOWN */
 
-.countdown-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    letter-spacing: 3px;
-    margin-bottom: 18px;
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+.countdown-heading {
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: #a27e7e;
+
+    margin-bottom: 17px;
 }
+
 
 .countdown {
+
     display: flex;
+
     justify-content: center;
-    gap: 9px;
+
+    gap: 10px;
+
     flex-wrap: wrap;
 }
 
-.time-box {
-    min-width: 70px;
-    padding: 13px 8px;
-    background: rgba(255,255,255,0.65);
-    border: 1px solid rgba(130,90,90,0.15);
+
+.time {
+
+    min-width: 78px;
+
+    padding:
+        15px
+        8px
+        13px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.62
+        );
+
+    border:
+        1px solid
+        rgba(
+            120,
+            85,
+            85,
+            0.13
+        );
+
+    backdrop-filter: blur(8px);
 }
 
-.time-number {
+
+.number {
+
     display: block;
+
     font-family: 'Cormorant Garamond', serif;
-    font-size: 30px;
+
+    font-size: 32px;
+
+    color: #493737;
 }
 
-.time-label {
-    font-size: 8px;
+
+.label {
+
+    display: block;
+
+    margin-top: 3px;
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 7px;
+
     letter-spacing: 2px;
+
     text-transform: uppercase;
-    color: #9b7777;
+
+    color: #a27e7e;
 }
 
-/* JOURNEY */
+
+/* =====================================================
+   SCROLL INDICATOR
+===================================================== */
+
+.scroll {
+
+    margin-top: 55px;
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    color: #a27e7e;
+
+    text-transform: uppercase;
+
+    animation:
+        float 2s infinite ease-in-out;
+}
+
+
+@keyframes float {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(6px);
+    }
+
+}
+
+
+/* =====================================================
+   JOURNEY
+===================================================== */
 
 .journey {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 90px 22px;
+
+    max-width: 720px;
+
+    margin:
+        0 auto;
+
+    padding:
+        80px
+        22px
+        100px;
 }
 
-.section-label {
+
+.journey-intro {
+
     text-align: center;
-    font-size: 10px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: #9b7777;
+
+    margin-bottom: 55px;
 }
+
+
+.journey-label {
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 5px;
+
+    text-transform: uppercase;
+
+    color: #a27e7e;
+}
+
 
 .journey h2 {
-    text-align: center;
+
     font-family: 'Cormorant Garamond', serif;
-    font-size: 45px;
+
     font-weight: 500;
-    margin: 10px 0 45px;
+
+    font-size: 48px;
+
+    margin-top: 9px;
+
+    color: #493737;
 }
+
+
+.journey-intro p {
+
+    max-width: 430px;
+
+    margin:
+        15px auto
+        0;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 18px;
+
+    line-height: 1.6;
+
+    color: #806969;
+}
+
+
+/* =====================================================
+   DAY CARDS
+===================================================== */
 
 .day-card {
+
     position: relative;
-    background: rgba(255,255,255,0.72);
-    border: 1px solid rgba(130,90,90,0.14);
-    padding: 25px;
-    margin-bottom: 15px;
-    transition: 0.3s ease;
+
+    margin-bottom: 13px;
+
+    padding:
+        25px
+        28px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.60
+        );
+
+    border:
+        1px solid
+        rgba(
+            120,
+            85,
+            85,
+            0.13
+        );
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
 }
 
-.day-card.available {
-    cursor: pointer;
-}
 
 .day-card.available:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(70,40,40,0.09);
+
+    transform:
+        translateX(6px);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.86
+        );
+
+    box-shadow:
+        0 12px 28px
+        rgba(
+            65,
+            40,
+            40,
+            0.08
+        );
 }
 
+
 .day-card.locked {
+
+    cursor: default;
+
     opacity: 0.48;
 }
 
+
 .day-number {
-    font-size: 9px;
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 8px;
+
     letter-spacing: 3px;
+
     text-transform: uppercase;
-    color: #a17b7b;
+
+    color: #a27e7e;
 }
+
 
 .day-title {
+
+    margin-top: 6px;
+
     font-family: 'Cormorant Garamond', serif;
-    font-size: 29px;
-    margin-top: 5px;
+
+    font-size: 30px;
+
+    color: #4b3838;
 }
 
-.day-date {
-    font-size: 10px;
-    color: #927575;
-    margin-top: 6px;
+
+.day-description {
+
+    margin-top: 4px;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 16px;
+
+    font-style: italic;
+
+    color: #8a7070;
 }
+
 
 .status {
+
     position: absolute;
-    right: 22px;
+
+    right: 27px;
+
     top: 28px;
-    font-size: 11px;
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    color: #a27e7e;
 }
 
-.footer {
+
+/* =====================================================
+   LOCK MESSAGE
+===================================================== */
+
+.lock-message {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        rgba(
+            53,
+            39,
+            39,
+            0.45
+        );
+
+    backdrop-filter: blur(8px);
+
+    z-index: 100;
+}
+
+
+.lock-message.show {
+
+    display: flex;
+}
+
+
+.lock-box {
+
+    max-width: 390px;
+
+    padding:
+        45px
+        30px;
+
     text-align: center;
-    padding: 30px 20px 60px;
-    color: #9b7777;
-    font-size: 10px;
-    letter-spacing: 2px;
+
+    background: #fbf5f1;
+
+    box-shadow:
+        0 25px 60px
+        rgba(
+            30,
+            20,
+            20,
+            0.22
+        );
 }
 
-@media (max-width: 500px) {
+
+.lock-box .tiny {
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 4px;
+
+    color: #a27e7e;
+
+    text-transform: uppercase;
+}
+
+
+.lock-box h3 {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 38px;
+
+    font-weight: 500;
+
+    margin:
+        12px
+        0
+        10px;
+}
+
+
+.lock-box p {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 18px;
+
+    line-height: 1.6;
+
+    color: #765f5f;
+}
+
+
+.close-lock {
+
+    margin-top: 25px;
+
+    border: none;
+
+    background: none;
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: #765f5f;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    text-align: center;
+
+    padding:
+        20px
+        20px
+        70px;
+
+    color: #a27e7e;
+}
+
+
+footer .line {
+
+    width: 40px;
+
+    height: 1px;
+
+    background: #c5a6a6;
+
+    margin:
+        0 auto
+        22px;
+}
+
+
+footer p {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 17px;
+
+    font-style: italic;
+}
+
+
+footer small {
+
+    display: block;
+
+    margin-top: 12px;
+
+    font-family: 'DM Mono', monospace;
+
+    font-size: 7px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
 
     .hero {
-        padding-top: 45px;
+
+        padding-top: 50px;
+
     }
 
-    .photos {
-        margin: 35px auto;
+
+    .hero h1 {
+
+        font-size: 68px;
+
     }
 
-    .photo {
-        border-width: 5px;
+
+    .photo-wrap {
+
+        height: 250px;
+
     }
 
-    .time-box {
-        min-width: 64px;
+
+    .polaroid {
+
+        width: 125px;
+
+        height: 165px;
+
+        padding: 6px;
+
     }
 
-    .time-number {
+
+    .photo-one {
+
+        left: 2%;
+
+    }
+
+
+    .photo-three {
+
+        right: 2%;
+
+    }
+
+
+    .time {
+
+        min-width: 68px;
+
+    }
+
+
+    .number {
+
+        font-size: 28px;
+
+    }
+
+
+    .journey h2 {
+
+        font-size: 42px;
+
+    }
+
+
+    .day-title {
+
         font-size: 27px;
+
     }
+
 }
+
+
+/* =====================================================
+   EXTRA SMALL PHONES
+===================================================== */
+
+@media (max-width: 370px) {
+
+    .polaroid {
+
+        width: 110px;
+
+        height: 150px;
+
+    }
+
+    .photo-one {
+
+        left: 0;
+
+    }
+
+    .photo-three {
+
+        right: 0;
+
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- HERO -->
+
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <section class="hero">
 
-    <div class="small-title">
-        A little something for
+
+    <div class="eyebrow">
+        A little archive for someone very special
     </div>
 
-    <h1>Alku's<br>Birthday</h1>
 
-    <div class="year">
+    <h1>
+        Alku's<br>
+        Birthday
+    </h1>
+
+
+    <div class="hero-year">
         2026
     </div>
 
-    <!-- YOUR THREE PHOTOS -->
-    <div class="photos">
-        <img src="alku1.jpg" class="photo" alt="Alku">
-        <img src="alku2.jpg" class="photo" alt="Alku">
-        <img src="alku3.jpg" class="photo" alt="Alku">
+
+    <div class="hero-subtitle">
+
+        nineteen days,
+        nineteen little pieces of us.
+
     </div>
 
-    <div class="countdown-title">
-        Until October 19
+
+    <!-- =================================================
+         THREE PHOTOS
+
+         CHANGE THESE FILENAMES LATER IF NEEDED
+    ================================================== -->
+
+    <div class="photo-wrap">
+
+
+        <div class="polaroid photo-one">
+
+            <img
+                src="alku1.jpg"
+                alt="Alku"
+            >
+
+            <small>
+                ♡
+            </small>
+
+        </div>
+
+
+        <div class="polaroid photo-two">
+
+            <img
+                src="alku2.jpg"
+                alt="Alku"
+            >
+
+            <small>
+                for Alku
+            </small>
+
+        </div>
+
+
+        <div class="polaroid photo-three">
+
+            <img
+                src="alku3.jpg"
+                alt="Alku"
+            >
+
+            <small>
+                always
+            </small>
+
+        </div>
+
+
     </div>
+
+
+    <!-- =================================================
+         COUNTDOWN
+    ================================================== -->
+
+    <div class="countdown-heading">
+        counting down to October 19
+    </div>
+
 
     <div class="countdown">
 
-        <div class="time-box">
-            <span class="time-number" id="days">00</span>
-            <span class="time-label">Days</span>
+
+        <div class="time">
+
+            <span
+                class="number"
+                id="days"
+            >
+                00
+            </span>
+
+            <span class="label">
+                days
+            </span>
+
         </div>
 
-        <div class="time-box">
-            <span class="time-number" id="hours">00</span>
-            <span class="time-label">Hours</span>
+
+        <div class="time">
+
+            <span
+                class="number"
+                id="hours"
+            >
+                00
+            </span>
+
+            <span class="label">
+                hours
+            </span>
+
         </div>
 
-        <div class="time-box">
-            <span class="time-number" id="minutes">00</span>
-            <span class="time-label">Minutes</span>
+
+        <div class="time">
+
+            <span
+                class="number"
+                id="minutes"
+            >
+                00
+            </span>
+
+            <span class="label">
+                minutes
+            </span>
+
         </div>
 
-        <div class="time-box">
-            <span class="time-number" id="seconds">00</span>
-            <span class="time-label">Seconds</span>
+
+        <div class="time">
+
+            <span
+                class="number"
+                id="seconds"
+            >
+                00
+            </span>
+
+            <span class="label">
+                seconds
+            </span>
+
         </div>
+
 
     </div>
+
+
+    <div class="scroll">
+        ↓ &nbsp; scroll to begin
+    </div>
+
 
 </section>
 
 
-<!-- JOURNEY -->
+
+<!-- =====================================================
+     JOURNEY
+===================================================== -->
 
 <section class="journey">
 
-    <div class="section-label">
-        The journey
-    </div>
 
-    <h2>19 little pieces of us</h2>
+    <div class="journey-intro">
 
-
-    <div class="day-card" data-day="1" onclick="openDay(1)">
-        <div class="day-number">October 01 · Day 01</div>
-        <div class="day-title">The Beginning</div>
-        <div class="day-date">How we became us.</div>
-        <div class="status" id="status1">🔒</div>
-    </div>
+        <div class="journey-label">
+            The birthday archive
+        </div>
 
 
-    <div class="day-card" data-day="2" onclick="openDay(2)">
-        <div class="day-number">October 02 · Day 02</div>
-        <div class="day-title">Our Lore</div>
-        <div class="day-date">The stories only we understand.</div>
-        <div class="status" id="status2">🔒</div>
-    </div>
+        <h2>
+            19 little pieces of us
+        </h2>
 
 
-    <div class="day-card" data-day="3" onclick="openDay(3)">
-        <div class="day-number">October 03 · Day 03</div>
-        <div class="day-title">Her Soundtrack</div>
-        <div class="day-date">Songs that sound like Alku.</div>
-        <div class="status" id="status3">🔒</div>
+        <p>
+            A small thing I made for you —
+            one day at a time.
+        </p>
+
     </div>
 
 
-    <div class="day-card" data-day="4" onclick="openDay(4)">
-        <div class="day-number">October 04 · Day 04</div>
-        <div class="day-title">The Map of Us</div>
-        <div class="day-date">Places, moments and memories.</div>
-        <div class="status" id="status4">🔒</div>
+
+    <!-- DAY 01 -->
+
+    <div
+        class="day-card"
+        data-day="1"
+        onclick="openDay(1)"
+    >
+
+        <div class="day-number">
+            October 01 · Day 01
+        </div>
+
+        <div class="day-title">
+            The Beginning
+        </div>
+
+        <div class="day-description">
+            How we became us.
+        </div>
+
+        <div
+            class="status"
+            id="status1"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="5" onclick="openDay(5)">
-        <div class="day-number">October 05 · Day 05</div>
-        <div class="day-title">Things That Remind Me of You</div>
-        <div class="day-date">Little things. Big meaning.</div>
-        <div class="status" id="status5">🔒</div>
+
+    <!-- DAY 02 -->
+
+    <div
+        class="day-card"
+        data-day="2"
+        onclick="openDay(2)"
+    >
+
+        <div class="day-number">
+            October 02 · Day 02
+        </div>
+
+        <div class="day-title">
+            Our Lore
+        </div>
+
+        <div class="day-description">
+            The stories only we understand.
+        </div>
+
+        <div
+            class="status"
+            id="status2"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="6" onclick="openDay(6)">
-        <div class="day-number">October 06 · Day 06</div>
-        <div class="day-title">The Evidence Room</div>
-        <div class="day-date">Proof that we are slightly insane.</div>
-        <div class="status" id="status6">🔒</div>
+
+    <!-- DAY 03 -->
+
+    <div
+        class="day-card"
+        data-day="3"
+        onclick="openDay(3)"
+    >
+
+        <div class="day-number">
+            October 03 · Day 03
+        </div>
+
+        <div class="day-title">
+            Her Soundtrack
+        </div>
+
+        <div class="day-description">
+            Songs that sound like Alku.
+        </div>
+
+        <div
+            class="status"
+            id="status3"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="7" onclick="openDay(7)">
-        <div class="day-number">October 07 · Day 07</div>
-        <div class="day-title">Things Only We Understand</div>
-        <div class="day-date">Our language.</div>
-        <div class="status" id="status7">🔒</div>
+
+    <!-- DAY 04 -->
+
+    <div
+        class="day-card"
+        data-day="4"
+        onclick="openDay(4)"
+    >
+
+        <div class="day-number">
+            October 04 · Day 04
+        </div>
+
+        <div class="day-title">
+            The Map of Us
+        </div>
+
+        <div class="day-description">
+            Places, moments and memories.
+        </div>
+
+        <div
+            class="status"
+            id="status4"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="8" onclick="openDay(8)">
-        <div class="day-number">October 08 · Day 08</div>
-        <div class="day-title">If Our Friendship Were a Book</div>
-        <div class="day-date">Chapter after chapter.</div>
-        <div class="status" id="status8">🔒</div>
+
+    <!-- DAY 05 -->
+
+    <div
+        class="day-card"
+        data-day="5"
+        onclick="openDay(5)"
+    >
+
+        <div class="day-number">
+            October 05 · Day 05
+        </div>
+
+        <div class="day-title">
+            Things That Remind Me of You
+        </div>
+
+        <div class="day-description">
+            Little things. Big meaning.
+        </div>
+
+        <div
+            class="status"
+            id="status5"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="9" onclick="openDay(9)">
-        <div class="day-number">October 09 · Day 09</div>
-        <div class="day-title">Things I've Never Told You</div>
-        <div class="day-date">A few words I kept inside.</div>
-        <div class="status" id="status9">🔒</div>
+
+    <!-- DAY 06 -->
+
+    <div
+        class="day-card"
+        data-day="6"
+        onclick="openDay(6)"
+    >
+
+        <div class="day-number">
+            October 06 · Day 06
+        </div>
+
+        <div class="day-title">
+            The Evidence Room
+        </div>
+
+        <div class="day-description">
+            Proof that we are slightly insane.
+        </div>
+
+        <div
+            class="status"
+            id="status6"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="10" onclick="openDay(10)">
-        <div class="day-number">October 10 · Day 10</div>
-        <div class="day-title">A Day With You</div>
-        <div class="day-date">In another little universe.</div>
-        <div class="status" id="status10">🔒</div>
+
+    <!-- DAY 07 -->
+
+    <div
+        class="day-card"
+        data-day="7"
+        onclick="openDay(7)"
+    >
+
+        <div class="day-number">
+            October 07 · Day 07
+        </div>
+
+        <div class="day-title">
+            Things Only We Understand
+        </div>
+
+        <div class="day-description">
+            Our language.
+        </div>
+
+        <div
+            class="status"
+            id="status7"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="11" onclick="openDay(11)">
-        <div class="day-number">October 11 · Day 11</div>
-        <div class="day-title">The Alku Awards</div>
-        <div class="day-date">Awards you definitely didn't ask for.</div>
-        <div class="status" id="status11">🔒</div>
+
+    <!-- DAY 08 -->
+
+    <div
+        class="day-card"
+        data-day="8"
+        onclick="openDay(8)"
+    >
+
+        <div class="day-number">
+            October 08 · Day 08
+        </div>
+
+        <div class="day-title">
+            The Little Things
+        </div>
+
+        <div class="day-description">
+            The tiny things that make you, you.
+        </div>
+
+        <div
+            class="status"
+            id="status8"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="12" onclick="openDay(12)">
-        <div class="day-number">October 12 · Day 12</div>
-        <div class="day-title">Us in 2036</div>
-        <div class="day-date">Ten years from now.</div>
-        <div class="status" id="status12">🔒</div>
+
+    <!-- DAY 09 -->
+
+    <div
+        class="day-card"
+        data-day="9"
+        onclick="openDay(9)"
+    >
+
+        <div class="day-number">
+            October 09 · Day 09
+        </div>
+
+        <div class="day-title">
+            Things I've Never Told You
+        </div>
+
+        <div class="day-description">
+            A few things I kept inside.
+        </div>
+
+        <div
+            class="status"
+            id="status9"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="13" onclick="openDay(13)">
-        <div class="day-number">October 13 · Day 13</div>
-        <div class="day-title">A Parallel Universe</div>
-        <div class="day-date">If we met somewhere else.</div>
-        <div class="status" id="status13">🔒</div>
+
+    <!-- DAY 10 -->
+
+    <div
+        class="day-card"
+        data-day="10"
+        onclick="openDay(10)"
+    >
+
+        <div class="day-number">
+            October 10 · Day 10
+        </div>
+
+        <div class="day-title">
+            A Day With You
+        </div>
+
+        <div class="day-description">
+            In another little universe.
+        </div>
+
+        <div
+            class="status"
+            id="status10"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="14" onclick="openDay(14)">
-        <div class="day-number">October 14 · Day 14</div>
-        <div class="day-title">The Alku Museum</div>
-        <div class="day-date">Exhibits from a very special person.</div>
-        <div class="status" id="status14">🔒</div>
+
+    <!-- DAY 11 -->
+
+    <div
+        class="day-card"
+        data-day="11"
+        onclick="openDay(11)"
+    >
+
+        <div class="day-number">
+            October 11 · Day 11
+        </div>
+
+        <div class="day-title">
+            The Alku Awards
+        </div>
+
+        <div class="day-description">
+            Awards you definitely didn't ask for.
+        </div>
+
+        <div
+            class="status"
+            id="status11"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="15" onclick="openDay(15)">
-        <div class="day-number">October 15 · Day 15</div>
-        <div class="day-title">Open When...</div>
-        <div class="day-date">For the days you need me.</div>
-        <div class="status" id="status15">🔒</div>
+
+    <!-- DAY 12 -->
+
+    <div
+        class="day-card"
+        data-day="12"
+        onclick="openDay(12)"
+    >
+
+        <div class="day-number">
+            October 12 · Day 12
+        </div>
+
+        <div class="day-title">
+            Us in 2036
+        </div>
+
+        <div class="day-description">
+            Ten years from now.
+        </div>
+
+        <div
+            class="status"
+            id="status12"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="16" onclick="openDay(16)">
-        <div class="day-number">October 16 · Day 16</div>
-        <div class="day-title">The Distance Doesn't Count</div>
-        <div class="day-date">Some people stay close.</div>
-        <div class="status" id="status16">🔒</div>
+
+    <!-- DAY 13 -->
+
+    <div
+        class="day-card"
+        data-day="13"
+        onclick="openDay(13)"
+    >
+
+        <div class="day-number">
+            October 13 · Day 13
+        </div>
+
+        <div class="day-title">
+            A Parallel Universe
+        </div>
+
+        <div class="day-description">
+            If we met somewhere else.
+        </div>
+
+        <div
+            class="status"
+            id="status13"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="17" onclick="openDay(17)">
-        <div class="day-number">October 17 · Day 17</div>
-        <div class="day-title">The Photo Booth</div>
-        <div class="day-date">A little gallery of us.</div>
-        <div class="status" id="status17">🔒</div>
+
+    <!-- DAY 14 -->
+
+    <div
+        class="day-card"
+        data-day="14"
+        onclick="openDay(14)"
+    >
+
+        <div class="day-number">
+            October 14 · Day 14
+        </div>
+
+        <div class="day-title">
+            The Alku Museum
+        </div>
+
+        <div class="day-description">
+            An exhibition dedicated to you.
+        </div>
+
+        <div
+            class="status"
+            id="status14"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="18" onclick="openDay(18)">
-        <div class="day-number">October 18 · Day 18</div>
-        <div class="day-title">Almost There</div>
-        <div class="day-date">One more sleep.</div>
-        <div class="status" id="status18">🔒</div>
+
+    <!-- DAY 15 -->
+
+    <div
+        class="day-card"
+        data-day="15"
+        onclick="openDay(15)"
+    >
+
+        <div class="day-number">
+            October 15 · Day 15
+        </div>
+
+        <div class="day-title">
+            If You Could See Yourself Through My Eyes
+        </div>
+
+        <div class="day-description">
+            Maybe you'd finally see what I see.
+        </div>
+
+        <div
+            class="status"
+            id="status15"
+        >
+            🔒
+        </div>
+
     </div>
 
 
-    <div class="day-card" data-day="19" onclick="openDay(19)">
-        <div class="day-number">October 19 · Day 19</div>
-        <div class="day-title">Happy Birthday, Alku</div>
-        <div class="day-date">The final chapter.</div>
-        <div class="status" id="status19">🔒</div>
+
+    <!-- DAY 16 -->
+
+    <div
+        class="day-card"
+        data-day="16"
+        onclick="openDay(16)"
+    >
+
+        <div class="day-number">
+            October 16 · Day 16
+        </div>
+
+        <div class="day-title">
+            The Distance Doesn't Count
+        </div>
+
+        <div class="day-description">
+            Some people stay close.
+        </div>
+
+        <div
+            class="status"
+            id="status16"
+        >
+            🔒
+        </div>
+
     </div>
+
+
+
+    <!-- DAY 17 -->
+
+    <div
+        class="day-card"
+        data-day="17"
+        onclick="openDay(17)"
+    >
+
+        <div class="day-number">
+            October 17 · Day 17
+        </div>
+
+        <div class="day-title">
+            The Time Capsule
+        </div>
+
+        <div class="day-description">
+            Things I never want us to forget.
+        </div>
+
+        <div
+            class="status"
+            id="status17"
+        >
+            🔒
+        </div>
+
+    </div>
+
+
+
+    <!-- DAY 18 -->
+
+    <div
+        class="day-card"
+        data-day="18"
+        onclick="openDay(18)"
+    >
+
+        <div class="day-number">
+            October 18 · Day 18
+        </div>
+
+        <div class="day-title">
+            Before the Clock Strikes 12
+        </div>
+
+        <div class="day-description">
+            One last thing before your birthday begins.
+        </div>
+
+        <div
+            class="status"
+            id="status18"
+        >
+            🔒
+        </div>
+
+    </div>
+
+
+
+    <!-- DAY 19 -->
+
+    <div
+        class="day-card"
+        data-day="19"
+        onclick="openDay(19)"
+    >
+
+        <div class="day-number">
+            October 19 · Day 19
+        </div>
+
+        <div class="day-title">
+            Happy Birthday, Alku
+        </div>
+
+        <div class="day-description">
+            The final chapter.
+        </div>
+
+        <div
+            class="status"
+            id="status19"
+        >
+            🔒
+        </div>
+
+    </div>
+
 
 </section>
 
 
-<div class="footer">
-    Made with love · for Alku · 2026
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="line"></div>
+
+    <p>
+        made especially for Alku ♡
+    </p>
+
+    <small>
+        2026 · one day at a time
+    </small>
+
+</footer>
+
+
+
+<!-- =====================================================
+     LOCKED DAY POPUP
+===================================================== -->
+
+<div
+    class="lock-message"
+    id="lockMessage"
+>
+
+    <div class="lock-box">
+
+        <div class="tiny">
+            not yet ♡
+        </div>
+
+        <h3>
+            A little patience.
+        </h3>
+
+        <p id="lockText">
+            This part of the story isn't ready yet.
+        </p>
+
+        <button
+            class="close-lock"
+            onclick="closeLock()"
+        >
+            close
+        </button>
+
+    </div>
+
 </div>
 
 
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script>
 
-/* COUNTDOWN */
 
-const birthday = new Date("October 19, 2026 00:00:00").getTime();
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+const birthday =
+    new Date(
+        "October 19, 2026 00:00:00"
+    ).getTime();
+
 
 function updateCountdown() {
 
-    const now = new Date().getTime();
-    const difference = birthday - now;
+    const now =
+        new Date().getTime();
+
+    const difference =
+        birthday - now;
+
 
     if (difference <= 0) {
 
-        document.getElementById("days").innerText = "00";
-        document.getElementById("hours").innerText = "00";
-        document.getElementById("minutes").innerText = "00";
-        document.getElementById("seconds").innerText = "00";
+        document.getElementById("days")
+            .innerText = "00";
+
+        document.getElementById("hours")
+            .innerText = "00";
+
+        document.getElementById("minutes")
+            .innerText = "00";
+
+        document.getElementById("seconds")
+            .innerText = "00";
 
         return;
+
     }
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-        (difference % (1000 * 60 * 60 * 24)) /
-        (1000 * 60 * 60)
-    );
 
-    const minutes = Math.floor(
-        (difference % (1000 * 60 * 60)) /
-        (1000 * 60)
-    );
+    const days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
 
-    const seconds = Math.floor(
-        (difference % (1000 * 60)) /
-        1000
-    );
 
-    document.getElementById("days").innerText = String(days).padStart(2,"0");
-    document.getElementById("hours").innerText = String(hours).padStart(2,"0");
-    document.getElementById("minutes").innerText = String(minutes).padStart(2,"0");
-    document.getElementById("seconds").innerText = String(seconds).padStart(2,"0");
+    const hours =
+        Math.floor(
+            (difference %
+            (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+        );
+
+
+    const minutes =
+        Math.floor(
+            (difference %
+            (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
+
+
+    const seconds =
+        Math.floor(
+            (difference %
+            (1000 * 60)) /
+            1000
+        );
+
+
+    document.getElementById("days")
+        .innerText =
+        String(days).padStart(2,"0");
+
+
+    document.getElementById("hours")
+        .innerText =
+        String(hours).padStart(2,"0");
+
+
+    document.getElementById("minutes")
+        .innerText =
+        String(minutes).padStart(2,"0");
+
+
+    document.getElementById("seconds")
+        .innerText =
+        String(seconds).padStart(2,"0");
+
 }
 
+
 updateCountdown();
-setInterval(updateCountdown, 1000);
+
+setInterval(
+    updateCountdown,
+    1000
+);
 
 
-/* DAY UNLOCKING */
+
+/* =====================================================
+   DETERMINE WHICH DAY IS AVAILABLE
+===================================================== */
 
 function getUnlockedDay() {
 
-    const now = new Date();
+    const now =
+        new Date();
 
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const date = now.getDate();
 
-    if (year !== 2026 || month !== 10) {
-        return 0;
+    const year =
+        now.getFullYear();
+
+    const month =
+        now.getMonth() + 1;
+
+    const date =
+        now.getDate();
+
+
+    /*
+       October 1 = Day 1
+       October 2 = Day 2
+       ...
+       October 19 = Day 19
+    */
+
+
+    if (
+        year === 2026 &&
+        month === 10
+    ) {
+
+        return Math.min(
+            Math.max(date, 1),
+            19
+        );
+
     }
 
-    return Math.min(Math.max(date, 0), 19);
+
+    return 0;
+
 }
 
+
+
+/* =====================================================
+   SET DAY STATUS
+===================================================== */
 
 function setupDays() {
 
-    const unlocked = getUnlockedDay();
+    const unlocked =
+        getUnlockedDay();
 
-    for (let i = 1; i <= 19; i++) {
 
-        const card = document.querySelector(
-            '.day-card[data-day="' + i + '"]'
-        );
+    for (
+        let i = 1;
+        i <= 19;
+        i++
+    ) {
 
-        const status = document.getElementById("status" + i);
+
+        const card =
+            document.querySelector(
+                '.day-card[data-day="' +
+                i +
+                '"]'
+            );
+
+
+        const status =
+            document.getElementById(
+                "status" + i
+            );
+
 
         if (i <= unlocked) {
 
-            card.classList.add("available");
-            card.classList.remove("locked");
+            card.classList.add(
+                "available"
+            );
 
-            status.innerText = "OPEN";
+            card.classList.remove(
+                "locked"
+            );
 
-        } else {
-
-            card.classList.add("locked");
-            card.classList.remove("available");
-
-            status.innerText = "🔒";
+            status.innerText =
+                "OPEN";
 
         }
+
+
+        else {
+
+            card.classList.add(
+                "locked"
+            );
+
+            card.classList.remove(
+                "available"
+            );
+
+            status.innerText =
+                "LOCKED";
+
+        }
+
     }
+
 }
 
+
+
+/* =====================================================
+   OPEN DAY
+===================================================== */
 
 function openDay(day) {
 
-    const unlocked = getUnlockedDay();
+    const unlocked =
+        getUnlockedDay();
+
 
     if (day <= unlocked) {
 
-        window.location.href = "day" + day + ".html";
+        window.location.href =
+            "day" + day + ".html";
 
-    } else {
+    }
 
-        alert(
-            "Not yet, Alku. ♡\n\n" +
-            "This little piece of the story isn't ready to be opened yet.\n\n" +
-            "Come back on October " + day + "."
+
+    else {
+
+        document.getElementById(
+            "lockText"
+        ).innerText =
+            "Day " +
+            day +
+            " will open on October " +
+            day +
+            ". Some stories are worth waiting for.";
+
+
+        document.getElementById(
+            "lockMessage"
+        ).classList.add(
+            "show"
         );
 
     }
+
 }
+
+
+
+/* =====================================================
+   CLOSE LOCK MESSAGE
+===================================================== */
+
+function closeLock() {
+
+    document.getElementById(
+        "lockMessage"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+
+/* =====================================================
+   START
+===================================================== */
 
 setupDays();
 
+
 </script>
 
+
 </body>
-  </html>
+
+</html>
