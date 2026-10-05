@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Day 01 — The Beginning ♡</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(220,170,180,.18), transparent 25%),
+    radial-gradient(circle at 85% 75%, rgba(190,160,130,.13), transparent 28%),
+    #f8f3ed;
+  color: #493d3d;
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+}
+
+.page {
+  width: min(100%, 1050px);
+  margin: auto;
+  padding: 35px 22px 70px;
+  position: relative;
+}
+
+/* DOODLES */
+
+.doodle {
+  position: absolute;
+  pointer-events: none;
+  color: #b4868b;
+  opacity: .7;
+  z-index: 1;
+}
+
+.d1 {
+  top: 100px;
+  left: 3%;
+  transform: rotate(-15deg);
+  font-size: 28px;
+}
+
+.d2 {
+  top: 220px;
+  right: 4%;
+  transform: rotate(12deg);
+  font-size: 24px;
+}
+
+.d3 {
+  top: 570px;
+  left: 2%;
+  transform: rotate(15deg);
+  font-size: 23px;
+}
+
+.d4 {
+  top: 850px;
+  right: 3%;
+  transform: rotate(-12deg);
+  font-size: 28px;
+}
+
+.d5 {
+  bottom: 250px;
+  left: 5%;
+  font-size: 23px;
+}
+
+.d6 {
+  bottom: 80px;
+  right: 7%;
+  font-size: 22px;
+}
+
+/* HEADER */
+
+.top {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.small {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #9c777c;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(44px, 8vw, 78px);
+  font-weight: 500;
+  margin: 0;
+  line-height: .95;
+  color: #493a3d;
+}
+
+.subtitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 23px;
+  font-style: italic;
+  margin-top: 15px;
+  color: #86686c;
+}
+
+/* AUDIO */
+
+.audio-area {
+  margin: 25px auto 0;
+  width: min(100%, 480px);
+}
+
+.audio-note {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: #9b7c80;
+  margin-bottom: 8px;
+}
+
+audio {
+  width: 100%;
+  height: 38px;
+}
+
+/* QUESTION */
+
+.question-box {
+  max-width: 680px;
+  margin: 55px auto 45px;
+  text-align: center;
+  padding: 35px 25px;
+  border-top: 1px solid #d8c6c4;
+  border-bottom: 1px solid #d8c6c4;
+  position: relative;
+  z-index: 2;
+}
+
+.question-label {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #a17e83;
+  margin-bottom: 18px;
+}
+
+.question {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(29px, 5vw, 43px);
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 18px;
+  color: #92777a;
+  margin-bottom: 25px;
+}
+
+.answer {
+  width: min(100%, 470px);
+  padding: 14px 17px;
+  border: 1px solid #cdbabc;
+  background: rgba(255,255,255,.65);
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  color: #493d3d;
+  outline: none;
+  border-radius: 2px;
+}
+
+.answer:focus {
+  border-color: #a77c82;
+}
+
+.open-btn {
+  display: block;
+  margin: 17px auto 0;
+  padding: 13px 25px;
+  border: 1px solid #87666b;
+  background: #87666b;
+  color: white;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+}
+
+/* MEMORY */
+
+.memory {
+  display: none;
+  position: relative;
+  z-index: 2;
+}
+
+.memory.show {
+  display: block;
+}
+
+.memory-intro {
+  text-align: center;
+  margin: 20px 0 40px;
+}
+
+.memory-intro h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 43px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.memory-intro p {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  font-style: italic;
+  color: #907376;
+}
+
+/* PHOTOS */
+
+.photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin: 35px auto 50px;
+  max-width: 900px;
+}
+
+.photo-card {
+  background: #fffdf9;
+  padding: 12px 12px 30px;
+  box-shadow: 0 8px 22px rgba(80,55,55,.08);
+}
+
+.photo-card:first-child {
+  transform: rotate(-1.5deg);
+}
+
+.photo-card:last-child {
+  transform: rotate(1.5deg);
+}
+
+.photo-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.photo-caption {
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 17px;
+  margin-top: 10px;
+  color: #80676a;
+}
+
+/* VIDEO */
+
+.video-section {
+  max-width: 850px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.section-label {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #9b777c;
+  margin-bottom: 15px;
+}
+
+.video-frame {
+  background: #fffdf9;
+  padding: 12px;
+  box-shadow: 0 8px 25px rgba(70,50,50,.1);
+}
+
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 650px;
+  background: #211d1e;
+}
+
+/* LETTER */
+
+.letter {
+  max-width: 780px;
+  margin: 65px auto;
+  padding: 45px clamp(25px, 7vw, 70px);
+  background:
+    linear-gradient(rgba(255,255,255,.72), rgba(255,255,255,.72)),
+    #f5eadc;
+  border: 1px solid #ddc9bd;
+  box-shadow: 0 8px 25px rgba(70,50,50,.07);
+  position: relative;
+}
+
+.letter::before {
+  content: "♡";
+  position: absolute;
+  top: 15px;
+  right: 22px;
+  font-size: 25px;
+  color: #b28388;
+}
+
+.letter p {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  line-height: 1.65;
+  margin: 0 0 20px;
+}
+
+.letter .opening {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.signature {
+  margin-top: 35px;
+  text-align: right;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-style: italic;
+}
+
+/* BACK */
+
+.back {
+  text-align: center;
+  margin-top: 65px;
+}
+
+.back a {
+  color: #795d62;
+  text-decoration: none;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid #bda7a8;
+  padding-bottom: 5px;
+}
+
+/* SPARKLES */
+
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+  font-size: 20px;
+  animation: sparkle .9s ease-out forwards;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: translate(0,0) scale(.3) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translate(var(--x), var(--y))
+      scale(1.3)
+      rotate(180deg);
+    opacity: 0;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+  .page {
+    padding: 28px 16px 55px;
+  }
+
+  .photos {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .photo-card:first-child,
+  .photo-card:last-child {
+    transform: none;
+  }
+
+  .letter {
+    padding: 35px 22px;
+  }
+
+  .letter p {
+    font-size: 19px;
+    line-height: 1.6;
+  }
+
+  .doodle {
+    opacity: .45;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <!-- SCRAPBOOK DOODLES -->
+  <div class="doodle d1">♡</div>
+  <div class="doodle d2">✦</div>
+  <div class="doodle d3">✿</div>
+  <div class="doodle d4">♡</div>
+  <div class="doodle d5">✧</div>
+  <div class="doodle d6">✿</div>
+
+
+  <!-- HEADER -->
+
+  <header class="top">
+
+    <div class="small">
+      DAY 01 · OCTOBER 01
+    </div>
+
+    <h1>
+      The Beginning
+    </h1>
+
+    <div class="subtitle">
+      before there was Dilku...
+    </div>
+
+
+    <!-- YOUR SONG STARTS HERE -->
+
+    <div class="audio-area">
+
+      <div class="audio-note">
+        ♫ a little soundtrack for this memory
+      </div>
+
+      <audio id="bgMusic" controls autoplay loop>
+        <source
+          src="kdDjVsyOwWjCjGzZXoKG+uyupd2PXbSQ.m4a"
+          type="audio/mp4"
+        >
+        Your browser does not support audio.
+      </audio>
+
+    </div>
+
+  </header>
+
+
+  <!-- QUESTION -->
+
+  <section class="question-box" id="questionBox">
+
+    <div class="question-label">
+      BEFORE WE GO BACK...
+    </div>
+
+    <div class="question">
+      Before we were us (Dilku)… what were we?
+    </div>
+
+    <div class="hint">
+      Hint → we had some chemistry going on 🧪
+    </div>
+
+    <input
+      class="answer"
+      id="answer"
+      type="text"
+      placeholder="Your answer..."
+      autocomplete="off"
+    >
+
+    <button class="open-btn" id="openBtn">
+      OPEN THE MEMORY →
+    </button>
+
+  </section>
+
+
+  <!-- EVERYTHING BELOW IS REVEALED TOGETHER -->
+
+  <main class="memory" id="memory">
+
+    <div class="memory-intro">
+
+      <div class="section-label">
+        YOU FOUND IT
+      </div>
+
+      <h2>
+        So this is where it began...
+      </h2>
+
+      <p>
+        Alkamol + Diyamol = Dilku ♡
+      </p>
+
+    </div>
+
+
+    <!-- PHOTO 1 + PHOTO 2 -->
+
+    <section class="photos">
+
+      <div class="photo-card">
+
+        <img
+          src="IMG-20261005-WA0013.jpg"
+          alt="A memory of Alku and Diyamol"
+        >
+
+        <div class="photo-caption">
+          one little piece of us ♡
+        </div>
+
+      </div>
+
+
+      <div class="photo-card">
+
+        <img
+          src="IMG-20261005-WA0014.jpg"
+          alt="Another memory of Alku and Diyamol"
+        >
+
+        <div class="photo-caption">
+          and another one...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- VIDEO -->
+
+    <section class="video-section">
+
+      <div class="section-label">
+        PRESS PLAY ♡
+      </div>
+
+      <div class="video-frame">
+
+        <video
+          id="memoryVideo"
+          controls
+          playsinline
+          preload="metadata"
+        >
+
+          <source
+            src="VID-20261005-WA0015.mp4"
+            type="video/mp4"
+          >
+
+          Your browser does not support video.
+
+        </video>
+
+      </div>
+
+    </section>
+
+
+    <!-- LETTER -->
+
+    <article class="letter">
+
+      <p class="opening">
+        So Alku... 18 days to you're special day right???
+      </p>
+
+      <p>
+        Starting this letter with a small apology for not being there for you on
+        this bday of yours. But I promise to make it somehow special for you.
+        I know Im a bit late, but Im creating this all from scratch, and bro
+        this is the fmge training I was and is and will be doing....
+      </p>
+
+      <p>
+        So sweetheart, nml engneya ingane aaye? evideyo kidanna Alkamol um
+        vere evideyo kidanna Diyamol, engane Dilku aayi??
+        Forever thankful to Karthav for giving me you allarnel njan enna unda
+        kaanicheneeee??Pulli probably regrets it ikkkk...
+      </p>
+
+      <p>
+        Thaan koottaymakk vanna first day i still remember...veetilott varand
+        kurisupallil irunn prarthiche okke...enth show aayirunn ende ponnooo...
+        Annu ende veetil vech njan manasil urapichu, mattarkum ninne
+        vittukodukulla enn...Ee Alku, ivl endeya enn.....
+      </p>
+
+      <p>
+        Thanne onn valakkan njan enthore paadupettu ennoo..
+        Oru karanom illand oro time oro ppdykk nine vilichappozhum,
+        mindn ariyatha njan or angott convo initate cheyyatha njn thanik vendi
+        convo initiate cheythappozhum, food kayikan vilichapozhum,
+        randomly msg ittappozhum ellam i had only one purpose...
+        I knew you were udayipp I was also udayipp so i wanted you...
+      </p>
+
+      <p>
+        As i say always, thanne valakkan edutha effort njn valla chekkanum
+        ittayirunel, ketti ippo 2 piller aayene enikk....
+        And finally enganeyokkeyo valachu njannn yayyyyyy yayyyyy yayyyyy!!!
+      </p>
+
+      <p>
+        And I hope ee chekkanmar kaanikune pole valach eduth kayinj,
+        ende efforts kuranju enn... I reallyy do hope Im loving you the way
+        you want to be loved!
+      </p>
+
+      <p>
+        Ee oru avasarthil ponnuchechide kalyanathin first matching idan try
+        cheytheyum pic edukkunnna time il uyyooo njn ohoto edukkula diyamol
+        edutho enn prnju show kaanich irunnathum okke njan smarikkunuu...
+        Annitt ippo photo illel avl akkunte mekkitt keran thodngi...
+        enthero enthoo...
+      </p>
+
+      <p>
+        Pinne entha muthe, still cherishing all our memories whether small or big...
+        Life became a lot more memorable when you came...All our adhoc udayipps,
+        Palakk pokk, delulu parachil, shipping, chemistry codes, foods,
+        neet inte ath, anakkara stuff and our georgian life... ellam njn orkunnuu...
+      </p>
+
+      <p>
+        You never know alku, how much of a fresh air you were for me...
+        I was someone stuck in a black and white newspaper...
+        Yk newspapers have lots of contents and lots of interesting stuff
+        but at times its black and white...
+        I was someone stuck in a black and white newspaper and you changed it...
+        You brought colours to my life, then and now....Forever grateful for that...
+      </p>
+
+      <p>
+        and on this Oct 1st, I wanna say, as long as your diyamol exists,
+        she'll make sure you're loved enough.
+      </p>
+
+      <div class="signature">
+        I love you my Alku! ♡
+        <br><br>
+        from,<br>
+        Your diyamol
+      </div>
+
+    </article>
+
+
+    <!-- BACK TO HOME -->
+
+    <div class="back">
+      <a href="index.html">
+        ← BACK TO ALKU'S BIRTHDAY
+      </a>
+    </div>
+
+  </main>
+
+</div>
+
+
+<script>
+
+/* ELEMENTS */
+
+const music = document.getElementById("bgMusic");
+const video = document.getElementById("memoryVideo");
+const answer = document.getElementById("answer");
+const openBtn = document.getElementById("openBtn");
+const memory = document.getElementById("memory");
+const questionBox = document.getElementById("questionBox");
+
+
+/* TRY TO START SONG IMMEDIATELY */
+
+window.addEventListener("load", function() {
+
+  music.volume = 0.65;
+
+  music.play().catch(function() {
+
+    /*
+      Mobile browsers may block autoplay.
+      The audio controls are visible so Alku
+      can start it with one tap.
+    */
+
+  });
+
+});
+
+
+/* SPARKLES */
+
+function createSparkles() {
+
+  const symbols = ["✦", "✧", "♡", "✿", "⋆"];
+
+  for (let i = 0; i < 35; i++) {
+
+    const sparkle = document.createElement("div");
+
+    sparkle.className = "sparkle";
+
+    sparkle.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    sparkle.style.left = "50%";
+    sparkle.style.top = "35%";
+
+    sparkle.style.setProperty(
+      "--x",
+      (Math.random() * 600 - 300) + "px"
+    );
+
+    sparkle.style.setProperty(
+      "--y",
+      (Math.random() * 500 - 250) + "px"
+    );
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(function() {
+      sparkle.remove();
+    }, 1000);
+
+  }
+
+}
+
+
+/* OPEN MEMORY */
+
+openBtn.addEventListener("click", function() {
+
+  /*
+    THE ANSWER DOES NOT HAVE TO BE CORRECT.
+    ANY NON-EMPTY ANSWER WORKS.
+  */
+
+  if (answer.value.trim() === "") {
+
+    answer.focus();
+
+    answer.placeholder = "Type literally anything ♡";
+
+    return;
+  }
+
+
+  /* SPARKLE BURST */
+
+  createSparkles();
+
+
+  /* HIDE QUESTION */
+
+  questionBox.style.display = "none";
+
+
+  /* SHOW EVERYTHING */
+
+  memory.classList.add("show");
+
+
+  /* TRY TO CONTINUE SONG */
+
+  music.play().catch(function() {});
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+});
+
+
+/* ENTER KEY */
+
+answer.addEventListener("keydown", function(event) {
+
+  if (event.key === "Enter") {
+
+    event.preventDefault();
+
+    openBtn.click();
+
+  }
+
+});
+
+
+/*
+  VIDEO BEHAVIOUR
+
+  VIDEO STARTS
+  ↓
+  BACKGROUND SONG PAUSES
+
+  VIDEO ENDS
+  ↓
+  BACKGROUND SONG RESUMES
+*/
+
+video.addEventListener("play", function() {
+
+  music.pause();
+
+});
+
+
+video.addEventListener("ended", function() {
+
+  music.play().catch(function() {});
+
+});
+
+
+/*
+  IF ALKU PAUSES THE VIDEO MANUALLY,
+  THE SONG COMES BACK.
+*/
+
+video.addEventListener("pause", function() {
+
+  if (!video.ended) {
+
+    music.play().catch(function() {});
+
+  }
+
+});
+
+</script>
+
+</body>
+  </html>
