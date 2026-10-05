@@ -3,804 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Day 02 — Our Lore ♡</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-  color: #60494d;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;overflow-x:hidden;color:#60494d;
   background:
-    radial-gradient(circle at 12% 8%, rgba(210,175,180,.24), transparent 25%),
-    radial-gradient(circle at 88% 22%, rgba(224,202,175,.25), transparent 28%),
-    radial-gradient(circle at 50% 90%, rgba(210,180,185,.16), transparent 30%),
+    radial-gradient(circle at 12% 8%,rgba(210,175,180,.24),transparent 25%),
+    radial-gradient(circle at 88% 22%,rgba(224,202,175,.25),transparent 28%),
+    radial-gradient(circle at 50% 90%,rgba(210,180,185,.16),transparent 30%),
     #f8f1e9;
-  font-family: "Cormorant Garamond", serif;
-}
-
-.page {
-  width: min(100%, 1050px);
-  margin: auto;
-  padding: 35px 22px 75px;
-  position: relative;
-}
-
-/* =========================
-   SCRAPBOOK DOODLES
-========================= */
-
-.doodle {
-  position: fixed;
-  z-index: 1;
-  pointer-events: none;
-  color: #a87880;
-  opacity: .52;
-  user-select: none;
-}
-
-.d1 {
-  top: 8%;
-  left: 4%;
-  font-size: 32px;
-  transform: rotate(-12deg);
-}
-
-.d2 {
-  top: 13%;
-  right: 5%;
-  font-size: 24px;
-  transform: rotate(9deg);
-}
-
-.d3 {
-  top: 29%;
-  left: 3%;
-  font-size: 25px;
-  transform: rotate(-8deg);
-}
-
-.d4 {
-  top: 38%;
-  right: 4%;
-  font-size: 30px;
-  transform: rotate(12deg);
-}
-
-.d5 {
-  top: 53%;
-  left: 5%;
-  font-size: 21px;
-}
-
-.d6 {
-  top: 63%;
-  right: 5%;
-  font-size: 27px;
-  transform: rotate(-15deg);
-}
-
-.d7 {
-  top: 75%;
-  left: 4%;
-  font-size: 25px;
-  transform: rotate(8deg);
-}
-
-.d8 {
-  top: 84%;
-  right: 7%;
-  font-size: 20px;
-}
-
-.d9 {
-  top: 46%;
-  left: 9%;
-  font-size: 14px;
-}
-
-.d10 {
-  top: 70%;
-  right: 11%;
-  font-size: 15px;
-}
-
-.d11 {
-  top: 22%;
-  left: 12%;
-  font-size: 13px;
-}
-
-.d12 {
-  top: 91%;
-  left: 15%;
-  font-size: 18px;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-header {
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-.day-number {
-  margin-top: 12px;
-  color: #a87880;
-  font-family: "DM Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 4px;
-}
-
-h1 {
-  margin: 8px 0 4px;
-  color: #704f55;
-  font-size: clamp(44px, 8vw, 74px);
-  font-weight: 500;
-  line-height: .95;
-}
-
-.subtitle {
-  margin-top: 14px;
-  color: #a87880;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-}
-
-/* =========================
-   AUDIO
-========================= */
-
-.audio-area {
-  width: min(100%, 500px);
-  margin: 28px auto 0;
-}
-
-.audio-note {
-  margin-bottom: 8px;
-  color: #a87880;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-audio {
-  width: 100%;
-  height: 38px;
-}
-
-.song-message {
-  margin-top: 13px;
-  color: #956a72;
-  font-size: 19px;
-  font-style: italic;
-}
-
-.song-message::before {
-  content: "✦ ";
-  font-size: 12px;
-}
-
-.song-message::after {
-  content: " ✦";
-  font-size: 12px;
-}
-
-/* =========================
-   QUESTION
-========================= */
-
-.question-box {
-  max-width: 720px;
-  margin: 70px auto 55px;
-  padding: 42px 28px;
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  background: rgba(255,250,245,.82);
-  border: 1px solid rgba(180,134,139,.3);
-  border-radius: 18px;
-  box-shadow: 0 14px 35px rgba(100,70,70,.09);
-}
-
-.question-label {
-  margin-bottom: 16px;
-  color: #a87880;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-}
-
-.question {
-  margin-bottom: 12px;
-  color: #704f55;
-  font-size: clamp(29px, 5vw, 43px);
-  line-height: 1.12;
-}
-
-.question-warning {
-  margin-bottom: 25px;
-  color: #9a7076;
-  font-size: 17px;
-  font-style: italic;
-}
-
-.answer {
-  width: min(100%, 470px);
-  padding: 14px 17px;
-  color: #60494d;
-  text-align: center;
-  background: rgba(255,255,255,.7);
-  border: 1px solid rgba(180,134,139,.4);
-  border-radius: 12px;
-  outline: none;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 18px;
-}
-
-.answer:focus {
-  border-color: #a87880;
-  box-shadow: 0 0 0 3px rgba(180,134,139,.1);
-}
-
-.open-btn,
-.feedback-btn {
-  margin-top: 18px;
-  padding: 12px 24px;
-  color: #704f55;
-  background: transparent;
-  border: 1px solid #a87880;
-  border-radius: 30px;
-  cursor: pointer;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  transition: .25s ease;
-}
-
-.open-btn:hover,
-.feedback-btn:hover {
-  color: white;
-  background: #a87880;
-  transform: translateY(-2px);
-}
-
-/* =========================
-   REVEAL
-========================= */
-
-.memory {
-  display: none;
-  position: relative;
-  z-index: 2;
-}
-
-.memory.show {
-  display: block;
-  animation: reveal .9s ease forwards;
-}
-
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================
-   PHOTOS
-========================= */
-
-.photos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  max-width: 850px;
-  margin: 55px auto 38px;
-}
-
-.photo-card {
-  padding: 10px 10px 18px;
-  background: #fffaf4;
-  box-shadow: 0 12px 28px rgba(100,70,70,.12);
-}
-
-.photo-card:first-child {
-  transform: rotate(-1.6deg);
-}
-
-.photo-card:last-child {
-  transform: rotate(1.6deg);
-}
-
-.photo-card img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.photo-caption {
-  margin-top: 9px;
-  color: #80666a;
-  text-align: center;
-  font-size: 16px;
-  font-style: italic;
-}
-
-/* =========================
-   VIDEO
-========================= */
-
-.video-wrap {
-  max-width: 820px;
-  margin: 48px auto;
-  text-align: center;
-}
-
-.video-label {
-  margin-bottom: 12px;
-  color: #a87880;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-}
-
-.video-wrap video {
-  display: block;
-  width: 100%;
-  max-height: 600px;
-  background: #e9ddd5;
-  border-radius: 12px;
-  box-shadow: 0 14px 35px rgba(100,70,70,.14);
-}
-
-/* =========================
-   LETTER
-========================= */
-
-.letter {
-  max-width: 780px;
-  margin: 68px auto;
-  padding: 45px clamp(25px, 6vw, 65px);
-  background: #fffaf4;
-  border: 1px solid rgba(180,134,139,.25);
-  box-shadow: 0 14px 35px rgba(100,70,70,.09);
-}
-
-.letter-title {
-  margin-bottom: 30px;
-  color: #a87880;
-  text-align: center;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-}
-
-.letter p {
-  margin: 0;
-  color: #60494d;
-  font-size: 19px;
-  line-height: 1.78;
-  white-space: pre-line;
-}
-
-/* =========================
-   BIBLE
-========================= */
-
-.bible-section {
-  max-width: 720px;
-  margin: 78px auto 65px;
-  text-align: center;
-}
-
-.bible-intro {
-  margin-bottom: 15px;
-  color: #a87880;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-}
-
-.bible-subtext {
-  margin-bottom: 25px;
-  color: #80666a;
-  font-size: 17px;
-  font-style: italic;
-}
-
-.bible-wrap {
-  width: 175px;
-  height: 130px;
-  margin: auto;
-  position: relative;
-  cursor: pointer;
-  transition: transform .3s ease;
-}
-
-.bible-wrap:hover {
-  transform: translateY(-5px) rotate(-2deg);
-}
-
-.bible {
-  position: absolute;
-  left: 15px;
-  top: 18px;
-  width: 145px;
-  height: 92px;
-}
-
-.cover {
-  position: absolute;
-  top: 0;
-  width: 66px;
-  height: 92px;
-  background: #956b73;
-  border: 2px solid #745158;
-  box-shadow: 0 8px 14px rgba(80,50,50,.15);
-}
-
-.cover.left {
-  left: 5px;
-  border-radius: 8px 3px 3px 8px;
-  transform: skewY(3deg);
-}
-
-.cover.right {
-  right: 5px;
-  border-radius: 3px 8px 8px 3px;
-  transform: skewY(-3deg);
-}
-
-.page-paper {
-  position: absolute;
-  top: 7px;
-  width: 55px;
-  height: 76px;
-  background: #fff7e8;
-  border: 1px solid #d5c1a5;
-}
-
-.page-paper.left {
-  left: 14px;
-  transform: skewY(3deg);
-}
-
-.page-paper.right {
-  right: 14px;
-  transform: skewY(-3deg);
-}
-
-.cross {
-  position: absolute;
-  left: 50%;
-  top: 29px;
-  z-index: 4;
-  color: #fff5e7;
-  font-size: 27px;
-  transform: translateX(-50%);
-}
-
-.bible-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: rgba(213,180,120,.13);
-  filter: blur(12px);
-  animation: glow 2.4s ease-in-out infinite;
-}
-
-@keyframes glow {
-  0%,100% {
-    opacity: .35;
-    transform: scale(.9);
-  }
-
-  50% {
-    opacity: .8;
-    transform: scale(1.1);
-  }
-}
-
-.bible-star {
-  position: absolute;
-  z-index: 5;
-  color: #a87880;
-  font-size: 18px;
-  animation: floatStar 2.3s ease-in-out infinite;
-}
-
-.star1 {
-  top: 3px;
-  left: 5px;
-}
-
-.star2 {
-  top: 30px;
-  right: 0;
-  animation-delay: .7s;
-}
-
-.star3 {
-  bottom: 7px;
-  left: 17px;
-  animation-delay: 1.2s;
-}
-
-@keyframes floatStar {
-  0%,100% {
-    opacity: .45;
-    transform: translateY(0);
-  }
-
-  50% {
-    opacity: 1;
-    transform: translateY(-7px);
-  }
-}
-
-.tap-bible {
-  margin-top: 2px;
-  color: #a87880;
-  font-family: "DM Mono", monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-}
-
-.bible-message {
-  display: none;
-  max-width: 680px;
-  margin: 30px auto 0;
-  padding: 30px 25px;
-  background: rgba(255,250,244,.9);
-  border: 1px solid rgba(180,134,139,.3);
-  border-radius: 16px;
-  box-shadow: 0 14px 35px rgba(100,70,70,.1);
-}
-
-.bible-message.show {
-  display: block;
-  animation: bibleReveal .8s ease forwards;
-}
-
-@keyframes bibleReveal {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(.97);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.bible-message h2 {
-  margin: 0 0 15px;
-  color: #704f55;
-  font-size: 29px;
-  font-weight: 500;
-}
-
-.bible-message p {
-  margin: 0;
-  color: #60494d;
-  font-size: 18px;
-  line-height: 1.7;
-}
-
-.bible-message .personal {
-  margin-top: 18px;
-  color: #8e626a;
-  font-style: italic;
-}
-
-/* =========================
-   FEEDBACK
-========================= */
-
-.feedback-box {
-  max-width: 720px;
-  margin: 72px auto 45px;
-  padding: 42px 30px 38px;
-  text-align: center;
-  background: rgba(255,250,245,.82);
-  border: 1px solid rgba(180,134,139,.35);
-  border-radius: 18px;
-  box-shadow: 0 13px 35px rgba(120,85,85,.1);
-}
-
-.feedback-doodles {
-  margin-bottom: 17px;
-  color: #a87880;
-  font-size: 22px;
-  letter-spacing: 10px;
-}
-
-.feedback-box .section-label {
-  margin-bottom: 12px;
-  color: #a77b81;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-}
-
-.feedback-box h2 {
-  margin: 0 0 12px;
-  color: #704f55;
-  font-size: clamp(29px, 5vw, 40px);
-  font-weight: 500;
-}
-
-.feedback-caption {
-  max-width: 520px;
-  margin: 0 auto 22px;
-  color: #80666a;
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-.feedback-box textarea {
-  width: 100%;
-  min-height: 135px;
-  padding: 17px;
-  resize: vertical;
-  color: #60494d;
-  background: rgba(255,255,255,.7);
-  border: 1px solid rgba(180,134,139,.38);
-  border-radius: 12px;
-  outline: none;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 17px;
-  line-height: 1.5;
-}
-
-.feedback-box textarea:focus {
-  border-color: #b4868b;
-  box-shadow: 0 0 0 3px rgba(180,134,139,.1);
-}
-
-.feedback-box textarea::placeholder {
-  color: #b49a9d;
-}
-
-.feedback-message {
-  min-height: 20px;
-  margin-top: 14px;
-  color: #8a6268;
-  font-size: 16px;
-}
-
-/* =========================
-   BACK
-========================= */
-
-.back {
-  margin-top: 62px;
-  position: relative;
-  z-index: 3;
-  text-align: center;
-}
-
-.back a {
-  color: #8d656c;
-  text-decoration: none;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-/* =========================
-   SPARKLES
-========================= */
-
-.sparkle {
-  position: fixed;
-  z-index: 100;
-  pointer-events: none;
-  color: #b4868b;
-  font-size: 20px;
-  animation: sparkle .95s ease forwards;
-}
-
-@keyframes sparkle {
-  0% {
-    opacity: 1;
-    transform: translate(0,0) scale(.3) rotate(0);
-  }
-
-  100% {
-    opacity: 0;
-    transform:
-      translate(var(--x),var(--y))
-      scale(1.5)
-      rotate(180deg);
-  }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 650px) {
-
-  .page {
-    padding: 28px 16px 55px;
-  }
-
-  .photos {
-    grid-template-columns: 1fr;
-    gap: 27px;
-  }
-
-  .photo-card:first-child,
-  .photo-card:last-child {
-    transform: rotate(0);
-  }
-
-  .question-box {
-    margin-top: 52px;
-    padding: 34px 20px;
-  }
-
-  .letter {
-    padding: 35px 22px;
-  }
-
-  .letter p {
-    font-size: 18px;
-  }
-
-  .feedback-box {
-    padding: 35px 20px;
-  }
-
-  .bible-message {
-    padding: 25px 18px;
-  }
-
-  .bible-message p {
-    font-size: 17px;
-  }
-
-  .doodle {
-    opacity: .32;
-  }
+  font-family:"Cormorant Garamond",serif;
+}
+.page{width:min(100%,1050px);margin:auto;padding:35px 22px 75px;position:relative}
+.doodle{position:fixed;z-index:1;pointer-events:none;color:#a87880;opacity:.52;user-select:none}
+.d1{top:8%;left:4%;font-size:32px;transform:rotate(-12deg)}
+.d2{top:13%;right:5%;font-size:24px;transform:rotate(9deg)}
+.d3{top:29%;left:3%;font-size:25px;transform:rotate(-8deg)}
+.d4{top:38%;right:4%;font-size:30px;transform:rotate(12deg)}
+.d5{top:53%;left:5%;font-size:21px}
+.d6{top:63%;right:5%;font-size:27px;transform:rotate(-15deg)}
+.d7{top:75%;left:4%;font-size:25px;transform:rotate(8deg)}
+.d8{top:84%;right:7%;font-size:20px}
+.d9{top:46%;left:9%;font-size:14px}
+.d10{top:70%;right:11%;font-size:15px}
+.d11{top:22%;left:12%;font-size:13px}
+.d12{top:91%;left:15%;font-size:18px}
+
+header{text-align:center;position:relative;z-index:2}
+.day-number{margin-top:12px;color:#a87880;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:4px}
+h1{margin:8px 0 4px;color:#704f55;font-size:clamp(44px,8vw,74px);font-weight:500;line-height:.95}
+.subtitle{margin-top:14px;color:#a87880;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:2.5px}
+
+.audio-area{width:min(100%,500px);margin:28px auto 0}
+.audio-note{margin-bottom:8px;color:#a87880;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:2px}
+audio{width:100%;height:38px}
+.song-message{margin-top:13px;color:#956a72;font-size:19px;font-style:italic}
+.song-message:before{content:"✦ ";font-size:12px}
+.song-message:after{content:" ✦";font-size:12px}
+
+.question-box{
+  max-width:720px;margin:70px auto 55px;padding:42px 28px;position:relative;z-index:3;
+  text-align:center;background:rgba(255,250,245,.82);
+  border:1px solid rgba(180,134,139,.3);border-radius:18px;
+  box-shadow:0 14px 35px rgba(100,70,70,.09)
+}
+.question-label{margin-bottom:16px;color:#a87880;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:3px}
+.question{margin-bottom:12px;color:#704f55;font-size:clamp(29px,5vw,43px);line-height:1.12}
+.question-warning{margin-bottom:25px;color:#9a7076;font-size:17px;font-style:italic}
+.answer{
+  width:min(100%,470px);padding:14px 17px;color:#60494d;text-align:center;
+  background:rgba(255,255,255,.7);border:1px solid rgba(180,134,139,.4);
+  border-radius:12px;outline:none;font-family:"Cormorant Garamond",serif;font-size:18px
+}
+.answer:focus{border-color:#a87880;box-shadow:0 0 0 3px rgba(180,134,139,.1)}
+.open-btn,.feedback-btn{
+  margin-top:18px;padding:12px 24px;color:#704f55;background:transparent;
+  border:1px solid #a87880;border-radius:30px;cursor:pointer;
+  font-family:"DM Mono",monospace;font-size:10px;letter-spacing:1.5px;transition:.25s ease
+}
+.open-btn:hover,.feedback-btn:hover{color:white;background:#a87880;transform:translateY(-2px)}
+
+.memory{display:none;position:relative;z-index:2}
+.memory.show{display:block;animation:reveal .9s ease forwards}
+@keyframes reveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:850px;margin:55px auto 38px}
+.photo-card{padding:10px 10px 18px;background:#fffaf4;box-shadow:0 12px 28px rgba(100,70,70,.12)}
+.photo-card:first-child{transform:rotate(-1.6deg)}
+.photo-card:last-child{transform:rotate(1.6deg)}
+.photo-card img{display:block;width:100%;height:auto}
+.photo-caption{margin-top:9px;color:#80666a;text-align:center;font-size:16px;font-style:italic}
+
+.video-wrap{max-width:820px;margin:48px auto;text-align:center}
+.video-label{margin-bottom:12px;color:#a87880;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:3px}
+.video-wrap video{display:block;width:100%;max-height:600px;background:#e9ddd5;border-radius:12px;box-shadow:0 14px 35px rgba(100,70,70,.14)}
+
+.letter{
+  max-width:780px;margin:68px auto;padding:45px clamp(25px,6vw,65px);
+  background:#fffaf4;border:1px solid rgba(180,134,139,.25);
+  box-shadow:0 14px 35px rgba(100,70,70,.09)
+}
+.letter-title{margin-bottom:30px;color:#a87880;text-align:center;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:3px}
+.letter p{margin:0;color:#60494d;font-size:19px;line-height:1.78;white-space:pre-line}
+
+.bible-section{max-width:720px;margin:78px auto 65px;text-align:center}
+.bible-intro{margin-bottom:15px;color:#a87880;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:2.5px}
+.bible-subtext{margin-bottom:25px;color:#80666a;font-size:17px;font-style:italic}
+.bible-wrap{width:175px;height:130px;margin:auto;position:relative;cursor:pointer;transition:transform .3s ease}
+.bible-wrap:hover{transform:translateY(-5px) rotate(-2deg)}
+.bible{position:absolute;left:15px;top:18px;width:145px;height:92px}
+.cover{position:absolute;top:0;width:66px;height:92px;background:#956b73;border:2px solid #745158;box-shadow:0 8px 14px rgba(80,50,50,.15)}
+.cover.left{left:5px;border-radius:8px 3px 3px 8px;transform:skewY(3deg)}
+.cover.right{right:5px;border-radius:3px 8px 8px 3px;transform:skewY(-3deg)}
+.page-paper{position:absolute;top:7px;width:55px;height:76px;background:#fff7e8;border:1px solid #d5c1a5}
+.page-paper.left{left:14px;transform:skewY(3deg)}
+.page-paper.right{right:14px;transform:skewY(-3deg)}
+.cross{position:absolute;left:50%;top:29px;z-index:4;color:#fff5e7;font-size:27px;transform:translateX(-50%)}
+.bible-glow{position:absolute;inset:0;border-radius:50%;background:rgba(213,180,120,.13);filter:blur(12px);animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{0%,100%{opacity:.35;transform:scale(.9)}50%{opacity:.8;transform:scale(1.1)}}
+.bible-star{position:absolute;z-index:5;color:#a87880;font-size:18px;animation:floatStar 2.3s ease-in-out infinite}
+.star1{top:3px;left:5px}.star2{top:30px;right:0;animation-delay:.7s}.star3{bottom:7px;left:17px;animation-delay:1.2s}
+@keyframes floatStar{0%,100%{opacity:.45;transform:translateY(0)}50%{opacity:1;transform:translateY(-7px)}}
+.tap-bible{margin-top:2px;color:#a87880;font-family:"DM Mono",monospace;font-size:9px;letter-spacing:2px}
+.bible-message{
+  display:none;max-width:680px;margin:30px auto 0;padding:30px 25px;
+  background:rgba(255,250,244,.9);border:1px solid rgba(180,134,139,.3);
+  border-radius:16px;box-shadow:0 14px 35px rgba(100,70,70,.1)
+}
+.bible-message.show{display:block;animation:bibleReveal .8s ease forwards}
+@keyframes bibleReveal{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.bible-message h2{margin:0 0 15px;color:#704f55;font-size:29px;font-weight:500}
+.bible-message p{margin:0;color:#60494d;font-size:18px;line-height:1.7}
+.bible-message .personal{margin-top:18px;color:#8e626a;font-style:italic}
+
+.feedback-box{
+  max-width:720px;margin:72px auto 45px;padding:42px 30px 38px;text-align:center;
+  background:rgba(255,250,245,.82);border:1px solid rgba(180,134,139,.35);
+  border-radius:18px;box-shadow:0 13px 35px rgba(120,85,85,.1)
+}
+.feedback-doodles{margin-bottom:17px;color:#a87880;font-size:22px;letter-spacing:10px}
+.feedback-box .section-label{margin-bottom:12px;color:#a77b81;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:3px}
+.feedback-box h2{margin:0 0 12px;color:#704f55;font-size:clamp(29px,5vw,40px);font-weight:500}
+.feedback-caption{max-width:520px;margin:0 auto 22px;color:#80666a;font-size:16px;line-height:1.7}
+.feedback-box textarea{
+  width:100%;min-height:135px;padding:17px;resize:vertical;color:#60494d;
+  background:rgba(255,255,255,.7);border:1px solid rgba(180,134,139,.38);
+  border-radius:12px;outline:none;font-family:"Cormorant Garamond",serif;font-size:17px;line-height:1.5
+}
+.feedback-box textarea:focus{border-color:#b4868b;box-shadow:0 0 0 3px rgba(180,134,139,.1)}
+.feedback-box textarea::placeholder{color:#b49a9d}
+.feedback-message{min-height:20px;margin-top:14px;color:#8a6268;font-size:16px}
+
+.back{margin-top:62px;position:relative;z-index:3;text-align:center}
+.back a{color:#8d656c;text-decoration:none;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:2px}
+
+.sparkle{position:fixed;z-index:100;pointer-events:none;color:#b4868b;font-size:20px;animation:sparkle .95s ease forwards}
+@keyframes sparkle{
+  0%{opacity:1;transform:translate(0,0) scale(.3) rotate(0)}
+  100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1.5) rotate(180deg)}
+}
+
+@media(max-width:650px){
+  .page{padding:28px 16px 55px}
+  .photos{grid-template-columns:1fr;gap:27px}
+  .photo-card:first-child,.photo-card:last-child{transform:rotate(0)}
+  .question-box{margin-top:52px;padding:34px 20px}
+  .letter{padding:35px 22px}
+  .letter p{font-size:18px}
+  .feedback-box{padding:35px 20px}
+  .bible-message{padding:25px 18px}
+  .bible-message p{font-size:17px}
+  .doodle{opacity:.32}
 }
 </style>
 </head>
 
 <body>
-
 <div class="page">
-
-<!-- =========================
-     DAY 2 DOODLES
-========================= -->
 
 <div class="doodle d1">♡</div>
 <div class="doodle d2">✦</div>
@@ -815,654 +182,218 @@ audio {
 <div class="doodle d11">✧</div>
 <div class="doodle d12">✿</div>
 
-
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
-
-  <div class="day-number">
-    DAY 02
-  </div>
-
+  <div class="day-number">DAY 02</div>
   <h1>Our Lore</h1>
-
-  <div class="subtitle">
-    the slightly questionable history of dilku
-  </div>
+  <div class="subtitle">the slightly questionable history of dilku</div>
 
   <div class="audio-area">
-
-    <div class="audio-note">
-      ♫ today's little soundtrack
-    </div>
-
-    <audio id="bgMusic" controls autoplay loop>
-      <source
-        src="kdDjVsyOwWjCjGzZXoKG+uyupd2PXbSQ.m4a"
-        type="audio/mp4">
+    <div class="audio-note">♫ today's little soundtrack</div>
+    <audio id="bgMusic" controls loop preload="auto">
+      <source src="Summertime.m4a" type="audio/mp4">
       Your browser does not support audio.
     </audio>
-
     <div class="song-message">
       I just want you to know, that baby you're the best! 🫶🏻
     </div>
-
   </div>
-
 </header>
 
-
-<!-- =========================
-     QUESTION
-========================= -->
-
 <section class="question-box" id="questionBox">
-
-  <div class="question-label">
-    BEFORE WE UNLOCK THE LORE...
-  </div>
-
-  <div class="question">
-    When is our anniversary???
-  </div>
-
-  <div class="question-warning">
-    get this wrong and you're dead istg 😭
-  </div>
-
-  <input
-    class="answer"
-    id="answer"
-    type="text"
-    placeholder="You better know this..."
-  >
-
-  <button class="open-btn" id="openBtn">
-    UNLOCK OUR LORE ♡
-  </button>
-
+  <div class="question-label">BEFORE WE UNLOCK THE LORE...</div>
+  <div class="question">When is our anniversary???</div>
+  <div class="question-warning">get this wrong and you're dead istg 😭</div>
+  <input class="answer" id="answer" type="text" placeholder="You better know this...">
+  <button class="open-btn" id="openBtn">UNLOCK OUR LORE ♡</button>
 </section>
-
-
-<!-- =========================
-     EVERYTHING AFTER ANSWER
-========================= -->
 
 <main class="memory" id="memory">
 
-
-<!-- PHOTOS -->
-
 <section class="photos">
-
   <div class="photo-card">
-
-    <img
-      src="IMG-20261005-WA0122.jpg"
-      alt="Our lore memory">
-
-    <div class="photo-caption">
-      another piece of our lore ♡
-    </div>
-
+    <img src="IMG-20261005-WA0122.jpg" alt="Our lore memory">
+    <div class="photo-caption">another piece of our lore ♡</div>
   </div>
-
-
   <div class="photo-card">
-
-    <img
-      src="IMG-20261005-WA0123.jpg"
-      alt="Our lore memory">
-
-    <div class="photo-caption">
-      somehow this became Dilku
-    </div>
-
+    <img src="IMG-20261005-WA0123.jpg" alt="Our lore memory">
+    <div class="photo-caption">somehow this became Dilku</div>
   </div>
-
 </section>
-
-
-<!-- VIDEO -->
 
 <section class="video-wrap">
-
-  <div class="video-label">
-    A SMALL PIECE OF THE CHAOS
-  </div>
-
-  <video
-    id="memoryVideo"
-    controls
-    playsinline
-    preload="metadata">
-
-    <source
-      src="VID-20261005-WA0124.mp4"
-      type="video/mp4">
-
+  <div class="video-label">A SMALL PIECE OF THE CHAOS</div>
+  <video id="memoryVideo" controls playsinline preload="metadata">
+    <source src="VID-20261005-WA0124.mp4" type="video/mp4">
     Your browser does not support video.
-
   </video>
-
 </section>
-
-
-<!-- =========================
-     LETTER
-========================= -->
 
 <section class="letter">
-
-  <div class="letter-title">
-    A LETTER FROM YOUR KUNJU PUZHU
-  </div>
-
+  <div class="letter-title">A LETTER FROM YOUR KUNJU PUZHU</div>
   <p>
 17 Days to your special dayyy!!!YAYYYYY
-
 Alku, on the 2nd day, I want to talk more about OUR LORE or the special type of dynamic we have... Everyone in the world know we share a very special dynamic! Kayinja day reelil vanna saadhanam aanu ee malayalam movie- yk abt kochuthresia and kunjumariya... Njan aa movie kanditt onnum illa but entho avrde aa oru ith kandapo enik nmle orma vannuu...Maybe because nmde vaayinottathinum, udayippukalkum, aa oru fun silly alka-diya bond inu appuram nmk oru emotional bondum ondd... Ende oru pov il ninnu parayuvanel, youre the first person i need when something happens... Santhosham aayalum sangadam aayalum embarrassment aayalum failure aayalum success aayalum whatever it is i need you first... chilath njn skip adikunne thanik hurt aayalo ennorthitt aattoo.. But generally, I need you my bbg!
-
 Oru sangadam vannal oodi vann parayanum, santhosham vrmbm oru jealousy polum kaanikkand kooduthal support cheyunna oru bond aanu nmde... Enthin oro daysum nml swayam pretty aakunnathinekkal try cheyunne parasparam pretty aakkanaa... Lookath ingne aarelum okke ondoo aavooo... Njan kanda friendshipsil ellm swnthm krym nookiyitt aan baaki frnd inde krym nookune...nammaloooo...
-
 Making each other prettyy, being supportive in all aspects ( ee supportive inte krym njn kooduthal parayunnila bcz ith aaroke vaayikum enn idk and kudumbakalaham onnm i dont want lmao), trying to make eo happyy angane enthellaa....
-
 Highlight aayit prynda krym, nml separate aayi vekkunna boysinte krym aan..enth understanding aanallee nml...Thante chetane njno ende chetane thaano nookulla... nmde key dynamic thanne athanalooo... athum kooduthal explanationilott ponila cuzzz ykkk....
-
-Pinne entha pryaa...First nmde bond started with adhoc...pryril thondiya bond...ippoo...uhmm uhmm... But still forever greatful to karthav for this bond!!! This was very essential for my survival...My vitamin A(lku)...
-
-First nalla decent bond aayirunn... Pinne fridaysinu key edukkanum vekkanum ellm long route aaki...group photos....Potassium and Nitrogen....NDPA....Merin chechi kalayanathinu dance aayi paattu aayi delulu aayii....Friday olla print edukkan pokkum... other days chumma palakk irangi olla thendi thirinju nadappum, bus frontil ondel pokathe nikkuneyum, sundays late aayi st thomasil keri chellunnathum, late aayitum pinnem h2o kudikkana enn prnj, avide ilichond nikkunnathum....pine china aayi georgia aayii ipo 2 chetanmar aayi....
-
-Remember adhocile everyone used to say othiri mindnda mindiyal samsarikan topic theernupokum enn.... Mindi mindi koot aayit 3 yrs aayi... inne vare samsarikkan topic illand vannitilla nmk....
-
-Remember when naatil olla ellarum orth nml georgia vannitt split aakum enn... comedy... again hostelil ollavar enthore nooki onn split aakan...again comedy...ath allelum angana, karthav yojipiche manushyanu verpeduthan pattilaa alleeee?!?!?!!?
-
+Pinne entha pryaa...First nmde bond started with adhoc...pryril thondiya bond...ippoo...uhmm uhmm... But still forever greatful to karthav for this bond!!! This was very essential for my survival...My vitamin A(lku)... First nalla decent bond aayirunn... Pinne fridaysinu key edukkanum vekkanum ellm long route aaki...group photos....Potassium and Nitrogen....NDPA....Merin chechi kalayanathinu dance aayi paattu aayi delulu aayii....Friday olla print edukkan pokkum... other days chumma palakk irangi olla thendi thirinju nadappum, bus frontil ondel pokathe nikkuneyum, sundays late aayi st thomasil keri chellunnathum, late aayitum pinnem h2o kudikkana enn prnj, avide ilichond nikkunnathum....pine china aayi georgia aayii ipo 2 chetanmar aayi....
+Remember adhocile everyone used to say othiri mindnda mindiyal samsarikan topic theernupokum enn.... Mindi mindi koot aayit 3 yrs aayi... inne vare samsarikkan topic illand vannitilla nmk.... Remember when naatil olla ellarum orth nml georgia vannitt split aakum enn... comedy... again hostelil ollavar enthore nooki onn split aakan...again comedy...ath allelum angana, karthav yojipiche manushyanu verpeduthan pattilaa alleeee?!?!?!!?
 Ath thanne alle nmde main dynamics?? Vannu pala friendshiploode kadannpoyii but dilku never changed... Dilku is the core... Dilku is and was and will be the core always...
-
 Tbh, ithellam eyuthumbm, i misss you so much my sweetheart!!!
-
 I love you Alkuuuuu
 Chakkara ummaaaa
-
 From, your kunju puzhu!
   </p>
-
 </section>
 
-
-<!-- =========================
-     BIBLE MOMENT
-========================= -->
-
 <section class="bible-section">
+  <div class="bible-intro">A LITTLE REMINDER FOR YOU...</div>
+  <div class="bible-subtext">tap the little Bible ♡</div>
 
-  <div class="bible-intro">
-    A LITTLE REMINDER FOR YOU...
-  </div>
-
-  <div class="bible-subtext">
-    tap the little Bible ♡
-  </div>
-
-
-  <div
-    class="bible-wrap"
-    id="bible"
-    role="button"
-    tabindex="0"
-    aria-label="Open the Bible message">
-
+  <div class="bible-wrap" id="bible" role="button" tabindex="0" aria-label="Open the Bible message">
     <div class="bible-glow"></div>
-
     <div class="bible-star star1">✦</div>
     <div class="bible-star star2">✧</div>
     <div class="bible-star star3">✦</div>
-
     <div class="bible">
-
       <div class="cover left"></div>
       <div class="cover right"></div>
-
       <div class="page-paper left"></div>
       <div class="page-paper right"></div>
-
-      <div class="cross">
-        ✝
-      </div>
-
+      <div class="cross">✝</div>
     </div>
-
   </div>
 
+  <div class="tap-bible">OPEN ME</div>
 
-  <div class="tap-bible">
-    OPEN ME
+  <div class="bible-message" id="bibleMessage">
+    <h2>John 3.16</h2>
+    <p>“For God so loved the world that he gave his only Son, that everyone who believes in him might not perish but might have eternal life."</p>
+    <p class="personal">Yes Alku, you're loved that much for the god to sacrifce his own son for you! 🫶🏻</p>
   </div>
-
-
-  <div
-    class="bible-message"
-    id="bibleMessage">
-
-    <h2>
-      John 3.16
-    </h2>
-
-    <p>
-      “For God so loved the world that he gave his only Son,
-      that everyone who believes in him might not perish but
-      might have eternal life."
-    </p>
-
-    <p class="personal">
-      Yes Alku, you're loved that much for the god to sacrifce
-      his own son for you! 🫶🏻
-    </p>
-
-  </div>
-
 </section>
 
-
-<!-- =========================
-     FEEDBACK
-========================= -->
-
 <section class="feedback-box">
-
-  <div class="feedback-doodles">
-    ♡ ✦ ✿ ✧ ♡
-  </div>
-
-  <div class="section-label">
-    BEFORE YOU LEAVE...
-  </div>
-
-  <h2>
-    Tell me anything, Alku ♡
-  </h2>
-
+  <div class="feedback-doodles">♡ ✦ ✿ ✧ ♡</div>
+  <div class="section-label">BEFORE YOU LEAVE...</div>
+  <h2>Tell me anything, Alku ♡</h2>
   <p class="feedback-caption">
     A thought, a memory, a complaint, something random,
     or literally anything your kunju puzhu should know.
   </p>
-
-  <textarea
-    id="feedback"
-    placeholder="Write whatever your Diyamol should know...">
-  </textarea>
-
-  <button
-    class="feedback-btn"
-    id="feedbackBtn">
-    SEND IT TO DIYAMOL ♡
-  </button>
-
-  <p
-    id="feedbackMessage"
-    class="feedback-message">
-  </p>
-
+  <textarea id="feedback" placeholder="Write whatever your Diyamol should know..."></textarea>
+  <button class="feedback-btn" id="feedbackBtn">SEND IT TO DIYAMOL ♡</button>
+  <p id="feedbackMessage" class="feedback-message"></p>
 </section>
 
-
-<!-- BACK TO HOME -->
-
 <div class="back">
-  <a href="index.html">
-    ← BACK TO ALKU'S BIRTHDAY
-  </a>
+  <a href="index.html">← BACK TO ALKU'S BIRTHDAY</a>
 </div>
 
 </main>
-
 </div>
 
-
 <script>
+const SUPABASE_URL = 'https://poowacsncuoucptqjblg.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
 
-/* =========================
-   SUPABASE
-========================= */
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
-const SUPABASE_URL =
-  'https://poowacsncuoucptqjblg.supabase.co';
+const openBtn = document.getElementById("openBtn");
+const answer = document.getElementById("answer");
+const questionBox = document.getElementById("questionBox");
+const memory = document.getElementById("memory");
+const bgMusic = document.getElementById("bgMusic");
+const memoryVideo = document.getElementById("memoryVideo");
+const bible = document.getElementById("bible");
+const bibleMessage = document.getElementById("bibleMessage");
+const feedback = document.getElementById("feedback");
+const feedbackBtn = document.getElementById("feedbackBtn");
+const feedbackMessage = document.getElementById("feedbackMessage");
 
-const SUPABASE_PUBLISHABLE_KEY =
-  'sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
-
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
-
-
-/* =========================
-   ELEMENTS
-========================= */
-
-const openBtn =
-  document.getElementById("openBtn");
-
-const answer =
-  document.getElementById("answer");
-
-const questionBox =
-  document.getElementById("questionBox");
-
-const memory =
-  document.getElementById("memory");
-
-const bgMusic =
-  document.getElementById("bgMusic");
-
-const memoryVideo =
-  document.getElementById("memoryVideo");
-
-const bible =
-  document.getElementById("bible");
-
-const bibleMessage =
-  document.getElementById("bibleMessage");
-
-const feedback =
-  document.getElementById("feedback");
-
-const feedbackBtn =
-  document.getElementById("feedbackBtn");
-
-const feedbackMessage =
-  document.getElementById("feedbackMessage");
-
-
-/* =========================
-   SPARKLES
-========================= */
-
-function makeSparkles() {
-
-  const symbols = [
-    "✦",
-    "✧",
-    "♡",
-    "⋆",
-    "✿"
-  ];
-
-  for (let i = 0; i < 28; i++) {
-
-    const sparkle =
-      document.createElement("div");
-
-    sparkle.className = "sparkle";
-
-    sparkle.textContent =
-      symbols[
-        Math.floor(
-          Math.random() * symbols.length
-        )
-      ];
-
-    sparkle.style.left =
-      (window.innerWidth / 2) + "px";
-
-    sparkle.style.top =
-      (window.innerHeight / 2) + "px";
-
-    sparkle.style.setProperty(
-      "--x",
-      ((Math.random() - .5) * 560) + "px"
-    );
-
-    sparkle.style.setProperty(
-      "--y",
-      ((Math.random() - .5) * 450) + "px"
-    );
-
+function makeSparkles(){
+  const symbols=["✦","✧","♡","⋆","✿"];
+  for(let i=0;i<28;i++){
+    const sparkle=document.createElement("div");
+    sparkle.className="sparkle";
+    sparkle.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    sparkle.style.left=(window.innerWidth/2)+"px";
+    sparkle.style.top=(window.innerHeight/2)+"px";
+    sparkle.style.setProperty("--x",((Math.random()-.5)*560)+"px");
+    sparkle.style.setProperty("--y",((Math.random()-.5)*450)+"px");
     document.body.appendChild(sparkle);
-
-    setTimeout(() => {
-      sparkle.remove();
-    }, 1000);
+    setTimeout(()=>sparkle.remove(),1000);
   }
 }
 
+openBtn.addEventListener("click",async function(){
+  const value=answer.value.trim();
+  if(!value){answer.focus();return;}
 
-/* =========================
-   UNLOCK LORE
-========================= */
-
-openBtn.addEventListener(
-  "click",
-  async function() {
-
-    const value =
-      answer.value.trim();
-
-    /* ANY ANSWER IS ACCEPTED */
-
-    if (!value) {
-
-      answer.focus();
-
-      return;
-    }
-
-
-    /* SAVE ANSWER */
-
-    const {
-      error: answerSaveError
-    } =
-      await supabaseClient
-        .from("responses")
-        .insert({
-          day: 2,
-          answer: value,
-          feedback: ""
-        });
-
-
-    if (answerSaveError) {
-
-      console.error(
-        "Could not save Day 2 answer:",
-        answerSaveError
-      );
-
-    }
-
-
-    /* SPARKLE REVEAL */
-
-    makeSparkles();
-
-
-    questionBox.style.transition =
-      "opacity .55s ease, transform .55s ease";
-
-    questionBox.style.opacity = "0";
-
-    questionBox.style.transform =
-      "translateY(-18px)";
-
-
-    setTimeout(() => {
-
-      questionBox.style.display =
-        "none";
-
-      memory.classList.add("show");
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-      bgMusic.play().catch(() => {});
-
-    }, 600);
-
-  }
-);
-
-
-/* =========================
-   BIBLE
-========================= */
-
-function openBible() {
-
-  bibleMessage.classList.toggle("show");
+  const {error}=await supabaseClient.from("responses").insert({
+    day:2,answer:value,feedback:""
+  });
+  if(error) console.error("Could not save Day 2 answer:",error);
 
   makeSparkles();
+  questionBox.style.transition="opacity .55s ease, transform .55s ease";
+  questionBox.style.opacity="0";
+  questionBox.style.transform="translateY(-18px)";
 
+  setTimeout(()=>{
+    questionBox.style.display="none";
+    memory.classList.add("show");
+    window.scrollTo({top:0,behavior:"smooth"});
+    bgMusic.play().catch(()=>{});
+  },600);
+});
+
+function openBible(){
+  bibleMessage.classList.toggle("show");
+  makeSparkles();
 }
-
-bible.addEventListener(
-  "click",
-  openBible
-);
-
-bible.addEventListener(
-  "keydown",
-  function(event) {
-
-    if (
-      event.key === "Enter" ||
-      event.key === " "
-    ) {
-
-      event.preventDefault();
-
-      openBible();
-
-    }
-
+bible.addEventListener("click",openBible);
+bible.addEventListener("keydown",function(event){
+  if(event.key==="Enter"||event.key===" "){
+    event.preventDefault();
+    openBible();
   }
-);
+});
 
+memoryVideo.addEventListener("play",()=>bgMusic.pause());
+memoryVideo.addEventListener("ended",()=>bgMusic.play().catch(()=>{}));
+memoryVideo.addEventListener("pause",()=>{
+  if(!memoryVideo.ended) bgMusic.play().catch(()=>{});
+});
 
-/* =========================
-   VIDEO + MUSIC
-========================= */
-
-memoryVideo.addEventListener(
-  "play",
-  function() {
-
-    bgMusic.pause();
-
+feedbackBtn.addEventListener("click",async function(){
+  const text=feedback.value.trim();
+  if(!text){
+    feedback.focus();
+    feedbackMessage.textContent="You can leave me literally anything, Alku ♡";
+    return;
   }
-);
 
+  const {error}=await supabaseClient.from("responses").insert({
+    day:2,answer:"",feedback:text
+  });
 
-memoryVideo.addEventListener(
-  "ended",
-  function() {
-
-    bgMusic.play().catch(() => {});
-
+  if(error){
+    console.error("Could not save Day 2 feedback:",error);
+    feedbackMessage.textContent="Something went wrong... try again ♡";
+    return;
   }
-);
 
+  feedbackMessage.textContent="Saved safely for your Diyamol ♡";
+  feedback.value="";
+});
 
-memoryVideo.addEventListener(
-  "pause",
-  function() {
-
-    if (!memoryVideo.ended) {
-
-      bgMusic.play().catch(() => {});
-
-    }
-
-  }
-);
-
-
-/* =========================
-   FEEDBACK
-========================= */
-
-feedbackBtn.addEventListener(
-  "click",
-  async function() {
-
-    const text =
-      feedback.value.trim();
-
-
-    if (!text) {
-
-      feedback.focus();
-
-      feedbackMessage.textContent =
-        "You can leave me literally anything, Alku ♡";
-
-      return;
-
-    }
-
-
-    const {
-      error: feedbackError
-    } =
-      await supabaseClient
-        .from("responses")
-        .insert({
-          day: 2,
-          answer: "",
-          feedback: text
-        });
-
-
-    if (feedbackError) {
-
-      console.error(
-        "Could not save Day 2 feedback:",
-        feedbackError
-      );
-
-      feedbackMessage.textContent =
-        "Something went wrong... try again ♡";
-
-      return;
-
-    }
-
-
-    feedbackMessage.textContent =
-      "Saved safely for your Diyamol ♡";
-
-    feedback.value = "";
-
-  }
-);
-
-
-/* =========================
-   AUTOPLAY ATTEMPT
-========================= */
-
-window.addEventListener(
-  "load",
-  function() {
-
-    bgMusic.play().catch(() => {
-      /*
-        Some browsers block
-        unmuted autoplay.
-      */
-    });
-
-  }
-);
-
+window.addEventListener("load",()=>{
+  bgMusic.play().catch(()=>{});
+});
 </script>
-
 </body>
 </html>
