@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Day 02 — Our Lore ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(220,190,190,.28), transparent 25%),
+    radial-gradient(circle at 85% 20%, rgba(225,205,180,.25), transparent 25%),
+    #f8f1e9;
+  color: #60494d;
+  font-family: "Cormorant Garamond", serif;
+  overflow-x: hidden;
+}
+
+.page {
+  width: min(100%, 1050px);
+  margin: auto;
+  padding: 35px 22px 75px;
+  position: relative;
+}
+
+/* ---------------- DOODLES ---------------- */
+
+.doodle {
+  position: fixed;
+  pointer-events: none;
+  color: #a87880;
+  opacity: .55;
+  z-index: 1;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.d1 {
+  top: 9%;
+  left: 5%;
+  font-size: 34px;
+  transform: rotate(-12deg);
+}
+
+.d2 {
+  top: 17%;
+  right: 6%;
+  font-size: 28px;
+  transform: rotate(14deg);
+}
+
+.d3 {
+  top: 42%;
+  left: 3%;
+  font-size: 26px;
+}
+
+.d4 {
+  top: 55%;
+  right: 4%;
+  font-size: 31px;
+  transform: rotate(-10deg);
+}
+
+.d5 {
+  top: 72%;
+  left: 5%;
+  font-size: 23px;
+}
+
+.d6 {
+  top: 81%;
+  right: 7%;
+  font-size: 27px;
+}
+
+.d7 {
+  top: 31%;
+  right: 10%;
+  font-size: 18px;
+}
+
+.d8 {
+  top: 63%;
+  left: 9%;
+  font-size: 20px;
+}
+
+/* ---------------- HEADER ---------------- */
+
+header {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.day-number {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #a87880;
+  margin-top: 15px;
+}
+
+h1 {
+  margin: 8px 0 2px;
+  font-size: clamp(42px, 8vw, 72px);
+  font-weight: 500;
+  color: #704f55;
+  line-height: .95;
+}
+
+.subtitle {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #a87880;
+  margin-top: 14px;
+}
+
+/* ---------------- AUDIO ---------------- */
+
+.audio-area {
+  width: min(100%, 500px);
+  margin: 28px auto 0;
+  text-align: center;
+}
+
+.audio-note {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #a87880;
+  margin-bottom: 8px;
+}
+
+audio {
+  width: 100%;
+  height: 38px;
+}
+
+.song-message {
+  margin-top: 12px;
+  font-size: 19px;
+  font-style: italic;
+  color: #956a72;
+}
+
+.song-message::before {
+  content: "✦ ";
+  font-size: 13px;
+}
+
+.song-message::after {
+  content: " ✦";
+  font-size: 13px;
+}
+
+/* ---------------- QUESTION ---------------- */
+
+.question-box {
+  max-width: 720px;
+  margin: 70px auto 50px;
+  padding: 40px 28px;
+  text-align: center;
+  background: rgba(255,250,245,.75);
+  border: 1px solid rgba(180,134,139,.3);
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(120,85,85,.08);
+  position: relative;
+  z-index: 3;
+}
+
+.question-label {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #a87880;
+  margin-bottom: 15px;
+}
+
+.question {
+  font-size: clamp(28px, 5vw, 42px);
+  line-height: 1.15;
+  color: #704f55;
+  margin-bottom: 25px;
+}
+
+.answer {
+  width: min(100%, 470px);
+  padding: 14px 17px;
+  border: 1px solid rgba(180,134,139,.4);
+  border-radius: 12px;
+  background: rgba(255,255,255,.65);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  color: #60494d;
+  outline: none;
+  text-align: center;
+}
+
+.answer:focus {
+  border-color: #a87880;
+  box-shadow: 0 0 0 3px rgba(180,134,139,.1);
+}
+
+.open-btn {
+  display: block;
+  margin: 18px auto 0;
+  padding: 12px 25px;
+  border: 1px solid #a87880;
+  border-radius: 30px;
+  background: transparent;
+  color: #704f55;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.open-btn:hover {
+  background: #a87880;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ---------------- REVEAL ---------------- */
+
+.memory {
+  display: none;
+  animation: reveal .9s ease forwards;
+  position: relative;
+  z-index: 2;
+}
+
+.memory.show {
+  display: block;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------- PHOTOS ---------------- */
+
+.photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  max-width: 850px;
+  margin: 55px auto 35px;
+}
+
+.photo-card {
+  background: #fffaf4;
+  padding: 10px 10px 18px;
+  box-shadow: 0 10px 25px rgba(100,70,70,.12);
+  transform: rotate(-1.5deg);
+}
+
+.photo-card:nth-child(2) {
+  transform: rotate(1.5deg);
+}
+
+.photo-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.photo-caption {
+  text-align: center;
+  margin-top: 9px;
+  font-size: 16px;
+  color: #80666a;
+  font-style: italic;
+}
+
+/* ---------------- VIDEO ---------------- */
+
+.video-wrap {
+  max-width: 820px;
+  margin: 45px auto;
+  text-align: center;
+}
+
+.video-label {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #a87880;
+  margin-bottom: 12px;
+}
+
+.video-wrap video {
+  width: 100%;
+  max-height: 600px;
+  border-radius: 12px;
+  box-shadow: 0 14px 35px rgba(100,70,70,.15);
+  background: #eee4dc;
+}
+
+/* ---------------- LETTER ---------------- */
+
+.letter {
+  max-width: 780px;
+  margin: 65px auto;
+  padding: 45px clamp(25px,6vw,65px);
+  background: #fffaf4;
+  border: 1px solid rgba(180,134,139,.25);
+  box-shadow: 0 14px 35px rgba(100,70,70,.09);
+  position: relative;
+}
+
+.letter-title {
+  text-align: center;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #a87880;
+  margin-bottom: 28px;
+}
+
+.letter p {
+  font-size: 19px;
+  line-height: 1.75;
+  margin: 0 0 20px;
+  white-space: pre-line;
+}
+
+.letter-sign {
+  margin-top: 30px;
+  text-align: right;
+  font-size: 20px;
+  font-style: italic;
+}
+
+/* ---------------- BIBLE ---------------- */
+
+.bible-section {
+  max-width: 720px;
+  margin: 75px auto 65px;
+  text-align: center;
+  position: relative;
+}
+
+.bible-hint {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: #a87880;
+  margin-bottom: 18px;
+}
+
+.bible {
+  width: 145px;
+  height: 105px;
+  margin: auto;
+  position: relative;
+  cursor: pointer;
+  transition: transform .35s ease;
+  filter: drop-shadow(0 10px 10px rgba(90,60,60,.13));
+}
+
+.bible:hover {
+  transform: translateY(-5px) rotate(-2deg);
+}
+
+.bible-cover {
+  position: absolute;
+  width: 65px;
+  height: 88px;
+  top: 8px;
+  background: #9b6f76;
+  border: 2px solid #79545a;
+  border-radius: 7px 3px 3px 7px;
+}
+
+.bible-left {
+  left: 8px;
+  transform: skewY(3deg);
+}
+
+.bible-right {
+  right: 8px;
+  transform: skewY(-3deg);
+}
+
+.bible-page {
+  position: absolute;
+  width: 55px;
+  height: 78px;
+  top: 13px;
+  background: #fff8e9;
+  border: 1px solid #d4c1a8;
+}
+
+.bible-page.left {
+  left: 17px;
+  transform: skewY(3deg);
+}
+
+.bible-page.right {
+  right: 17px;
+  transform: skewY(-3deg);
+}
+
+.cross {
+  position: absolute;
+  left: 50%;
+  top: 36px;
+  transform: translateX(-50%);
+  color: #fff4e8;
+  font-size: 26px;
+  z-index: 4;
+}
+
+.bible-sparkle {
+  position: absolute;
+  font-size: 17px;
+  color: #b4868b;
+  animation: bibleFloat 2.5s ease-in-out infinite;
+}
+
+.bs1 {
+  top: 3px;
+  left: 0;
+}
+
+.bs2 {
+  top: 35px;
+  right: -2px;
+  animation-delay: .8s;
+}
+
+.bs3 {
+  bottom: 0;
+  left: 18px;
+  animation-delay: 1.2s;
+}
+
+@keyframes bibleFloat {
+  0%,100% {
+    transform: translateY(0);
+    opacity: .45;
+  }
+  50% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
+
+.bible-message {
+  display: none;
+  max-width: 650px;
+  margin: 28px auto 0;
+  padding: 28px 25px;
+  background: rgba(255,250,244,.85);
+  border: 1px solid rgba(180,134,139,.3);
+  border-radius: 15px;
+  box-shadow: 0 12px 30px rgba(100,70,70,.08);
+  animation: bibleReveal .8s ease forwards;
+}
+
+.bible-message.show {
+  display: block;
+}
+
+.bible-message h3 {
+  margin: 0 0 14px;
+  font-size: 25px;
+  font-weight: 500;
+  color: #704f55;
+}
+
+.bible-message p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.bible-message .personal {
+  margin-top: 18px;
+  font-style: italic;
+  color: #8e626a;
+}
+
+@keyframes bibleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---------------- FEEDBACK ---------------- */
+
+.feedback-box {
+  max-width: 720px;
+  margin: 70px auto 45px;
+  padding: 42px 30px 38px;
+  text-align: center;
+  background: rgba(255,250,245,.78);
+  border: 1px solid rgba(180,134,139,.35);
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(120,85,85,.10);
+  position: relative;
+}
+
+.feedback-doodle {
+  font-size: 24px;
+  color: #b4868b;
+  letter-spacing: 12px;
+  margin-bottom: 14px;
+}
+
+.feedback-box .section-label {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #a77b81;
+  margin-bottom: 12px;
+}
+
+.feedback-box h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 500;
+  color: #704f55;
+  margin: 0 0 12px;
+}
+
+.feedback-caption {
+  max-width: 520px;
+  margin: 0 auto 22px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #80666a;
+}
+
+.feedback-box textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 17px;
+  resize: vertical;
+  border: 1px solid rgba(180,134,139,.38);
+  border-radius: 12px;
+  background: rgba(255,255,255,.68);
+  color: #60494d;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 17px;
+  line-height: 1.5;
+  outline: none;
+}
+
+.feedback-box textarea::placeholder {
+  color: #b49a9d;
+}
+
+.feedback-box textarea:focus {
+  border-color: #b4868b;
+  box-shadow: 0 0 0 3px rgba(180,134,139,.10);
+}
+
+.feedback-btn {
+  margin-top: 18px;
+  padding: 12px 22px;
+  border: 1px solid #b4868b;
+  border-radius: 30px;
+  background: transparent;
+  color: #704f55;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.feedback-btn:hover {
+  background: #b4868b;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.feedback-message {
+  min-height: 20px;
+  margin-top: 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: #8a6268;
+}
+
+/* ---------------- BACK ---------------- */
+
+.back {
+  text-align: center;
+  margin-top: 60px;
+  position: relative;
+  z-index: 3;
+}
+
+.back a {
+  color: #8d656c;
+  text-decoration: none;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+/* ---------------- SPARKLES ---------------- */
+
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  font-size: 20px;
+  color: #b4868b;
+  animation: sparkle .9s ease forwards;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: translate(0,0) scale(.3) rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x),var(--y)) scale(1.4) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 650px) {
+
+  .page {
+    padding: 28px 16px 55px;
+  }
+
+  .photos {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .photo-card,
+  .photo-card:nth-child(2) {
+    transform: rotate(0);
+  }
+
+  .question-box {
+    margin-top: 50px;
+    padding: 32px 20px;
+  }
+
+  .letter {
+    padding: 35px 22px;
+  }
+
+  .letter p {
+    font-size: 18px;
+  }
+
+  .feedback-box {
+    padding: 35px 20px;
+  }
+
+  .bible-message {
+    padding: 24px 18px;
+  }
+
+  .bible-message p {
+    font-size: 17px;
+  }
+
+  .doodle {
+    opacity: .35;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<!-- DIFFERENT DAY 2 DOODLES -->
+
+<div class="doodle d1">☼</div>
+<div class="doodle d2">!!!</div>
+<div class="doodle d3">✎</div>
+<div class="doodle d4">🌀</div>
+<div class="doodle d5">♡</div>
+<div class="doodle d6">✦</div>
+<div class="doodle d7">👀</div>
+<div class="doodle d8">⌁</div>
+
+<header>
+
+  <div class="day-number">DAY 02</div>
+
+  <h1>Our Lore</h1>
+
+  <div class="subtitle">
+    the slightly questionable history of dilku
+  </div>
+
+  <div class="audio-area">
+
+    <div class="audio-note">
+      ♫ today's little soundtrack
+    </div>
+
+    <audio id="bgMusic" controls autoplay loop>
+      <source src="AUD-20261005-WA0156.opus" type="audio/ogg; codecs=opus">
+      Your browser does not support audio.
+    </audio>
+
+    <div class="song-message">
+      I just want you to know, that baby you're the best! 🫶🏻
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- QUESTION -->
+
+<section class="question-box" id="questionBox">
+
+  <div class="question-label">
+    BEFORE WE UNLOCK THE LORE...
+  </div>
+
+  <div class="question">
+    When is our anniversary???
+  </div>
+
+  <div style="font-size:16px; margin-bottom:20px; color:#9a7076;">
+    get this wrong and you're dead istg 😭
+  </div>
+
+  <input
+    class="answer"
+    id="answer"
+    type="text"
+    placeholder="You better know this..."
+  >
+
+  <button class="open-btn" id="openBtn">
+    UNLOCK OUR LORE ♡
+  </button>
+
+</section>
+
+
+<!-- REVEALED CONTENT -->
+
+<main class="memory" id="memory">
+
+
+  <!-- PHOTOS -->
+
+  <section class="photos">
+
+    <div class="photo-card">
+      <img src="IMG-20261005-WA0122.jpg" alt="Our memory">
+      <div class="photo-caption">
+        another piece of our lore ♡
+      </div>
+    </div>
+
+    <div class="photo-card">
+      <img src="IMG-20261005-WA0123.jpg" alt="Our memory">
+      <div class="photo-caption">
+        somehow this became Dilku
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- VIDEO -->
+
+  <section class="video-wrap">
+
+    <div class="video-label">
+      A SMALL PIECE OF THE CHAOS
+    </div>
+
+    <video id="memoryVideo" controls playsinline preload="metadata">
+      <source src="VID-20261005-WA0124.mp4" type="video/mp4">
+      Your browser does not support video.
+    </video>
+
+  </section>
+
+
+  <!-- LETTER -->
+
+  <section class="letter">
+
+    <div class="letter-title">
+      A LETTER FROM YOUR KUNJU PUZHU
+    </div>
+
+    <p>
+17 Days to your special dayyy!!!YAYYYYY
+
+Alku, on the 2nd day, I want to talk more about OUR LORE or the special type of dynamic we have... Everyone in the world know we share a very special dynamic! Kayinja day reelil vanna saadhanam aanu ee malayalam movie- yk abt kochuthresia and kunjumariya... Njan aa movie kanditt onnum illa but entho avrde aa oru ith kandapo enik nmle orma vannuu...Maybe because nmde vaayinottathinum, udayippukalkum, aa oru fun silly alka-diya bond inu appuram nmk oru emotional bondum ondd... Ende oru pov il ninnu parayuvanel, youre the first person i need when something happens... Santhosham aayalum sangadam aayalum embarrassment aayalum failure aayalum success aayalum whatever it is i need you first... chilath njn skip adikunne thanik hurt aayalo ennorthitt aattoo.. But generally, I need you my bbg!
+
+Oru sangadam vannal oodi vann parayanum, santhosham vrmbm oru jealousy polum kaanikkand kooduthal support cheyunna oru bond aanu nmde... Enthin oro daysum nml swayam pretty aakunnathinekkal try cheyunne parasparam pretty aakkanaa... Lookath ingne aarelum okke ondoo aavooo... Njan kanda friendshipsil ellm swnthm krym nookiyitt aan baaki frnd inde krym nookune...nammaloooo...
+
+Making each other prettyy, being supportive in all aspects ( ee supportive inte krym njn kooduthal parayunnila bcz ith aaroke vaayikum enn idk and kudumbakalaham onnm i dont want lmao), trying to make eo happyy angane enthellaa....
+
+Highlight aayit prynda krym, nml separate aayi vekkunna boysinte krym aan..enth understanding aanallee nml...Thante chetane njno ende chetane thaano nookulla... nmde key dynamic thanne athanalooo... athum kooduthal explanationilott ponila cuzzz ykkk....
+
+Pinne entha pryaa...First nmde bond started with adhoc...pryril thondiya bond...ippoo...uhmm uhmm... But still forever greatful to karthav for this bond!!! This was very essential for my survival...My vitamin A(lku)...
+
+First nalla decent bond aayirunn... Pinne fridaysinu key edukkanum vekkanum ellm long route aaki...group photos....Potassium and Nitrogen....NDPA....Merin chechi kalayanathinu dance aayi paattu aayi delulu aayii....Friday olla print edukkan pokkum... other days chumma palakk irangi olla thendi thirinju nadappum, bus frontil ondel pokathe nikkuneyum, sundays late aayi st thomasil keri chellunnathum, late aayitum pinnem h2o kudikkana enn prnj, avide ilichond nikkunnathum....pine china aayi georgia aayii ipo 2 chetanmar aayi....
+
+Remember adhocile everyone used to say othiri mindnda mindiyal samsarikan topic theernupokum enn.... Mindi mindi koot aayit 3 yrs aayi... inne vare samsarikkan topic illand vannitilla nmk....
+
+Remember when naatil olla ellarum orth nml georgia vannitt split aakum enn... comedy... again hostelil ollavar enthore nooki onn split aakan...again comedy...ath allelum angana, karthav yojipiche manushyanu verpeduthan pattilaa alleeee?!?!?!!?
+
+Ath thanne alle nmde main dynamics?? Vannu pala friendshiploode kadannpoyii but dilku never changed... Dilku is the core... Dilku is and was and will be the core always...
+
+Tbh, ithellam eyuthumbm, i misss you so much my sweetheart!!!
+
+I love you Alkuuuuu
+Chakkara ummaaaa
+
+From, your kunju puzhu!
+    </p>
+
+  </section>
+
+
+  <!-- BIBLE MOMENT -->
+
+  <section class="bible-section">
+
+    <div class="bible-hint">
+      A LITTLE REMINDER FOR YOU...
+    </div>
+
+    <div class="bible" id="bible">
+
+      <div class="bible-sparkle bs1">✦</div>
+      <div class="bible-sparkle bs2">✧</div>
+      <div class="bible-sparkle bs3">✦</div>
+
+      <div class="bible-cover bible-left"></div>
+      <div class="bible-cover bible-right"></div>
+
+      <div class="bible-page left"></div>
+      <div class="bible-page right"></div>
+
+      <div class="cross">✝</div>
+
+    </div>
+
+    <div class="bible-message" id="bibleMessage">
+
+      <h3>John 3.16</h3>
+
+      <p>
+        “For God so loved the world that he gave his only Son, that everyone
+        who believes in him might not perish but might have eternal life."
+      </p>
+
+      <p class="personal">
+        Yes Alku, you're loved that much for God to sacrifice his own Son
+        for you! 🫶🏻
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEEDBACK -->
+
+  <section class="feedback-box">
+
+    <div class="feedback-doodle">
+      ✎  ✦  ♡
+    </div>
+
+    <div class="section-label">
+      BEFORE YOU LEAVE...
+    </div>
+
+    <h2>Tell me anything, Alku ♡</h2>
+
+    <p class="feedback-caption">
+      A thought, a memory, a complaint, a random thought,
+      or something you want your kunju puzhu to know.
+    </p>
+
+    <textarea
+      id="feedback"
+      placeholder="Write whatever your Diyamol should know..."
+    ></textarea>
+
+    <button class="feedback-btn" id="feedbackBtn">
+      SEND IT TO DIYAMOL ♡
+    </button>
+
+    <p id="feedbackMessage" class="feedback-message"></p>
+
+  </section>
+
+
+  <!-- BACK -->
+
+  <div class="back">
+    <a href="index.html">
+      ← BACK TO ALKU'S BIRTHDAY
+    </a>
+  </div>
+
+</main>
+
+</div>
+
+
+<script>
+
+/* ---------------- SUPABASE ---------------- */
+
+const SUPABASE_URL =
+  'https://poowacsncuoucptqjblg.supabase.co';
+
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+
+/* ---------------- ELEMENTS ---------------- */
+
+const openBtn = document.getElementById("openBtn");
+const answer = document.getElementById("answer");
+const memory = document.getElementById("memory");
+const questionBox = document.getElementById("questionBox");
+
+const bgMusic = document.getElementById("bgMusic");
+const memoryVideo = document.getElementById("memoryVideo");
+
+const bible = document.getElementById("bible");
+const bibleMessage = document.getElementById("bibleMessage");
+
+const feedback = document.getElementById("feedback");
+const feedbackBtn = document.getElementById("feedbackBtn");
+const feedbackMessage =
+  document.getElementById("feedbackMessage");
+
+
+/* ---------------- SPARKLES ---------------- */
+
+function makeSparkles() {
+
+  const symbols = ["✦", "✧", "♡", "⋆"];
+
+  for (let i = 0; i < 24; i++) {
+
+    const sparkle = document.createElement("div");
+
+    sparkle.className = "sparkle";
+
+    sparkle.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    sparkle.style.left =
+      (window.innerWidth / 2) + "px";
+
+    sparkle.style.top =
+      (window.innerHeight / 2) + "px";
+
+    sparkle.style.setProperty(
+      "--x",
+      ((Math.random() - .5) * 500) + "px"
+    );
+
+    sparkle.style.setProperty(
+      "--y",
+      ((Math.random() - .5) * 400) + "px"
+    );
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => {
+      sparkle.remove();
+    }, 950);
+  }
+}
+
+
+/* ---------------- UNLOCK ---------------- */
+
+openBtn.addEventListener("click", async function() {
+
+  const value = answer.value.trim();
+
+  if (!value) {
+
+    answer.focus();
+
+    return;
+  }
+
+
+  /* SAVE ANSWER */
+
+  const { error: answerSaveError } =
+    await supabaseClient
+      .from("responses")
+      .insert({
+        day: 2,
+        answer: value,
+        feedback: ""
+      });
+
+  if (answerSaveError) {
+    console.error(
+      "Could not save Day 2 answer:",
+      answerSaveError
+    );
+  }
+
+
+  /* SPARKLES */
+
+  makeSparkles();
+
+
+  /* HIDE QUESTION */
+
+  questionBox.style.transition =
+    "opacity .5s ease, transform .5s ease";
+
+  questionBox.style.opacity = "0";
+
+  questionBox.style.transform =
+    "translateY(-15px)";
+
+
+  setTimeout(() => {
+
+    questionBox.style.display = "none";
+
+    memory.classList.add("show");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+    /* Try starting soundtrack */
+
+    bgMusic.play().catch(() => {});
+
+  }, 550);
+
+});
+
+
+/* ---------------- BIBLE ---------------- */
+
+bible.addEventListener("click", function() {
+
+  bibleMessage.classList.toggle("show");
+
+  makeSparkles();
+
+});
+
+
+/* ---------------- VIDEO MUSIC ---------------- */
+
+/* Stop background music while video plays */
+
+memoryVideo.addEventListener("play", function() {
+
+  bgMusic.pause();
+
+});
+
+
+/* Resume soundtrack when video ends */
+
+memoryVideo.addEventListener("ended", function() {
+
+  bgMusic.play().catch(() => {});
+
+});
+
+
+/* Also resume if video is paused manually */
+
+memoryVideo.addEventListener("pause", function() {
+
+  if (!memoryVideo.ended) {
+    bgMusic.play().catch(() => {});
+  }
+
+});
+
+
+/* ---------------- FEEDBACK ---------------- */
+
+feedbackBtn.addEventListener("click", async function() {
+
+  const text = feedback.value.trim();
+
+  if (!text) {
+
+    feedback.focus();
+
+    feedbackMessage.textContent =
+      "You can leave me literally anything, Alku ♡";
+
+    return;
+  }
+
+
+  const { error: feedbackError } =
+    await supabaseClient
+      .from("responses")
+      .insert({
+        day: 2,
+        answer: "",
+        feedback: text
+      });
+
+
+  if (feedbackError) {
+
+    console.error(
+      "Could not save Day 2 feedback:",
+      feedbackError
+    );
+
+    feedbackMessage.textContent =
+      "Something went wrong... try again ♡";
+
+    return;
+  }
+
+
+  feedbackMessage.textContent =
+    "Saved safely for your Diyamol ♡";
+
+
+  feedback.value = "";
+
+});
+
+
+/* ---------------- AUTOPLAY ATTEMPT ---------------- */
+
+window.addEventListener("load", function() {
+
+  bgMusic.play().catch(() => {
+    /* Browser may block autoplay until user interacts */
+  });
+
+});
+
+</script>
+
+</body>
+</html>
