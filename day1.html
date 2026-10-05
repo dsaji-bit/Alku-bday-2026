@@ -383,6 +383,108 @@ audio {
   }
 }
 
+  /* ALKU'S LITTLE NOTE */
+
+.feedback-box {
+  max-width: 720px;
+  margin: 70px auto 45px;
+  padding: 42px 30px 38px;
+  text-align: center;
+  background: rgba(255, 250, 245, 0.78);
+  border: 1px solid rgba(180, 134, 139, 0.35);
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(120, 85, 85, 0.10);
+  position: relative;
+}
+
+.feedback-doodle {
+  font-size: 24px;
+  color: #b4868b;
+  letter-spacing: 12px;
+  margin-bottom: 14px;
+}
+
+.feedback-box .section-label {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #a77b81;
+  margin-bottom: 12px;
+}
+
+.feedback-box h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 500;
+  color: #704f55;
+  margin: 0 0 12px;
+}
+
+.feedback-caption {
+  max-width: 520px;
+  margin: 0 auto 22px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #80666a;
+}
+
+.girls-doodle {
+  font-size: 27px;
+  margin: 12px 0 22px;
+  letter-spacing: 5px;
+}
+
+.feedback-box textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 17px;
+  resize: vertical;
+  border: 1px solid rgba(180, 134, 139, 0.38);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.68);
+  color: #60494d;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 17px;
+  line-height: 1.5;
+  outline: none;
+}
+
+.feedback-box textarea::placeholder {
+  color: #b49a9d;
+}
+
+.feedback-box textarea:focus {
+  border-color: #b4868b;
+  box-shadow: 0 0 0 3px rgba(180, 134, 139, 0.10);
+}
+
+.feedback-btn {
+  margin-top: 18px;
+  padding: 12px 22px;
+  border: 1px solid #b4868b;
+  border-radius: 30px;
+  background: transparent;
+  color: #704f55;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.feedback-btn:hover {
+  background: #b4868b;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.feedback-message {
+  min-height: 20px;
+  margin-top: 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: #8a6268;
+}
 /* MOBILE */
 
 @media (max-width: 650px) {
@@ -472,6 +574,11 @@ audio {
         >
         Your browser does not support audio.
       </audio>
+<div class="enchanted-line">
+  I was enchanted to meet you, Alku 🫶
+</div>
+
+</div>
 
     </div>
 
@@ -683,7 +790,108 @@ audio {
 
     </article>
 
+<!-- ALKU'S LITTLE NOTE -->
+<section class="feedback-box">
 
+  <div class="feedback-doodle">
+    ♡  ୨୧  ♡
+  </div>
+
+  <div class="section-label">
+    BEFORE YOU LEAVE...
+  </div>
+
+  <h2>Tell me anything, Alku ♡</h2>
+
+  <p class="feedback-caption">
+    You can tell me a thought, a memory, a complaint,
+    something random, or literally anything that's on your mind.
+  </p>
+
+  <div class="girls-doodle">
+  <svg viewBox="0 0 300 115" aria-label="Two best friends doodle">
+
+    <!-- curly-haired girl -->
+    <g fill="none" stroke="#9f747b" stroke-width="2.5"
+       stroke-linecap="round" stroke-linejoin="round">
+
+      <circle cx="92" cy="43" r="25"/>
+
+      <!-- curly hair -->
+      <path d="M69 42
+               C61 34 65 23 74 25
+               C67 16 78 10 84 18
+               C88 8 100 11 101 20
+               C111 14 119 24 114 32
+               C122 39 116 49 111 51"/>
+
+      <!-- face -->
+      <path d="M84 44 Q86 46 88 44"/>
+      <path d="M98 44 Q100 46 102 44"/>
+      <path d="M89 56 Q94 60 99 56"/>
+
+      <!-- body -->
+      <path d="M73 69 Q92 60 111 69
+               Q121 82 123 103
+               M61 103 Q64 78 73 69"/>
+
+      <!-- little heart -->
+      <path d="M49 65
+               C45 59 37 64 41 70
+               L49 78 57 70
+               C61 64 53 59 49 65Z"/>
+    </g>
+
+    <!-- straight-haired girl -->
+    <g fill="none" stroke="#9f747b" stroke-width="2.5"
+       stroke-linecap="round" stroke-linejoin="round">
+
+      <circle cx="208" cy="43" r="25"/>
+
+      <!-- straight hair -->
+      <path d="M183 43
+               Q179 17 208 15
+               Q237 17 233 43
+               M184 39 Q181 58 188 64
+               M232 39 Q235 58 228 64"/>
+
+      <!-- face -->
+      <path d="M200 44 Q202 46 204 44"/>
+      <path d="M214 44 Q216 46 218 44"/>
+      <path d="M204 56 Q209 60 214 56"/>
+
+      <!-- body -->
+      <path d="M189 69 Q208 60 227 69
+               Q237 82 239 103
+               M177 103 Q180 78 189 69"/>
+
+      <!-- little heart -->
+      <path d="M251 65
+               C247 59 239 64 243 70
+               L251 78 259 70
+               C263 64 255 59 251 65Z"/>
+    </g>
+
+    <!-- friendship sparkle -->
+    <path d="M150 28 L153 36 L161 39 L153 42 L150 50
+             L147 42 L139 39 L147 36 Z"
+          fill="#b4868b"/>
+
+  </svg>
+</div>
+
+  <textarea
+    id="feedback"
+    placeholder="Write whatever your Diyamol should know..."
+  ></textarea>
+
+  <button class="feedback-btn" id="feedbackBtn">
+    SEND IT TO DIYAMOL ♡
+  </button>
+
+  <p id="feedbackMessage" class="feedback-message"></p>
+
+</section>
     <!-- BACK TO HOME -->
 
     <div class="back">
