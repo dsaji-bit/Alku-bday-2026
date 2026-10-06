@@ -100,9 +100,25 @@ header{text-align:center;position:relative;z-index:3}.day{font:11px "DM Mono";le
 
 <script>
 const U='https://poowacsncuoucptqjblg.supabase.co',K='sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
-const db=window.supabase.createClient(U,K),music=document.getElementById('music'),video=document.getElementById('video');
+const db=window.supabase.createClient(U,K);
+const music=document.getElementById('music');
+const video=document.getElementById('video');
+const qbox=document.getElementById('qbox');
+const answer=document.getElementById('answer');
+const openBtn=document.getElementById('open');
+const memory=document.getElementById('memory');
+const bible=document.getElementById('bible');
+const bibleBtn=document.getElementById('bibleBtn');
+const scroll=document.getElementById('scroll');
+const wrap=document.getElementById('wrap');
+const paper=document.getElementById('paper');
+const text=document.getElementById('text');
+const signature=document.getElementById('signature');
+const feedback=document.getElementById('feedback');
+const send=document.getElementById('send');
+const msg=document.getElementById('msg');
 function spark(n=24){for(let i=0;i<n;i++){let s=document.createElement('div');s.className='spark';s.textContent=['✦','✧','♡','⌁','✈','♧'][Math.floor(Math.random()*6)];s.style.left='50%';s.style.top='50%';s.style.setProperty('--x',((Math.random()-.5)*600)+'px');s.style.setProperty('--y',((Math.random()-.5)*450)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),950)}}
-open.onclick=async()=>{let v=answer.value.trim();if(!v)return answer.focus();await db.from('responses').insert({day:4,answer:v,feedback:''});spark();qbox.style.transition='.55s';qbox.style.opacity=0;qbox.style.transform='translateY(-18px)';setTimeout(()=>{qbox.style.display='none';memory.classList.add('show');music.play().catch(()=>{})},600)};
+openBtn.onclick=async()=>{let v=answer.value.trim();if(!v)return answer.focus();await db.from('responses').insert({day:4,answer:v,feedback:''});spark();qbox.style.transition='.55s';qbox.style.opacity=0;qbox.style.transform='translateY(-18px)';setTimeout(()=>{qbox.style.display='none';memory.classList.add('show');music.play().catch(()=>{})},600)};
 setTimeout(()=>bible.classList.add('active'),600);
 setTimeout(()=>bible.classList.add('delivered'),3300);
 function openBible(){if(!bible.classList.contains('delivered'))return;scroll.classList.add('show');spark(20)}
@@ -132,8 +148,8 @@ Pinne kozhaveedu, kunjanty veedu, thante veetil firts vanne, now ur ammaveedu al
 angane naadu full thante memories...`,
 `Pinne Kochi airport, Delhi airpot, Azerbaijan airport, Abhu dhabhi airport and tbilisi airport... Airport prmakal elaborate cheyandaloo alleeee...Pinne georgia...Varketili thott akhmeteli vare.....Station sq thott vazha pshvela vare we have memories....Random bs yaathrakal, marshutka yaathrakal, 305,306,309,310 .......angane angane angane....`,
 `Pinne hostel life, apt life, uni life....Bruh georgian life=life w alku...Thaan illatha georgian memories is thaan illand njn ettayide koode thante bdaykk saanam vaangan poye aanuu...`,
-`ellam orthapo..im missing you so much rn... and pinne illee.. that pics choice illee thats actually bcz white itta pic denotes how we started from churchbut still udayips... then comes saree pic where nmde first sunday delulu...and then that video bcz evideyo kidanna alku is lying on my madi and singing...annu palliyil vech first kandapo, did we ever think??? we have the potential of a nice romcom allee.
-So in short, my hippocampus is filled w your memories....the places we went, the memories we had, the interaction we had, certain ships...ellamm...yk ellam type cheyan poyal, marichalum theerulaaa...ohhh spcl mention nmde stalkingg....stalk cheyth poya places!!! remembering aruvithra.... hehehe maduthu kocheee....bye for todayyy!!! one last thing, akaleyile pole, maanju pokan enik plan illa kettooo..`,
+`ellam orthapo..im missing you so much rn...and pinne illee.. that pics choice illee thats actually bcz white itta pic denotes how we started from churchbut still udayips... then comes saree pic where nmde first sunday delulu...and then that video bcz evideyo kidanna alku is lying on my madi and singing...annu palliyil vech first kandapo, did we ever think??? we have the potential of a nice romcom allee.
+So in short, my hippocampus is filled w your memories....the places we went, the memories we had, the interaction we had...ellamm...yk ellam type cheyan poyal, marichalum theerulaaa...ohhh spcl mention nmde stalkingg....stalk cheyth poya places!!! remembering aruvithra.... hehehe maduthu kocheee....bye for todayyy!!! one last thing, akaleyile pole, maanju pokan enik plan illa kettooo..`,
 `*illa pennee
 njan vidillaa 
 ponne njn vidillla 
