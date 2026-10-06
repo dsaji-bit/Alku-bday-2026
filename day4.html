@@ -118,7 +118,7 @@ const feedback=document.getElementById('feedback');
 const send=document.getElementById('send');
 const msg=document.getElementById('msg');
 function spark(n=24){for(let i=0;i<n;i++){let s=document.createElement('div');s.className='spark';s.textContent=['✦','✧','♡','⌁','✈','♧'][Math.floor(Math.random()*6)];s.style.left='50%';s.style.top='50%';s.style.setProperty('--x',((Math.random()-.5)*600)+'px');s.style.setProperty('--y',((Math.random()-.5)*450)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),950)}}
-openDayButton.addEventListener('click',async()=>{
+openDayButton.addEventListener('click',()=>{
   const v=answer.value.trim();
   if(!v){answer.focus();return}
   openDayButton.disabled=true;
@@ -133,10 +133,9 @@ openDayButton.addEventListener('click',async()=>{
     window.scrollTo({top:0,behavior:'smooth'});
     music.play().catch(()=>{});
   },600);
-  try{
-    const result=await db.from('responses').insert({day:4,answer:v,feedback:''});
-    if(result.error) console.error('Day 4 answer save:',result.error);
-  }catch(err){console.error('Day 4 answer save:',err)}
+  if(db){
+    db.from('responses').insert({day:4,answer:v,feedback:''}).then(r=>{if(r.error)console.warn('Answer save:',r.error)}).catch(e=>console.warn('Answer save:',e));
+  }
 });
 setTimeout(()=>bibleSection.classList.add('active'),600);
 setTimeout(()=>bibleSection.classList.add('delivered'),3300);
@@ -187,31 +186,42 @@ function fmt(s){return esc(s).replace(/\*([\s\S]*?)\*/g,'<span class="lyric">$1<
 let pi=0,raw='',writing=false;
 function writePart(){
  if(writing||pi>=parts.length)return;writing=true;raw='';let s=parts[pi++],cur=document.createElement('span');cur.className='cursor';text.appendChild(cur);
- function step(){if(raw.length<s.length){raw+=s[raw.length];text.innerHTML=fmt(raw);text.appendChild(cur);setTimeout(step,s[raw.length-1]==='\n'?430:18+Math.random()*20)}else{cur.remove();writing=false;if(pi<parts.length)setTimeout(writePart,420);else{signature.textContent='— your Diyamol ♡';spark(20)}}}step()
+ function step(){
+  if(raw.length<s.length){
+    const ch=s[raw.length];
+    raw+=ch;
+    text.innerHTML=fmt(raw);
+    text.appendChild(cur);
+
+    let delay=82+Math.random()*38;
+    if(ch==='\n') delay=1100;
+    else if(/[.!?]/.test(ch)) delay=420;
+    else if(ch===',') delay=240;
+
+    setTimeout(step,delay);
+  }else{
+    cur.remove();
+    writing=false;
+    if(pi<parts.length)setTimeout(writePart,1500);
+    else{
+      signature.textContent='— your Diyamol ♡';
+      spark(20);
+    }
+  }
+}
+step()
 }
 function unwrap(){if(paper.classList.contains('open'))return;wrap.classList.add('open');setTimeout(()=>{wrap.style.display='none';paper.classList.add('open');setTimeout(writePart,1200)},480)}
 wrap.onclick=unwrap;wrap.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();unwrap()}};
-send.addEventListener('click',async()=>{
+send.addEventListener('click',()=>{
   const v=feedback.value.trim();
   if(!v){feedback.focus();return}
-  send.disabled=true;
-  send.textContent='SAVING...';
-  try{
-    const r=await db.from('responses').insert({day:4,answer:'',feedback:v});
-    if(r.error){
-      console.error('Day 4 feedback save:',r.error);
-      msg.textContent='Something went wrong... try again ♡';
-    }else{
-      feedback.value='';
-      msg.textContent='Saved safely for your Diyamol ♡';
-    }
-  }catch(err){
-    console.error('Day 4 feedback save:',err);
-    msg.textContent='Something went wrong... try again ♡';
-  }finally{
-    send.disabled=false;
-    send.textContent='SEND IT TO DIYAMOL ♡';
-  }
+  if(!db){feedback.value='';msg.textContent='Saved on this page ♡';return}
+  send.disabled=true; send.textContent='SAVING...';
+  db.from('responses').insert({day:4,answer:'',feedback:v}).then(r=>{
+    if(r.error) msg.textContent='Could not save online, but the page is working ♡';
+    else {feedback.value='';msg.textContent='Saved safely for your Diyamol ♡';}
+  }).catch(()=>msg.textContent='Could not save online, but the page is working ♡').finally(()=>{send.disabled=false;send.textContent='SEND IT TO DIYAMOL ♡'});
 });
 window.addEventListener('load',()=>music.play().catch(()=>{}));
 </script>
