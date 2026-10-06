@@ -103,13 +103,13 @@ const U='https://poowacsncuoucptqjblg.supabase.co',K='sb_publishable_MsOhDe2KI_i
 const db=window.supabase.createClient(U,K);
 const music=document.getElementById('music');
 const video=document.getElementById('video');
-const qbox=document.getElementById('qbox');
+const questionBox=document.getElementById('qbox');
 const answer=document.getElementById('answer');
-const openBtn=document.getElementById('open');
+const openDayButton=document.getElementById('open');
 const memory=document.getElementById('memory');
-const bible=document.getElementById('bible');
-const bibleBtn=document.getElementById('bibleBtn');
-const scroll=document.getElementById('scroll');
+const bibleSection=document.getElementById('bible');
+const bibleButton=document.getElementById('bibleBtn');
+const bibleScroll=document.getElementById('scroll');
 const wrap=document.getElementById('wrap');
 const paper=document.getElementById('paper');
 const text=document.getElementById('text');
@@ -118,11 +118,30 @@ const feedback=document.getElementById('feedback');
 const send=document.getElementById('send');
 const msg=document.getElementById('msg');
 function spark(n=24){for(let i=0;i<n;i++){let s=document.createElement('div');s.className='spark';s.textContent=['✦','✧','♡','⌁','✈','♧'][Math.floor(Math.random()*6)];s.style.left='50%';s.style.top='50%';s.style.setProperty('--x',((Math.random()-.5)*600)+'px');s.style.setProperty('--y',((Math.random()-.5)*450)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),950)}}
-openBtn.onclick=async()=>{let v=answer.value.trim();if(!v)return answer.focus();await db.from('responses').insert({day:4,answer:v,feedback:''});spark();qbox.style.transition='.55s';qbox.style.opacity=0;qbox.style.transform='translateY(-18px)';setTimeout(()=>{qbox.style.display='none';memory.classList.add('show');music.play().catch(()=>{})},600)};
-setTimeout(()=>bible.classList.add('active'),600);
-setTimeout(()=>bible.classList.add('delivered'),3300);
-function openBible(){if(!bible.classList.contains('delivered'))return;scroll.classList.add('show');spark(20)}
-bibleBtn.onclick=openBible;bibleBtn.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openBible()}};
+openDayButton.addEventListener('click',async()=>{
+  const v=answer.value.trim();
+  if(!v){answer.focus();return}
+  openDayButton.disabled=true;
+  openDayButton.textContent='OPENING DAY 04...';
+  questionBox.style.transition='.55s ease';
+  questionBox.style.opacity='0';
+  questionBox.style.transform='translateY(-18px)';
+  spark();
+  setTimeout(()=>{
+    questionBox.style.display='none';
+    memory.classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+    music.play().catch(()=>{});
+  },600);
+  try{
+    const result=await db.from('responses').insert({day:4,answer:v,feedback:''});
+    if(result.error) console.error('Day 4 answer save:',result.error);
+  }catch(err){console.error('Day 4 answer save:',err)}
+});
+setTimeout(()=>bibleSection.classList.add('active'),600);
+setTimeout(()=>bibleSection.classList.add('delivered'),3300);
+function openBible(){if(!bibleSection.classList.contains('delivered'))return;bibleScroll.classList.add('show');spark(20)}
+bibleButton.onclick=openBible;bibleButton.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openBible()}};
 video.onplay=()=>music.pause();video.onended=()=>music.play().catch(()=>{});video.onpause=()=>{if(!video.ended)music.play().catch(()=>{})};
 
 const parts=[
@@ -172,7 +191,28 @@ function writePart(){
 }
 function unwrap(){if(paper.classList.contains('open'))return;wrap.classList.add('open');setTimeout(()=>{wrap.style.display='none';paper.classList.add('open');setTimeout(writePart,1200)},480)}
 wrap.onclick=unwrap;wrap.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();unwrap()}};
-send.onclick=async()=>{let v=feedback.value.trim();if(!v)return;let r=await db.from('responses').insert({day:4,answer:'',feedback:v});msg.textContent=r.error?'Something went wrong... try again ♡':'Saved safely for your Diyamol ♡';if(!r.error)feedback.value=''};
+send.addEventListener('click',async()=>{
+  const v=feedback.value.trim();
+  if(!v){feedback.focus();return}
+  send.disabled=true;
+  send.textContent='SAVING...';
+  try{
+    const r=await db.from('responses').insert({day:4,answer:'',feedback:v});
+    if(r.error){
+      console.error('Day 4 feedback save:',r.error);
+      msg.textContent='Something went wrong... try again ♡';
+    }else{
+      feedback.value='';
+      msg.textContent='Saved safely for your Diyamol ♡';
+    }
+  }catch(err){
+    console.error('Day 4 feedback save:',err);
+    msg.textContent='Something went wrong... try again ♡';
+  }finally{
+    send.disabled=false;
+    send.textContent='SEND IT TO DIYAMOL ♡';
+  }
+});
 window.addEventListener('load',()=>music.play().catch(()=>{}));
 </script>
 </body>
