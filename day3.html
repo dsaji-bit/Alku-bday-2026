@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 03 — Her Soundtrack ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Caveat:wght@400;500;600&family=Parisienne&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:#604852;background:radial-gradient(circle at 10% 8%,#ead5df55,transparent 27%),radial-gradient(circle at 90% 15%,#efd5bd55,transparent 28%),#f8f0e8;font-family:"Cormorant Garamond",serif;overflow-x:hidden}
+.page{max-width:1080px;margin:auto;padding:30px 18px 75px;position:relative}
+.doodle{position:fixed;z-index:1;pointer-events:none;color:#a66d83;opacity:.5;font-size:25px}
+.d1{top:6%;left:3%}.d2{top:12%;right:5%}.d3{top:25%;left:6%}.d4{top:37%;right:4%}.d5{top:52%;left:3%}.d6{top:67%;right:5%}.d7{top:81%;left:5%}.d8{top:91%;right:9%}
+header{text-align:center;position:relative;z-index:2}.day{font:11px "DM Mono";letter-spacing:4px;color:#a66d83}h1{margin:8px 0;color:#704c5b;font-size:clamp(45px,8vw,75px);font-weight:500;line-height:.95}.sub{font:10px "DM Mono";letter-spacing:2.5px;color:#a66d83}
+.music{width:min(100%,560px);margin:28px auto;text-align:center;position:relative}.music-note{position:absolute;color:#a66d83;font-size:24px;animation:float 2.7s ease-in-out infinite}.n1{left:3%}.n2{right:4%;top:28px;animation-delay:.7s}.n3{left:13%;bottom:8px;animation-delay:1.3s}.n4{right:15%;bottom:28px;animation-delay:1.9s}
+@keyframes float{50%{transform:translateY(-9px) rotate(8deg);opacity:1}}
+.music-label{font:10px "DM Mono";letter-spacing:2px;color:#a66d83;margin-bottom:8px}audio{width:100%;height:38px}.akale{font:25px Caveat;color:#9b5d79;font-weight:600;transform:rotate(-2deg);margin-top:10px}.songline{font:22px Caveat;color:#805967;font-style:italic;margin-top:4px}
+.question{max-width:730px;margin:65px auto 55px;padding:40px 22px;text-align:center;background:#fffaf4d9;border:1px solid #ab708955;border-radius:18px;box-shadow:0 14px 35px #69435417;position:relative;z-index:2}.qlabel{font:10px "DM Mono";letter-spacing:3px;color:#a66d83}.question h2{font-size:clamp(30px,5vw,43px);font-weight:500;color:#704c5b}.answer{width:min(100%,480px);padding:14px;text-align:center;border:1px solid #ab708966;border-radius:12px;background:#fffdfa;font:18px Cormorant Garamond;color:#604852;outline:none}.btn{margin-top:17px;padding:12px 24px;border:1px solid #a66d83;border-radius:30px;background:transparent;color:#704c5b;cursor:pointer;font:10px "DM Mono";letter-spacing:1.5px}.btn:hover{background:#a66d83;color:white}
+.memory{display:none}.memory.show{display:block;animation:up .8s ease}@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:25px;max-width:870px;margin:45px auto}.photo{padding:10px 10px 17px;background:#fffaf4;box-shadow:0 13px 29px #69435420}.photo:first-child{transform:rotate(-1.5deg)}.photo:last-child{transform:rotate(1.5deg)}.photo img{display:block;width:100%}.caption{text-align:center;margin-top:8px;font:18px Caveat;color:#80606a}
+.video{max-width:840px;margin:50px auto;text-align:center}.label{font:10px "DM Mono";letter-spacing:3px;color:#a66d83;margin-bottom:12px}.video video{width:100%;max-height:620px;border-radius:12px;background:#eaded7;box-shadow:0 14px 35px #69435420}
+.bibleSection{max-width:760px;margin:75px auto;text-align:center}.bibleHint{font:10px "DM Mono";letter-spacing:2.5px;color:#a66d83}.bibleSub{font:18px Caveat;color:#80606a;margin:10px 0 20px}.scene{min-height:225px;display:flex;justify-content:center;align-items:end;gap:22px}
+.bibleWrap{width:175px;height:145px;position:relative;cursor:pointer;transition:.3s}.bibleWrap:hover{transform:translateY(-5px) rotate(-2deg)}.bibleGlow{position:absolute;inset:0;border-radius:50%;background:#d2a0b929;filter:blur(14px);animation:glow 2.5s infinite}@keyframes glow{50%{transform:scale(1.1);opacity:.8}}
+.cover{position:absolute;top:30px;width:66px;height:92px;background:#936478;border:2px solid #704c5b;box-shadow:0 8px 14px #50324126}.left{left:5px;border-radius:8px 3px 3px 8px;transform:skewY(3deg)}.right{right:5px;border-radius:3px 8px 8px 3px;transform:skewY(-3deg)}.paperPage{position:absolute;top:37px;width:55px;height:76px;background:#fff6e4;border:1px solid #d4bda7}.pl{left:14px;transform:skewY(3deg)}.pr{right:14px;transform:skewY(-3deg)}.cross{position:absolute;left:50%;top:59px;z-index:2;color:#fff3e0;font-size:27px;transform:translateX(-50%)}
+.star{position:absolute;color:#a66d83;z-index:3;animation:float 2.3s infinite}.s1{top:10px;left:4px}.s2{top:40px;right:0;animation-delay:.7s}.s3{bottom:8px;left:18px;animation-delay:1.2s}
+.angel{width:105px;height:185px;position:relative;animation:float 3.2s ease-in-out infinite}.halo{position:absolute;width:55px;height:23px;border:3px solid #c89f73;border-radius:50%;left:25px;top:3px}.hair{position:absolute;width:64px;height:77px;left:20px;top:27px;background:#5d4650;border-radius:50%;z-index:1}.face{position:absolute;width:43px;height:48px;left:31px;top:37px;background:#e9c5aa;border-radius:50%;z-index:2}.hair2,.hair3{position:absolute;width:15px;height:48px;top:37px;background:#5d4650;border-radius:50%;z-index:3}.hair2{left:25px}.hair3{right:17px}.body{position:absolute;left:29px;top:82px;width:48px;height:75px;background:#f5eee7;border:1px solid #d8c6bb;border-radius:48% 48% 15% 15%}.wing{position:absolute;width:40px;height:66px;top:85px;background:#fffaf3;border:1px solid #d7c7bc;border-radius:70% 20%}.wl{left:0;transform:rotate(19deg)}.wr{right:0;transform:scaleX(-1) rotate(19deg)}.angelLabel{position:absolute;top:166px;width:100%;font:13px Caveat;color:#9d7280}
+.bibleMsg{display:none;max-width:710px;margin:25px auto 0;padding:30px 24px;background:#fffaf4ed;border:1px solid #ab708955;border-radius:16px;box-shadow:0 14px 35px #69435418}.bibleMsg.show{display:block;animation:msg .8s ease}@keyframes msg{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}.bibleMsg h2{margin:0 0 13px;color:#704c5b;font-size:30px}.bibleMsg p{font-size:18px;line-height:1.7}.personal{font:21px Caveat;color:#8d5e70}
+.letterSection{max-width:900px;margin:80px auto 55px;text-align:center}.letterIntro{font:10px "DM Mono";letter-spacing:3px;color:#a66d83}.letterTitle{font:38px Caveat;color:#704c5b;margin:8px 0 28px}.letterStage{min-height:370px;display:flex;justify-content:center;align-items:center;perspective:1200px}
+.roll{width:min(85%,510px);height:105px;position:relative;cursor:pointer;background:linear-gradient(90deg,#d1ad83,#f7e9d1 10%,#fff6e4 50%,#f2dfc5 90%,#d1ad83);border:1px solid #c49c70;border-radius:55px;box-shadow:0 18px 30px #593d311f;transition:.5s}.roll:before,.roll:after{content:"";position:absolute;top:-5px;width:45px;height:115px;border-radius:50%;background:linear-gradient(90deg,#c59c70,#f2dfc8,#c59c70);border:1px solid #b58b61}.roll:before{left:-12px}.roll:after{right:-12px}.ribbon{position:absolute;left:50%;top:-18px;width:62px;height:142px;transform:translateX(-50%);background:#965b76;border-radius:7px}.knot{position:absolute;left:50%;top:48%;width:36px;height:28px;transform:translate(-50%,-50%) rotate(45deg);background:#9a6079;border-radius:4px}.rollText{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:240px;font:18px Caveat;color:#704c5b;font-weight:600}.roll.off{opacity:0;transform:scale(.9);pointer-events:none}
+.paperLetter{display:none;width:min(94%,820px);position:relative;padding:55px clamp(23px,6vw,68px);text-align:left;color:#4f3c40;background:radial-gradient(circle at 15% 18%,#b9875d14,transparent 20%),#fff6e5;border:1px solid #d8c2a4;box-shadow:0 20px 40px #53392c2b;transform:rotate(-.45deg)}.paperLetter.open{display:block;animation:unroll 1.2s cubic-bezier(.2,.75,.25,1)}@keyframes unroll{0%{opacity:0;transform:scaleX(.08) rotate(-.45deg)}45%{opacity:1;transform:scaleX(.48) rotate(-.45deg)}100%{opacity:1;transform:scaleX(1) rotate(-.45deg)}}.pd{position:absolute;color:#a66d83;font-size:22px;opacity:.55}.pd1{top:30px;right:35px}.pd2{bottom:35px;left:28px}.pd3{bottom:45px;right:45px}
+.written{font:23px/1.85 Caveat;white-space:pre-wrap;min-height:330px}.lyric{color:#8e4f71;font:1.05em Parisienne}.lyric:after{content:" ♪";font:0.8em Caveat;color:#b16b8a}.cursor{display:inline-block;width:2px;height:1.15em;background:#9b6479;vertical-align:-.13em;animation:blink .8s infinite}@keyframes blink{50%{opacity:0}}.more{display:none;margin:27px auto 0}.more.show{display:block}.signature{text-align:right;margin-top:25px;font:28px Parisienne;color:#87576a}
+.feedback{max-width:730px;margin:75px auto 40px;padding:40px 25px;text-align:center;background:#fffaf4d4;border:1px solid #ab708955;border-radius:18px}.feedback h2{color:#704c5b;font-size:38px;font-weight:500}.feedback textarea{width:100%;min-height:135px;padding:16px;border:1px solid #ab708966;border-radius:12px;background:#fffdfa;font:18px Cormorant Garamond;resize:vertical;outline:none}.feedbackMsg{min-height:20px;font:17px Caveat;color:#8a5d6e}.back{text-align:center;margin-top:55px}.back a{color:#8d6170;text-decoration:none;font:10px "DM Mono";letter-spacing:2px}
+.spark{position:fixed;z-index:100;pointer-events:none;color:#a66d83;font-size:20px;animation:spark .9s forwards}@keyframes spark{to{opacity:0;transform:translate(var(--x),var(--y)) scale(1.5) rotate(180deg)}}
+@media(max-width:650px){.photos{grid-template-columns:1fr}.photo:first-child,.photo:last-child{transform:none}.scene{gap:3px;transform:scale(.9);transform-origin:center bottom}.written{font-size:21px}.paperLetter{padding:45px 21px}.roll{width:80%}.rollText{width:205px}.doodle{opacity:.28}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="doodle d1">♪</div><div class="doodle d2">♫</div><div class="doodle d3">✦</div><div class="doodle d4">♡</div>
+<div class="doodle d5">♪</div><div class="doodle d6">✧</div><div class="doodle d7">♫</div><div class="doodle d8">✿</div>
+
+<header>
+<div class="day">DAY 03</div>
+<h1>Her Soundtrack</h1>
+<div class="sub">somehow every song becomes about you</div>
+<div class="music">
+<span class="music-note n1">♪</span><span class="music-note n2">♫</span><span class="music-note n3">♩</span><span class="music-note n4">♪</span>
+<div class="music-label">♫ TODAY'S LITTLE SOUNDTRACK</div>
+<audio id="bgMusic" controls loop preload="auto"><source src="akale.m4a" type="audio/mp4">Your browser does not support audio.</audio>
+<div class="akale">Akale-holic, Alku!</div>
+<div class="songline">eere janmamayi kaathirunnapol<br>ende paathayil vannathanu nee</div>
+</div>
+</header>
+
+<section class="question" id="questionBox">
+<div class="qlabel">TODAY'S QUESTION</div>
+<h2>When do you miss me the most now???</h2>
+<input class="answer" id="answer" placeholder="Tell me honestly..." autocomplete="off">
+<br><button class="btn" id="openBtn">OPEN DAY 03 ♡</button>
+</section>
+
+<main class="memory" id="memory">
+<section class="photos">
+<div class="photo"><img src="IMG-20261006-WA0030.jpg" alt="Day 3 memory"><div class="caption">one more piece of us ♡</div></div>
+<div class="photo"><img src="IMG-20261006-WA0029.jpg" alt="Day 3 memory"><div class="caption">another song, another Alku</div></div>
+</section>
+
+<section class="video">
+<div class="label">A LITTLE MEMORY IN MOTION</div>
+<video id="memoryVideo" controls playsinline preload="metadata"><source src="VID-20261006-WA0031.mp4" type="video/mp4">Your browser does not support video.</video>
+</section>
+
+<section class="bibleSection">
+<div class="bibleHint">TODAY'S LITTLE REMINDER</div>
+<div class="bibleSub">tap the Bible... and look who's standing beside it ♡</div>
+<div class="scene">
+<div class="angel">
+<div class="halo"></div><div class="wing wl"></div><div class="wing wr"></div><div class="hair"></div><div class="face"></div><div class="hair2"></div><div class="hair3"></div><div class="body"></div><div class="angelLabel">your guardian angel ♡</div>
+</div>
+<div class="bibleWrap" id="bible" tabindex="0" role="button" aria-label="Open today's Bible quote">
+<div class="bibleGlow"></div><span class="star s1">✦</span><span class="star s2">✧</span><span class="star s3">✦</span>
+<div class="cover left"></div><div class="cover right"></div><div class="paperPage pl"></div><div class="paperPage pr"></div><div class="cross">✝</div>
+</div>
+</div>
+<div class="bibleMsg" id="bibleMsg">
+<h2>Jeremiah 29:11</h2>
+<p>“For I know well the plans I have in mind for you—oracle of the Lord—plans for your welfare and not for woe, so as to give you a future of hope.”</p>
+<p class="personal">Alku, today i wanna say, ik youre soo worried about many things... But don't worry darling, eeso ondalo koodee... Ellam sett aakkuttoo...ichire kashtapeduthiyalum, ik he has the best plans for you! Just trust in him....🫶🏻</p>
+</div>
+</section>
+
+<section class="letterSection">
+<div class="letterIntro">TODAY'S LETTER</div>
+<div class="letterTitle">16 Days for Alku's dayyyyy!!!</div>
+<div class="letterStage">
+<div class="roll" id="roll" tabindex="0" role="button" aria-label="Unwrap today's letter">
+<div class="ribbon"></div><div class="knot"></div><div class="rollText">UNWRAP THE LETTER ♡</div>
+</div>
+<article class="paperLetter" id="paperLetter">
+<div class="pd pd1">♪ ♫</div><div class="pd pd2">♡</div><div class="pd pd3">✦ ♪</div>
+<div class="written" id="written"></div>
+<button class="btn more" id="more" type="button">KEEP READING →</button>
+<div class="signature" id="signature"></div>
+</article>
+</div>
+</section>
+
+<section class="feedback">
+<div style="font-size:23px;color:#a66d83">♪ ♡ ✦ ♫ ✧ ♪</div>
+<div class="label">BEFORE YOU LEAVE...</div>
+<h2>Tell me anything, Alku ♡</h2>
+<p> A thought, a memory, a complaint, or something your Diyamol should know.</p>
+<textarea id="feedback" placeholder="Write whatever your Diyamol should know..."></textarea>
+<br><button class="btn" id="feedbackBtn">SEND IT TO DIYAMOL ♡</button>
+<div class="feedbackMsg" id="feedbackMsg"></div>
+</section>
+<div class="back"><a href="index.html">← BACK TO ALKU'S BIRTHDAY</a></div>
+</main>
+</div>
+
+<script>
+const SUPABASE_URL='https://poowacsncuoucptqjblg.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+
+const answer=document.getElementById('answer'),openBtn=document.getElementById('openBtn'),questionBox=document.getElementById('questionBox'),memory=document.getElementById('memory');
+const bgMusic=document.getElementById('bgMusic'),video=document.getElementById('memoryVideo'),bible=document.getElementById('bible'),bibleMsg=document.getElementById('bibleMsg');
+const roll=document.getElementById('roll'),paper=document.getElementById('paperLetter'),written=document.getElementById('written'),more=document.getElementById('more'),signature=document.getElementById('signature');
+const feedback=document.getElementById('feedback'),feedbackBtn=document.getElementById('feedbackBtn'),feedbackMsg=document.getElementById('feedbackMsg');
+
+function sparkles(n=24){for(let i=0;i<n;i++){let s=document.createElement('div');s.className='spark';s.textContent=['✦','✧','♡','♪','♫'][Math.floor(Math.random()*5)];s.style.left='50%';s.style.top='50%';s.style.setProperty('--x',((Math.random()-.5)*580)+'px');s.style.setProperty('--y',((Math.random()-.5)*450)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),950)}}
+
+openBtn.onclick=async()=>{
+ const v=answer.value.trim();if(!v){answer.focus();return}
+ const {error}=await supabaseClient.from('responses').insert({day:3,answer:v,feedback:''});if(error)console.error(error);
+ sparkles();questionBox.style.transition='.55s';questionBox.style.opacity='0';questionBox.style.transform='translateY(-18px)';
+ setTimeout(()=>{questionBox.style.display='none';memory.classList.add('show');window.scrollTo({top:0,behavior:'smooth'});bgMusic.play().catch(()=>{})},600);
+};
+
+function toggleBible(){bibleMsg.classList.toggle('show');sparkles(16)}
+bible.onclick=toggleBible;bible.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleBible()}};
+
+video.onplay=()=>bgMusic.pause();video.onended=()=>bgMusic.play().catch(()=>{});video.onpause=()=>{if(!video.ended)bgMusic.play().catch(()=>{})};
+
+const sections=[
+`16 Days for Alku's dayyyyy!!!
+
+Todays main topic is soundtracks abt youu and honestly yk what? I find almost every songs, whether romance or breakup or whatever songs relating to you... IDK WHY BRO... Maybe because my existence is surrounded by you... When in akale ingane lyrics ille like`,
+`*eere janmamayi kaathirunnapol
+ende paathayil vannathanu nee*`,
+`..... bro trust me Im straight but still that somehow feels about you... When Taylor Swift sang,`,
+`*I was enchanted to meet you*`,
+`, Yes, this diyamol was enchanted to meet her Alku! And ISAI's Radhimaa??`,
+`*Youre my thangamana ponnu*!!!`,
+`And you remember the song that goes`,
+`*Blood runs thicker than water
+but both feels the same
+when eyes are closed?,
+I am river's daughter!*`,
+`, thats what youre for me... Having lots of people in the fam itself around me as blood, but you'll always be above them... I'll forver choose to be by your side because deep down, Ik!.... And in Luca the song goes`,
+`*Neeyilla neram, kaattenthe vaathil chaarathe pokunuu*`,
+`depicts exactly how i feel when youre not there alku... anddd today morning I was listeneing to Lana del rey and....`,
+`*If you go, I'll stay
+You come back, I'll be right here
+Like a barge at sea
+In the storm, I stay clear
+'Cause I've got my mind on you
+I've got my mind on you
+If you dance, I'll dance
+I'll put my red dress on, get it on
+And if you fight, I'll fight
+It doesn't matter now, it's all gone
+I've got my eye on you
+I've got my eye on you*`,
+`Isnt this us coded???`,
+`I mean to do whatever the other does, to stand by eo always.... we tick the boxes even married couples fail to!!! Sherikkum we are the ones keeping, Innu muthal maranam vare, santhoshathilum dukhathilum, sambathilum daridrathilum, aarogyathilum anarogyathilum, paraspara snehathodum viswasthathayodum koode ekamanasode jeevichukollamenn..... I Mean bbg look...we've been through happiness and sadness....enthokke we faced together...and again sambathilum daridrathilum...sambath part was only little but we defo stuck together during daridram... aarogyam and anarogyam not to mention.... we could actuallyy get marrieddd!! ellarum orth we would splittt but see where we are nowwww!!!Annu aa tour poyapo thaan pidicheya ende kai..pinne vittitilaa... okay too much aayii.. onnudeee`,
+`*OORUM BLOOD ee moochava pechava ....*`,
+`lyrics type cheyan madi aanu so just sing that okay??? okay that might be about a man, but for me that lyrics are youuu bbggg...`,
+`*Kallachiriyenne kollunna keniyayitha
+aa chirikal than odayon ee njn aanalo
+nine nedan ee yothakkal vrutham nootu poyi*`,
+`again bro...ullasa gaayike abt you...`,
+`sathyathil thaan ende aara alkuu???
+
+Love you my sweetheartttt!`,
+`from, your diyamol!`
+];
+
+let idx=0,writing=false;
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function format(s){return esc(s).replace(/\*([\s\S]*?)\*/g,'<span class="lyric">$1</span>')}
+function typeSection(){
+ if(writing||idx>=sections.length)return;writing=true;more.classList.remove('show');
+ let text=sections[idx++],raw='',cursor=document.createElement('span');cursor.className='cursor';written.appendChild(cursor);
+ function step(){if(raw.length<text.length){raw+=text[raw.length];written.innerHTML=format(raw);written.appendChild(cursor);setTimeout(step,text[raw.length-1]==='\n'?500:24+Math.random()*26)}
+ else{cursor.remove();writing=false;if(idx<sections.length)more.classList.add('show');else{signature.textContent='— your Diyamol ♡';sparkles(20)}}}step();
+}
+function unwrap(){if(paper.classList.contains('open'))return;roll.classList.add('off');setTimeout(()=>{roll.style.display='none';paper.classList.add('open');setTimeout(typeSection,1200)},480)}
+roll.onclick=unwrap;roll.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();unwrap()}};more.onclick=()=>{if(!writing)typeSection()};
+
+feedbackBtn.onclick=async()=>{
+ const t=feedback.value.trim();if(!t){feedback.focus();feedbackMsg.textContent='You can leave me literally anything, Alku ♡';return}
+ const {error}=await supabaseClient.from('responses').insert({day:3,answer:'',feedback:t});
+ if(error){feedbackMsg.textContent='Something went wrong... try again ♡';return}
+ feedback.value='';feedbackMsg.textContent='Saved safely for your Diyamol ♡';
+};
+window.addEventListener('load',()=>bgMusic.play().catch(()=>{}));
+</script>
+</body>
+</html>
