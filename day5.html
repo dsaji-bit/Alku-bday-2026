@@ -38,6 +38,14 @@ h1{margin:8px 0;color:#52695a;font-size:clamp(40px,7vw,70px);font-weight:500;lin
 .feedback{max-width:730px;margin:75px auto 45px;padding:40px 25px;text-align:center;background:#fafbf7e8;border:1px solid #778b7950;border-radius:18px;box-shadow:0 14px 35px #52625716}.feedbackSymbols{font-size:23px;color:#718575;letter-spacing:8px}.feedback h2{color:#52695a;font-size:39px;font-weight:500}.feedback p{font-size:17px;line-height:1.7;color:#66766a}.feedback textarea{width:100%;min-height:135px;padding:17px;background:#fff;border:1px solid #778b7966;border-radius:12px;outline:none;font:18px/1.5 "Cormorant Garamond";resize:vertical;color:#526258}.feedbackMsg{min-height:20px;font:17px Caveat;color:#607868}.back{text-align:center;margin-top:55px}.back a{color:#63796a;text-decoration:none;font:10px "DM Mono";letter-spacing:2px}
 .spark{position:fixed;z-index:100;pointer-events:none;color:#718575;font-size:20px;animation:spark .95s forwards}@keyframes spark{to{opacity:0;transform:translate(var(--x),var(--y)) scale(1.5) rotate(180deg)}}
 @media(max-width:650px){.photos{grid-template-columns:1fr}.photo:first-child,.photo:last-child{transform:none}.question{margin-top:48px;padding:34px 19px}.bibleScene{min-height:340px}.letterRoll{width:80%}.rollText{width:215px}.printedLetter{padding:45px 21px 52px}.printedText{font-size:20px}.doodle{opacity:.3}}
+
+.feedback{display:block!important;visibility:visible!important;opacity:1!important;position:relative;z-index:20;max-width:730px;margin:90px auto 45px;padding:42px 25px;text-align:center;background:#fafbf7;border:1px solid #778b7970;border-radius:18px;box-shadow:0 14px 35px #52625718}
+.feedbackSymbols{font-size:23px;color:#718575;letter-spacing:8px;margin-bottom:8px}
+.feedback h2{color:#52695a;font-size:39px;font-weight:500;margin:12px 0}
+.feedback p{font-size:17px;line-height:1.7;color:#66766a;margin:0 0 20px}
+.feedback textarea{display:block;width:100%;min-height:135px;padding:17px;background:#fff;border:1px solid #778b7966;border-radius:12px;outline:none;font:18px/1.5 "Cormorant Garamond";resize:vertical;color:#526258}
+.feedback .btn{display:inline-block}
+.feedbackMsg{min-height:24px;margin-top:12px;font:17px Caveat;color:#607868}
 </style>
 </head>
 <body>
@@ -144,15 +152,18 @@ From your diamollll!!!</div>
 </div>
 </section>
 
-<section class="feedback">
-<div class="feedbackSymbols">🍞 ♡ ♪ ✿ ☕ ♫</div>
-<div class="label">BEFORE YOU LEAVE...</div>
-<h2>Tell me anything, Alku ♡</h2>
-<p>A thought, a memory, a complaint, or something your Diyamol should know.</p>
-<textarea id="feedback" placeholder="Write whatever your Diyamol should know..."></textarea><br>
-<button class="btn" id="feedbackBtn">SEND IT TO DIYAMOL ♡</button>
-<div class="feedbackMsg" id="feedbackMsg"></div>
+
+<section class="feedback" id="feedbackSection">
+  <div class="feedbackSymbols">🍞 ♡ ♪ ✿ ☕ ♫</div>
+  <div class="label">BEFORE YOU LEAVE...</div>
+  <h2>Tell me anything, Alku ♡</h2>
+  <p>A thought, a memory, a complaint, or something your Diyamol should know.</p>
+  <textarea id="feedback" placeholder="Write whatever your Diyamol should know..."></textarea>
+  <br>
+  <button class="btn" id="feedbackBtn" type="button">SEND IT TO DIYAMOL ♡</button>
+  <div class="feedbackMsg" id="feedbackMsg"></div>
 </section>
+
 <div class="back"><a href="index.html">← BACK TO ALKU'S BIRTHDAY</a></div>
 </main>
 </div>
