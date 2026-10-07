@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 05 — Things That Remind Me of You ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Caveat:wght@400;500;600&family=Parisienne&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;overflow-x:hidden;color:#526258;background:radial-gradient(circle at 8% 8%,#91a68f45,transparent 28%),radial-gradient(circle at 92% 15%,#c4ccbe60,transparent 29%),#f1f3ed;font-family:"Cormorant Garamond",serif}
+.page{max-width:1080px;margin:auto;padding:30px 18px 80px;position:relative}
+.doodle{position:fixed;z-index:1;pointer-events:none;color:#718575;opacity:.48}.d1{top:5%;left:3%;font-size:27px}.d2{top:10%;right:5%;font-size:25px}.d3{top:22%;left:5%;font-size:22px}.d4{top:34%;right:4%;font-size:28px}.d5{top:47%;left:3%;font-size:25px}.d6{top:61%;right:5%;font-size:22px}.d7{top:76%;left:4%;font-size:28px}.d8{top:91%;right:8%;font-size:24px}
+header{text-align:center;position:relative;z-index:3}.day{font:11px "DM Mono";letter-spacing:4px;color:#708474}
+h1{margin:8px 0;color:#52695a;font-size:clamp(40px,7vw,70px);font-weight:500;line-height:.96}.sub{font:10px "DM Mono";letter-spacing:2.5px;color:#7c8c7e}
+.music{width:min(100%,570px);margin:29px auto;text-align:center;position:relative}.note{position:absolute;color:#718575;font-size:24px;animation:float 2.8s ease-in-out infinite}.n1{left:3%}.n2{right:4%;top:28px;animation-delay:.7s}.n3{left:13%;bottom:5px;animation-delay:1.4s}.n4{right:14%;bottom:24px;animation-delay:2s}
+@keyframes float{50%{transform:translateY(-9px) rotate(8deg);opacity:1}}.label{color:#718575;font:10px "DM Mono";letter-spacing:2.5px;margin-bottom:9px}audio{width:100%;height:38px}
+.songQuote{margin-top:13px;color:#63786a;font:22px/1.35 Parisienne}
+.question{max-width:730px;margin:64px auto 55px;padding:40px 22px;text-align:center;background:#fafbf7e8;border:1px solid #778b7950;border-radius:18px;box-shadow:0 14px 35px #52625717;position:relative;z-index:3}
+.question h2{color:#52695a;font-size:clamp(29px,5vw,42px);font-weight:500;line-height:1.1}.input{width:min(100%,480px);padding:14px;text-align:center;color:#526258;background:#fff;border:1px solid #778b7966;border-radius:12px;outline:none;font:18px "Cormorant Garamond"}
+.btn{margin-top:17px;padding:12px 24px;border:1px solid #718575;border-radius:30px;background:transparent;color:#53695a;cursor:pointer;font:10px "DM Mono";letter-spacing:1.5px;transition:.25s}.btn:hover{background:#718575;color:white}
+.memory{display:none}.memory.show{display:block;animation:up .8s ease}@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:870px;margin:45px auto}.photo{padding:10px 10px 17px;background:#fafbf7;box-shadow:0 13px 29px #52625720}.photo:first-child{transform:rotate(-1.4deg)}.photo:last-child{transform:rotate(1.4deg)}.photo img{display:block;width:100%}.caption{text-align:center;margin-top:8px;font:18px Caveat;color:#65796b}
+.video{max-width:840px;margin:50px auto;text-align:center}.video video{width:100%;max-height:620px;border-radius:13px;background:#dfe6dc;box-shadow:0 14px 35px #52625720}
+.bibleSection{max-width:790px;margin:75px auto;text-align:center}.bibleSub{color:#68796c;font:20px Caveat;margin:8px 0 20px}.bibleScene{min-height:330px;position:relative;display:flex;justify-content:center;align-items:end}
+.babyJesus{position:relative;width:185px;height:190px;cursor:pointer;transition:.35s;z-index:4}.babyJesus:hover{transform:translateY(-5px)}.halo{position:absolute;left:57px;top:3px;width:70px;height:28px;border:3px solid #c8a86d;border-radius:50%}
+.head{position:absolute;left:64px;top:30px;width:58px;height:62px;background:#edc6a8;border-radius:50%;z-index:2}.hair{position:absolute;left:60px;top:24px;width:66px;height:48px;background:#715b4e;border-radius:50%;z-index:3}
+.body{position:absolute;left:49px;top:82px;width:88px;height:85px;background:#eee4cf;border:1px solid #cfc1a8;border-radius:48% 48% 18% 18%}.arm{position:absolute;top:92px;width:55px;height:19px;background:#edc6a8;border-radius:20px;z-index:3}.arm.l{left:18px;transform:rotate(28deg)}.arm.r{right:18px;transform:rotate(-28deg)}
+.blanket{position:absolute;left:42px;bottom:10px;width:102px;height:62px;background:#d8e2d1;border-radius:60% 60% 25% 25%;z-index:4}.crossSmall{position:absolute;left:50%;top:104px;transform:translateX(-50%);color:#9d8768;font-size:18px;z-index:5}
+.envelope{position:absolute;left:50%;bottom:10px;width:175px;height:116px;transform:translateX(-50%);cursor:pointer;z-index:8;transition:.45s}.envBack{position:absolute;inset:0;background:#e7e4d8;border:1px solid #aeb8a7;border-radius:8px;box-shadow:0 12px 25px #52625722}.envFlap{position:absolute;left:0;top:0;width:0;height:0;border-left:87px solid transparent;border-right:87px solid transparent;border-top:61px solid #cbd3c4;z-index:3}.envFront{position:absolute;left:0;bottom:0;width:0;height:0;border-left:87px solid transparent;border-right:87px solid transparent;border-bottom:65px solid #dfe5da;z-index:4}.envSeal{position:absolute;left:50%;top:46px;transform:translateX(-50%);width:29px;height:29px;border-radius:50%;background:#718575;color:#f5f5ee;font-size:16px;display:grid;place-items:center;z-index:6}.envText{position:absolute;top:73px;width:100%;text-align:center;color:#637669;font:15px Caveat;z-index:7}.envelope.opened{transform:translateX(-50%) translateY(16px);opacity:.18}
+.bibleMessage{display:none;max-width:730px;margin:20px auto 0;padding:28px 24px;background:#fafbf6;border:1px solid #778b7950;border-radius:16px;box-shadow:0 15px 30px #52625718;text-align:left}.bibleMessage.show{display:block;animation:unroll .8s ease}@keyframes unroll{from{opacity:0;transform:translateY(18px) scaleY(.8)}to{opacity:1;transform:none}}.bibleMessage h2{text-align:center;margin:0 0 14px;color:#52695a;font-size:30px;font-weight:500}.bibleMessage p{font-size:18px;line-height:1.65;color:#56675c}.biblePersonal{margin-top:17px!important;color:#687d6c!important;font:21px/1.65 Caveat!important}
+.letterSection{max-width:900px;margin:85px auto 60px;text-align:center}.label{color:#718575;font:10px "DM Mono";letter-spacing:2.5px}.letterTitle{margin:8px 0 28px;color:#52695a;font:39px Caveat;font-weight:600}.letterStage{min-height:470px;position:relative}
+.letterRoll{width:min(86%,510px);height:106px;position:relative;margin:auto;cursor:pointer;background:linear-gradient(90deg,#cbb68f,#f0e8d2 12%,#fffaf0 50%,#efe4c8 88%,#cbb68f);border:1px solid #b79f73;border-radius:54px;box-shadow:0 18px 30px #5262571f;transition:.5s}.letterRoll:before,.letterRoll:after{content:"";position:absolute;top:-5px;width:45px;height:116px;border-radius:50%;background:linear-gradient(90deg,#bda276,#eee0c3,#bda276);border:1px solid #a98a60}.letterRoll:before{left:-12px}.letterRoll:after{right:-12px}.ribbon{position:absolute;left:50%;top:-18px;width:63px;height:143px;transform:translateX(-50%);background:#718575;border-radius:7px;z-index:2}.knot{position:absolute;left:50%;top:48%;width:37px;height:28px;transform:translate(-50%,-50%) rotate(45deg);background:#718575;border-radius:4px}.rollText{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);width:270px;color:#52695a;font:19px Caveat;font-weight:600}.letterRoll.opened{opacity:0;transform:scaleX(.9);pointer-events:none}
+.printedLetter{display:none;width:min(94%,820px);position:absolute;top:0;left:50%;transform:translateX(-50%);padding:55px clamp(23px,6vw,68px) 65px;text-align:left;color:#4f5d54;background:#fffaf0;border:1px solid #d1c3a6;box-shadow:0 20px 40px #52625724}.printedLetter.open{display:block;animation:rollDown 1.5s cubic-bezier(.2,.75,.25,1)}@keyframes rollDown{0%{opacity:0;transform:translateX(-50%) scaleY(.03);transform-origin:top}48%{opacity:1;transform:translateX(-50%) scaleY(.42)}100%{opacity:1;transform:translateX(-50%) scaleY(1)}}
+.letterDoodle{position:absolute;color:#718575;opacity:.55;font-size:23px}.ld1{top:31px;right:35px}.ld2{bottom:38px;left:29px}.ld3{bottom:48px;right:48px}.ld4{top:44%;right:25px}.printedText{font:22px/1.8 Caveat;white-space:pre-wrap}.lyric{color:#627f69;font:1.04em Parisienne}.signature{text-align:right;margin-top:25px;color:#607868;font:29px Parisienne}
+.feedback{max-width:730px;margin:75px auto 45px;padding:40px 25px;text-align:center;background:#fafbf7e8;border:1px solid #778b7950;border-radius:18px;box-shadow:0 14px 35px #52625716}.feedbackSymbols{font-size:23px;color:#718575;letter-spacing:8px}.feedback h2{color:#52695a;font-size:39px;font-weight:500}.feedback p{font-size:17px;line-height:1.7;color:#66766a}.feedback textarea{width:100%;min-height:135px;padding:17px;background:#fff;border:1px solid #778b7966;border-radius:12px;outline:none;font:18px/1.5 "Cormorant Garamond";resize:vertical;color:#526258}.feedbackMsg{min-height:20px;font:17px Caveat;color:#607868}.back{text-align:center;margin-top:55px}.back a{color:#63796a;text-decoration:none;font:10px "DM Mono";letter-spacing:2px}
+.spark{position:fixed;z-index:100;pointer-events:none;color:#718575;font-size:20px;animation:spark .95s forwards}@keyframes spark{to{opacity:0;transform:translate(var(--x),var(--y)) scale(1.5) rotate(180deg)}}
+@media(max-width:650px){.photos{grid-template-columns:1fr}.photo:first-child,.photo:last-child{transform:none}.question{margin-top:48px;padding:34px 19px}.bibleScene{min-height:340px}.letterRoll{width:80%}.rollText{width:215px}.printedLetter{padding:45px 21px 52px}.printedText{font-size:20px}.doodle{opacity:.3}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="doodle d1">🍞</div><div class="doodle d2">♪</div><div class="doodle d3">♡</div><div class="doodle d4">✿</div><div class="doodle d5">🍎</div><div class="doodle d6">♫</div><div class="doodle d7">☕</div><div class="doodle d8">✦</div>
+<header>
+<div class="day">DAY 05</div>
+<h1>Things That Remind Me of You</h1>
+<div class="sub">because somehow... everything becomes Alku</div>
+<div class="music">
+<span class="note n1">♪</span><span class="note n2">♫</span><span class="note n3">♩</span><span class="note n4">♪</span>
+<div class="label">♫ TODAY'S LITTLE SOUNDTRACK</div>
+<audio id="bgMusic" controls loop preload="auto"><source src="all of the small.m4a" type="audio/mp4"></audio>
+<div class="songQuote">*'Cause all of the small things that you do<br>Are what remind me why I fell for you<br>And when we're apart and I'm missing you<br>I close my eyes and all I see is you*</div>
+</div>
+</header>
+
+<section class="question" id="questionBox">
+<div class="label">TODAY'S QUESTION</div>
+<h2>Pottasium nitrate or Vinyl-Sternum🤣🤣??</h2>
+<input class="input" id="answer" placeholder="You KNOW the answer..." autocomplete="off"><br>
+<button class="btn" id="openBtn">OPEN DAY 05 ♡</button>
+</section>
+
+<main class="memory" id="memory">
+<section class="photos">
+<div class="photo"><img src="IMG-20261007-WA0009.jpg" alt="Day 5 memory"><div class="caption">something that reminds me of you ♡</div></div>
+<div class="photo"><img src="IMG-20261007-WA0008.jpg" alt="Day 5 memory"><div class="caption">another little Alku thing</div></div>
+</section>
+
+<section class="video"><div class="label">A LITTLE MEMORY IN MOTION</div>
+<video id="memoryVideo" controls playsinline preload="metadata"><source src="VID-20261007-WA0007.mp4" type="video/mp4"></video></section>
+
+<section class="bibleSection">
+<div class="label">TODAY'S LITTLE REMINDER</div>
+<div class="bibleSub">a tiny envelope... and someone very special standing beside it ♡</div>
+<div class="bibleScene">
+<div class="babyJesus" id="babyJesus" tabindex="0" role="button" aria-label="Open today's envelope">
+<div class="halo"></div><div class="hair"></div><div class="head"></div><div class="body"></div><div class="arm l"></div><div class="arm r"></div><div class="blanket"></div><div class="crossSmall">✝</div>
+</div>
+<div class="envelope" id="bibleEnvelope" tabindex="0" role="button" aria-label="Open the Bible envelope">
+<div class="envBack"></div><div class="envFlap"></div><div class="envFront"></div><div class="envSeal">♡</div><div class="envText">tap me, kunjee ♡</div>
+</div>
+</div>
+<div class="bibleMessage" id="bibleMessage">
+<h2>Ecclesiastes 9:7</h2>
+<p>“Go, eat your bread with joy and drink your wine with a merry heart, because it is now that God favors your works.”</p>
+<p class="biblePersonal">Ende alku kochee “ Go, eat your bread with joy and drink your wine with a merry heart, because it is now that God favors your works. ” Ende kunj happy aayitt irikk ttoo..Njan, eeso ondd... Ninde ella krynglum, njn set aaki thannolam tto...onnum orth pediknda</p>
+<p class="biblePersonal">£Alkuuuu.... Go eatttt... Random things that remind me of you and first of that is food.... Funny it seems but genuinely!!! Ipo be happy gurll.. Dw worry abt future... Enthellum aakatee now eat drink and enjoy (in god ofc)...£</p>
+</div>
+</section>
+
+<section class="letterSection">
+<div class="label">TODAY'S LETTER</div>
+<div class="letterTitle">Soooo JUST 14 DAYS LEFT UYYOOOOO!!!</div>
+<div class="letterStage">
+<div class="letterRoll" id="letterRoll" tabindex="0" role="button" aria-label="Unroll today's letter">
+<div class="ribbon"></div><div class="knot"></div><div class="rollText">UNROLL THE LETTER ♡</div>
+</div>
+<article class="printedLetter" id="printedLetter">
+<div class="letterDoodle ld1">🍎 ♪</div><div class="letterDoodle ld2">♡</div><div class="letterDoodle ld3">☕ ✿</div><div class="letterDoodle ld4">♫</div>
+<div class="printedText">Soooo JUST 14 DAYS LEFT UYYOOOOO!!!
+
+My alku..... Or more like alkuchechiii hihihi... Today talking about random things that scream ALKUUU to me.... I mean ellam thante orma aanu pinne njn ipo enna parayana...
+
+Mainly food aattooo... Ivide enth kittiyalum njn orkum, ende alku ondarnel she would've loved it enn... Bcz ik you'll love eating diff food... Njn orkum ithokke angott kondvrn pattuvarnel enn.. Bcz ik njn ondakune athre taste onnm kaanula enn....
+
+Pinne Outfits!!! I mean enik dress edukuva enn prymbm somehow thanik koode enganelum venm enn aanu my wish... So njn enganelum okke aalkare manipulate cheyn nookum chilapo nadakum chilapo nadakula nadannal annu njn hyper aayirikum bcz I'll be happyyyyy!
+
+Pinne edo everything reminds me of you... Innale i told abt diff places... Today idk what to say krnm athpole onddd... Enthin when appan bought me eyeliner i was missing you... Enthinanvooo... When i sit n talk beside kuttamma, i miss you....
+
+And more specially, njn ipo ethelum koch avrde sibling aayit interact cheymbm, thanneyado njn miss cheyunee...
+
+Innu jinto kuttante chachante athin poyile... Anneram jinto kuttan sis aan Binu chechi.. Binu chechi hus nibu kuttan... Bruh i still mad at nibu kuttan for getting angry at you... HOW DARE HE?? Bt thante krym okke inn choichu kettoo... Okay so nibu kuttan sisters aan Neethakutty, Nishakutty, Neenumol... Today neetha n neenu ondarnee... You might think ith ivl enik letter eyuthuvano ivlde fam history vivarikkuvano enn... But listen girlll... Ik kshema illenn bt jstt... So neetha chechi n neenu chechi were there w their kids... And avrde bond kaananam... Even their hus too.... Like neenu neethakuttyde molk food kodukunnu, neethakutty vice versa... Alland angottum ingottum avr baaki ollavarde kuttam pryne okke kandapo thanne miss cheythu...and the talking abt their hus to eoo... Avidem miss cheyth thannee... Miss cheyan ororo kaarangaleee...
+
+And pinne illee... More than random things, i remember for who you are... Who you are for Dia.. Not diamol... Everyone considers diyamol as aana and thenga and chenda and unda... But Dia??? People don't even know her... But you know... She has othiri flaws... Othiri othiri... Bur still somehow you accept there... Enna valli oppichond vannalum you're there for dia... Ende chila swabhavam like nuna parayune ik you hate it... Sorryy kunjee... Survival instinct aayi padicheyaa... Kurachitt ond ipo.... And there's no random things i need to remember or miss alku...
+
+But you're there always just like oxygen binding to hb....
+
+Pinne ille this song... Because you know bbg
+
+<span class="lyric">When you call me at night
+While you're out getting high with your friends
+(High with your friends)
+Every "hi", every "bye", every "I love you" you've ever said
+(You've ever said)
+'Cause all of the small things that you do
+Are what remind me why I fell for you
+And when we're apart and I'm missing you
+I close my eyes and all I see is you
+And the small things you do</span>
+
+Yeahh whenever I miss you, I open up my gallery, to meet you there!!!
+
+My military wife era ig
+
+I never expected anything when i wanted to be friends with you... I just wanted a friend... But i got a friend... A best friend... No the Best-est friend!!! And a crime partner, stalker, a lover girl, a daughter, a mother, a girlfriend... And a sister ofc... But apart from all these titles, I got Alku.... And thats all that matters even if you dont fit into these titles...
+
+I got Alku! And thats enough for me as long as 'alku' (realest version of alkamol) is there for her 'diamol' (realest version of diyamol)
+
+Forever, i love you my bbg!
+From your diamollll!!!</div>
+</article>
+</div>
+</section>
+
+<section class="feedback">
+<div class="feedbackSymbols">🍞 ♡ ♪ ✿ ☕ ♫</div>
+<div class="label">BEFORE YOU LEAVE...</div>
+<h2>Tell me anything, Alku ♡</h2>
+<p>A thought, a memory, a complaint, or something your Diyamol should know.</p>
+<textarea id="feedback" placeholder="Write whatever your Diyamol should know..."></textarea><br>
+<button class="btn" id="feedbackBtn">SEND IT TO DIYAMOL ♡</button>
+<div class="feedbackMsg" id="feedbackMsg"></div>
+</section>
+<div class="back"><a href="index.html">← BACK TO ALKU'S BIRTHDAY</a></div>
+</main>
+</div>
+
+<script>
+const SUPABASE_URL='https://poowacsncuoucptqjblg.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+
+const answerEl=document.getElementById('answer');
+const openBtnEl=document.getElementById('openBtn');
+const questionBoxEl=document.getElementById('questionBox');
+const memoryEl=document.getElementById('memory');
+const musicEl=document.getElementById('bgMusic');
+const videoEl=document.getElementById('memoryVideo');
+const bibleEnvelopeEl=document.getElementById('bibleEnvelope');
+const bibleMessageEl=document.getElementById('bibleMessage');
+const babyJesusEl=document.getElementById('babyJesus');
+const letterRollEl=document.getElementById('letterRoll');
+const printedLetterEl=document.getElementById('printedLetter');
+const feedbackEl=document.getElementById('feedback');
+const feedbackBtnEl=document.getElementById('feedbackBtn');
+const feedbackMsgEl=document.getElementById('feedbackMsg');
+
+function sparkle(n=24){
+for(let i=0;i<n;i++){const s=document.createElement('div');s.className='spark';s.textContent=['✦','✧','♡','♪','♫','✿'][Math.floor(Math.random()*6)];s.style.left='50%';s.style.top='50%';s.style.setProperty('--x',((Math.random()-.5)*600)+'px');s.style.setProperty('--y',((Math.random()-.5)*450)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),950);}
+}
+
+openBtnEl.addEventListener('click',async()=>{
+const value=answerEl.value.trim();if(!value){answerEl.focus();return;}
+try{await supabaseClient.from('responses').insert({day:5,answer:value,feedback:''});}catch(e){console.log(e);}
+questionBoxEl.style.transition='.55s ease';questionBoxEl.style.opacity='0';questionBoxEl.style.transform='translateY(-18px)';sparkle();
+setTimeout(()=>{questionBoxEl.style.display='none';memoryEl.classList.add('show');window.scrollTo({top:0,behavior:'smooth'});musicEl.play().catch(()=>{});},600);
+});
+
+function openBible(){bibleEnvelopeEl.classList.add('opened');sparkle(18);setTimeout(()=>bibleMessageEl.classList.add('show'),380);}
+bibleEnvelopeEl.addEventListener('click',openBible);
+babyJesusEl.addEventListener('click',openBible);
+bibleEnvelopeEl.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openBible();}});
+
+videoEl.addEventListener('play',()=>musicEl.pause());
+videoEl.addEventListener('ended',()=>musicEl.play().catch(()=>{}));
+videoEl.addEventListener('pause',()=>{if(!videoEl.ended)musicEl.play().catch(()=>{});});
+
+function openLetter(){
+if(printedLetterEl.classList.contains('open'))return;
+letterRollEl.classList.add('opened');
+setTimeout(()=>{letterRollEl.style.display='none';printedLetterEl.classList.add('open');sparkle(18);},450);
+}
+letterRollEl.addEventListener('click',openLetter);
+letterRollEl.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLetter();}});
+
+feedbackBtnEl.addEventListener('click',async()=>{
+const value=feedbackEl.value.trim();
+if(!value){feedbackMsgEl.textContent='You can leave me literally anything, Alku ♡';feedbackEl.focus();return;}
+try{
+const {error}=await supabaseClient.from('responses').insert({day:5,answer:'',feedback:value});
+if(error)throw error;
+feedbackEl.value='';feedbackMsgEl.textContent='Saved safely for your Diyamol ♡';
+}catch(e){feedbackMsgEl.textContent='Could not save right now, but your message is still here ♡';}
+});
+</script>
+</body>
+</html>
