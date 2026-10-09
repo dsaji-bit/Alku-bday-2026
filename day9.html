@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 09 — The Things I've Never Told You ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--red:#9e263b;--deep:#651b2a;--rose:#c95868;--pink:#f8e6e6;--paper:#fffaf3;--ink:#542b32;--gold:#c9a35b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f7e8e7;color:var(--ink);font-family:'Montserrat',sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;z-index:-1;background-image:radial-gradient(#9e263b 0.65px,transparent .65px);background-size:17px 17px}
+header{text-align:center;padding:42px 18px 25px;background:linear-gradient(180deg,#f0cfd2,#f7e8e7 92%);position:relative}
+.kicker{font:11px 'DM Mono',monospace;letter-spacing:3px;text-transform:uppercase;color:#9e263b}
+h1{font:600 clamp(38px,7vw,66px) 'Cormorant Garamond',serif;line-height:1;margin:14px 0;color:var(--deep)}
+.subtitle{font:20px 'Caveat',cursive;color:#9e263b}
+main{max-width:850px;margin:auto;padding:18px}
+.card{background:rgba(255,250,243,.94);border:1px solid #e9c7c8;border-radius:20px;padding:clamp(20px,5vw,38px);margin:22px 0;box-shadow:0 12px 32px #7b26300d;position:relative}
+.section-tag{font:10px 'DM Mono',monospace;letter-spacing:2px;color:#b34d5d;text-transform:uppercase}
+h2{font:600 34px 'Cormorant Garamond',serif;color:var(--deep);margin:9px 0 18px}
+p{line-height:1.8}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.primary{border:0;background:var(--red);color:white;border-radius:999px;padding:12px 22px;font-weight:600;box-shadow:0 5px 0 #651b2a}
+.primary:active{transform:translateY(2px);box-shadow:0 3px 0 #651b2a}
+input,textarea{width:100%;padding:14px;border:1px solid #dfb8bd;border-radius:12px;background:#fffdf9;color:var(--ink);outline-color:#c95868;margin:8px 0 13px}
+.small-note{font-size:12px;color:#9b6970}
+.hidden{display:none!important}
+.music-row{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap}
+.music-note{font:600 25px 'Caveat',cursive;color:#9e263b;transform:rotate(-3deg)}
+audio{width:min(100%,340px);accent-color:var(--red)}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:22px}
+.media-grid img,.media-grid video{width:100%;height:260px;object-fit:cover;border-radius:14px;border:4px solid #fff;box-shadow:0 5px 15px #6a1d2b18}
+.media-grid video{background:#2c1117}
+.verse-stage{min-height:310px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(#fffaf3,#fae9df);border-radius:18px;padding:20px}
+.cloud{position:relative;width:170px;height:65px;border-radius:60px;background:#fff;box-shadow:0 8px 22px #c79ca544;animation:float 3s ease-in-out infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud:before{width:75px;height:75px;left:25px;top:-34px}.cloud:after{width:88px;height:88px;right:20px;top:-43px}
+.cloud-face{position:absolute;z-index:2;top:17px;left:65px;font-size:20px;color:#d47a82}
+.envelope{z-index:3;margin-top:-3px;background:#c95868;color:#fff;padding:12px 20px;border-radius:4px 4px 12px 12px;box-shadow:0 7px 12px #69202b2c;cursor:pointer;transition:.5s;position:relative}
+.envelope:before{content:"";position:absolute;top:0;left:0;border-left:50px solid transparent;border-right:50px solid transparent;border-top:28px solid #e99aa3;width:0;transform-origin:top;transition:.5s}
+.envelope.open:before{transform:rotateX(180deg);opacity:.4}
+.envelope.open{transform:translateY(8px) scale(.9);opacity:.4}
+.verse-card{max-width:580px;background:#fffdf9;border:1px solid #e6c9a2;padding:22px;border-radius:12px;text-align:center;box-shadow:0 0 0 5px #fff8e9,0 0 30px #e2b85866;animation:glow 2.5s ease-in-out infinite alternate;margin-top:18px}
+.verse-card blockquote{font:24px 'Cormorant Garamond',serif;line-height:1.45;margin:8px 0;color:#782537}
+.verse-ref{font:11px 'DM Mono',monospace;letter-spacing:1px;color:#a66d37}
+.personal-verse{font:22px 'Caveat',cursive;line-height:1.5;margin-bottom:0}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}@keyframes glow{from{box-shadow:0 0 0 5px #fff8e9,0 0 18px #e2b85844}to{box-shadow:0 0 0 5px #fff8e9,0 0 38px #e2b858aa}}
+/* diary */
+.diary-wrap{perspective:1000px;text-align:center;padding:10px 0}
+.diary{margin:10px auto 20px;max-width:560px;min-height:220px;background:linear-gradient(135deg,#a52c43,#701c2d);border-radius:8px 18px 18px 8px;padding:30px 20px;color:#ffe9df;box-shadow:inset 8px 0 0 #551523,0 15px 25px #5e182b33;position:relative;cursor:pointer;transform-origin:left;transition:transform 1s}
+.diary:after{content:"";position:absolute;left:16px;top:0;bottom:0;border-left:2px solid #d58c91;opacity:.65}
+.diary-title{font:600 32px 'Cormorant Garamond',serif;border:1px solid #d9a7a2;padding:25px 12px;margin:8px auto;max-width:390px}
+.diary-sub{font:18px 'Caveat',cursive}
+.diary.open{transform:rotateY(-12deg) translateX(-4px);opacity:.98}
+.page{display:none;background:repeating-linear-gradient(#fffdf7 0,#fffdf7 31px,#f0d9d7 32px);border:1px solid #e3c3c0;border-radius:8px;padding:24px clamp(17px,4vw,38px);text-align:left;box-shadow:0 8px 20px #6e233019;position:relative;overflow:hidden}
+.page.show{display:block;animation:pageIn 1s ease both}
+@keyframes pageIn{from{opacity:0;transform:rotateY(12deg) translateY(12px)}to{opacity:1;transform:none}}
+.letter-heading{font:700 clamp(27px,5vw,40px) 'Caveat',cursive;color:#9e263b;text-align:center;margin:4px 0 20px}
+.letter-text{white-space:pre-wrap;font:21px/1.55 'Caveat',cursive;color:#60303a;position:relative;z-index:1}
+.corner-girls{display:flex;justify-content:space-between;align-items:end;font:13px 'Caveat',cursive;color:#b34d5d;margin-top:20px}
+.girl-doodle{font-size:29px;display:inline-block;animation:sway 2s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+.doodle-field{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.18}
+.doodle{position:absolute;color:#a52c43;font:26px 'Caveat',cursive;transform:rotate(var(--r));}
+.certificate{background:linear-gradient(135deg,#fff9ed,#fff0ed);border:7px double #b47a43;padding:clamp(18px,5vw,40px);text-align:center;position:relative;overflow:hidden}
+.certificate:before,.certificate:after{content:"✿  ♡  ✿  ♡  ✿";display:block;color:#b47a43;letter-spacing:7px;font-size:18px}
+.cert-title{font:600 clamp(29px,6vw,46px) 'Cormorant Garamond',serif;color:#852338;margin:18px 0 6px}
+.cert-sub{font:18px 'Caveat',cursive;color:#ad7651}
+.cert-copy{font:24px/1.5 'Caveat',cursive;max-width:600px;margin:22px auto}
+.cert-names{display:flex;align-items:center;justify-content:center;gap:15px;font:25px 'Caveat',cursive;color:#8a263a;flex-wrap:wrap}
+.cert-seal{margin:20px auto 0;border:2px solid #b47a43;border-radius:50%;width:78px;height:78px;display:grid;place-items:center;font-size:30px;color:#a52c43;transform:rotate(-12deg)}
+.feedback-status{font-size:13px;color:#8e3444;margin-top:10px}
+footer{text-align:center;padding:30px 15px 50px;font:18px 'Caveat',cursive;color:#a14a5b}
+@media(max-width:520px){.card{padding:20px 16px}.media-grid img,.media-grid video{height:220px}.letter-text{font-size:19px}.verse-card blockquote{font-size:21px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">A little love, every day · 09 / 19</div>
+  <h1>The Things I’ve<br>Never Told You</h1>
+  <div class="subtitle">for my favourite human, Alku ♡</div>
+</header>
+<main>
+  <section class="card" id="questionCard">
+    <div class="section-tag">01 · today's tiny question</div>
+    <h2>Brain not braining edition 🫠</h2>
+    <p>I'm running in a short range w questions since my brain is not braining so imma pull out this... When i give you umma, which hormone is released?</p>
+    <form id="answerForm">
+      <input id="answerInput" maxlength="500" placeholder="Your answer, bestie..." required>
+      <button class="primary" type="submit">Lock in my answer ♡</button>
+    </form>
+    <p class="small-note">There are no wrong answers here. Just you being you. ❤️</p>
+    <div id="answerStatus" class="feedback-status" aria-live="polite"></div>
+  </section>
+
+  <section class="card">
+    <div class="section-tag">02 · today's soundtrack</div>
+    <div class="music-row">
+      <div class="music-note">Hey babyyyy,<br>I love youuuu! ♡</div>
+      <audio id="music" controls preload="metadata">
+        <source src="pranayanila.m4a" type="audio/mp4">
+        Your browser does not support audio.
+      </audio>
+    </div>
+    <div class="media-grid">
+      <img src="IMG-20261009-WA0084.jpg" alt="A memory with Alku" loading="lazy">
+      <img src="IMG-20261009-WA0086.jpg" alt="Another little memory with Alku" loading="lazy">
+      <video id="memoryVideo" controls playsinline preload="metadata">
+        <source src="VID-20261009-WA0087.mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-tag">03 · a letter from Heaven ☁️</div>
+    <h2>A little reminder from above</h2>
+    <div class="verse-stage">
+      <div class="cloud" aria-hidden="true"><span class="cloud-face">♡‿♡</span></div>
+      <div class="envelope" id="heavenEnvelope" role="button" tabindex="0" aria-label="Open the heavenly letter">♡ Open me ♡</div>
+      <p class="small-note">Tap the little envelope to open your message.</p>
+      <div class="verse-card hidden" id="verseCard">
+        <div class="verse-ref">RUTH 1:16</div>
+        <blockquote>“Do not press me to go back and abandon you! Wherever you go I will go, wherever you lodge I will lodge. Your people shall be my people and your God, my God.”</blockquote>
+        <p class="personal-verse">See alkuuu... I found this about us.... Nee evide pokunn avide njanum... Extra aayit pryuvanel nee eth valli pidichalum njnm ath pidikumm hihihi ♡</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="letterSection">
+    <div class="section-tag">04 · from little Dia, with all her heart</div>
+    <h2>Today's letter 📖</h2>
+    <p>Some things have been living in this little heart of mine for a while. Open today's diary entry, bbg. ❤️</p>
+    <div class="diary-wrap">
+      <div class="diary" id="diaryCover" role="button" tabindex="0" aria-label="Open the diary">
+        <div class="diary-title">The Things I’ve Never Told You</div>
+        <div class="diary-sub">a diary entry for Alku ♡</div>
+        <div style="font-size:28px;margin-top:14px">♡ ✿ ♡</div>
+      </div>
+      <button class="primary" id="openDiaryBtn" type="button">Open today's entry ♡</button>
+    </div>
+    <article class="page" id="letterPage">
+      <div class="doodle-field" aria-hidden="true">
+        <span class="doodle" style="top:4%;left:3%;--r:-14deg">♡ besties</span>
+        <span class="doodle" style="top:14%;right:4%;--r:12deg">tea time ☕</span>
+        <span class="doodle" style="top:42%;left:2%;--r:-8deg">♡</span>
+        <span class="doodle" style="top:60%;right:3%;--r:9deg">two peas</span>
+        <span class="doodle" style="bottom:8%;left:5%;--r:11deg">together ♡</span>
+        <span class="doodle" style="bottom:4%;right:5%;--r:-9deg">forever</span>
+      </div>
+      <div class="letter-heading">10 MORE DAYS. ONLY 10 MORE DAYSS ❤️</div>
+      <div class="letter-text" id="letterText">The heading is actually quite misleading.... THE THINGS IVE NEVER TOLD YOU.. Except for some surprises for you, I highly doubt whether theres anything left to say to you....okay okay Ik i havent told 'some' things that might affect your image abt them and I apologise but I do care for them and morever you cuz YOU like them and why would I ruin their image for you jst bcz they were sort of bad to me??? SORRYYYYYYYY?!!!
+
+Technically lets say ive 2 parts for this....and trust me, this aint something you dont know so yeah no much specialty!!!
+
+Part 1: You never know how much happy I am to spent even a split second with you...I mean like the fun sort of times... Our random talks abou the around the stuffs, boys talk, girls talk, vaayinookklals, delusions, random fights, getting ready together, eating together and shopping together....Okay youve heard it already a 100 times and heres the 101th time Im saying this. I had no one. I uhmmm had things- all sort of things- toys, books, puzzles, gadgets, food, dress, accessories....everything..and trust me, now Im grateful to have them...but there was one thing missing in my life...oru koottu... like i talked to my toys...muttath thanne oru shuttle bat um cockum vech thatti kalikkunna oru njan ondarnu.... Veedinte frontil nikkunna chembarathiyod samarich ath ende frnd aanenn varuthi theerkunna oru njan...enik othiri eesode roopams okke ondarnaloo...so athellam eduth njn chuma roleplay cheyyuvayirunn...idk how much of this you can actually understand here, but it was really lonely...and the fact all my cousins say diyamol swnthm poleya but drew an invisible line that I couldnt cross...aint blaming them everyone got their lives...same goes with adhoc...stefiii...but you? somehow its diff.. njn above prnjalo how my life was enn...but thaan vanne pinne, I no longer had to talk to walls or toys or flowers...I Had you... Alku...I love talking....but i never had the space...either I didnt get the space or Im afraid of annoying people...and ofc lincychechide koch have limitations to talk abou...sorry i just read through and saw i was writing this about myself....sorryyyyyyyy...so what i wanted to say is, youre my sunshine alku...After you came, life became better...all the fun we had, jokes we made, delusions we talked out, stupidity we did, stalkings we did...and everything, was somehow healing me.. Chumma nml adi ondakkmbzhm, vattam vattam karangumbzhm, otta mindil avidem ivvidem pokmbzhm, ranfom aayi food kayikn pokmbzhm, chuma vann kettipidikmbzhm, enthin even when you randomly talk to me, i feel happpyyy alkuuuu...
+
+Part 2: You never know how much happy I am to spent even a split second with you...I mean like the sad sort of times...like whnever Im sad about something , and i talk to you, I get an uplift of mood...sangadam vannal i need you...ath oru basic dia need aanu...she needs alku....Filter illnd pryuvanel, some talks with you are pure therapeutic....like ik thannod onn samarich, thanne onn kettipidichal ill be fine enn....like ik youll sit with me hear me and console me.... some talks with you are idkkk mixed feelings... youll prolly give a reality check and a very bare answer that i may not like at first but pinne irunn chindikumbo, ILll feel yeah that potti is sheri here...athan chila times njn silent aavunneee...and again some other talks with you are scary and funny at the same time...eg prnja youll understand...talks abt achu >=<....purake povallu enn prnjitt purake poyi pinnem pulli vazhikkavalayil ittitt pokmbo aa kavalayil ninn enne kootikond pokan nee maathre ollu alkuuu...and i only need u btw....and one another type of talks is the sort of taks btw us that dont happen...thanik tharan olla chila surprise planning....alllell thannod prnja ethelum vidhathil thaan hurt aayalo ennolla thonnal krnm ollee...and chilapo some posessive stuff bcz njn prnja youll sacrifice your happiness so angane ollee.....But whatever it is at the end of the day.....Im happyy to be your best frienddddd!!!
+
+Todays pics n video cuz how much i enjoy doing random daily stuff w you... Sleeping... Eating.... All those random momemts... 
+And songg??? Does that need an explanation????
+
+You healed a part of me, that was broken...And somehow, little Dia got the sister she wanted.... I hope the little dia in me gets to create more memories with her big sister alku!
+and alku, idk if i have ever healed any part of you or if im making it worse...I hope i dont, but if I am, I am sorryyy but i genuinely hope, you gets to heal something through me and i hope youre happy and satisfied with me just as I am....
+
+THANK YOU & I LOVE YOU ALKUU
+
+From, little Dia.</div>
+      <div class="corner-girls">
+        <span><span class="girl-doodle">👧🏻</span><br>little Dia ♡</span>
+        <span style="text-align:right"><span class="girl-doodle">👧🏻</span><br>big sister Alku ♡</span>
+      </div>
+    </article>
+  </section>
+
+  <section class="card">
+    <div class="section-tag">05 · officially official-ish</div>
+    <h2>The official bestie certificate 🏅</h2>
+    <div class="certificate">
+      <div class="cert-title">Certificate of Bestie-hood</div>
+      <div class="cert-sub">awarded with excessive love & absolutely no legal authority</div>
+      <div style="font-size:42px;margin:12px">👭 ❤️ 👭</div>
+      <p class="cert-copy">This certifies that <strong>Alku</strong> is legally entitled to annoy Diyamol, steal her attention, receive unsolicited affection, and remain her favourite human indefinitely.</p>
+      <div class="cert-names"><span>👧🏻</span><span>Besties by choice<br><small style="font-size:16px">sisters by heart</small></span><span>👧🏻</span></div>
+      <div class="cert-sub" style="margin-top:16px">Valid forever · non-transferable · no expiry date</div>
+      <div class="cert-seal">♡</div>
+    </div>
+  </section>
+
+  <section class="card" id="feedbackCard">
+    <div class="section-tag">06 · leave a little note</div>
+    <h2>Feedback for your Dia? 💌</h2>
+    <p>Tell me anything, Alku. What you loved, what made you laugh, or anything you want me to know. This goes straight to my little secret inbox. ♡</p>
+    <form id="feedbackForm">
+      <textarea id="feedbackInput" rows="4" maxlength="3000" placeholder="Write your little note here..." required></textarea>
+      <button class="primary" type="submit">Send to Dia ♡</button>
+    </form>
+    <div id="feedbackStatus" class="feedback-status" aria-live="polite"></div>
+  </section>
+</main>
+<footer>made with a red heart, a thousand memories, and one very loved Alku ♡<br>— little Dia</footer>
+
+<script>
+const SUPABASE_URL = 'https://poowacsncuoucptqjblg.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const answerForm = document.getElementById('answerForm');
+const answerInput = document.getElementById('answerInput');
+const answerStatus = document.getElementById('answerStatus');
+answerForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const value = answerInput.value.trim();
+  if (!value) return;
+  const button = answerForm.querySelector('button');
+  button.disabled = true;
+  answerStatus.textContent = 'Saving your answer… ♡';
+  const { error } = await supabaseClient.from('responses').insert([{day:9, answer:value, feedback:''}]);
+  if (error) {
+    answerStatus.textContent = 'A tiny connection hiccup! Please try again. ♡';
+    button.disabled = false;
+    return;
+  }
+  answerStatus.textContent = 'Answer saved! You are officially today’s favourite human. ❤️';
+  answerInput.value = '';
+  button.textContent = 'Answer saved ♡';
+});
+
+const heavenEnvelope = document.getElementById('heavenEnvelope');
+const verseCard = document.getElementById('verseCard');
+function openHeavenLetter(){
+  heavenEnvelope.classList.add('open');
+  heavenEnvelope.textContent = 'Opened with love ♡';
+  setTimeout(()=>verseCard.classList.remove('hidden'),350);
+}
+heavenEnvelope.addEventListener('click',openHeavenLetter);
+heavenEnvelope.addEventListener('keydown',(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openHeavenLetter();}});
+
+const diaryCover = document.getElementById('diaryCover');
+const openDiaryBtn = document.getElementById('openDiaryBtn');
+const letterPage = document.getElementById('letterPage');
+function openDiary(){
+  diaryCover.classList.add('open');
+  diaryCover.innerHTML = '<div class="diary-title">A little piece of my heart…</div><div class="diary-sub">turning to today’s entry ♡</div>';
+  openDiaryBtn.classList.add('hidden');
+  setTimeout(()=>{letterPage.classList.add('show');letterPage.scrollIntoView({behavior:'smooth',block:'start'});},650);
+}
+diaryCover.addEventListener('click',openDiary);
+diaryCover.addEventListener('keydown',(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openDiary();}});
+openDiaryBtn.addEventListener('click',openDiary);
+
+const feedbackForm = document.getElementById('feedbackForm');
+const feedbackInput = document.getElementById('feedbackInput');
+const feedbackStatus = document.getElementById('feedbackStatus');
+feedbackForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const value=feedbackInput.value.trim();
+  if(!value)return;
+  const button=feedbackForm.querySelector('button');
+  button.disabled=true;
+  feedbackStatus.textContent='Sending your note… ♡';
+  const {error}=await supabaseClient.from('responses').insert([{day:9,answer:'',feedback:value}]);
+  if(error){feedbackStatus.textContent='Could not send just yet. Please try once more. ♡';button.disabled=false;return;}
+  feedbackStatus.textContent='Your note reached Dia’s secret inbox. Thank you, bbg! ❤️';
+  feedbackInput.value='';
+  button.textContent='Sent with love ♡';
+});
+
+const music=document.getElementById('music');
+const memoryVideo=document.getElementById('memoryVideo');
+memoryVideo.addEventListener('play',()=>{if(!music.paused)music.pause();});
+memoryVideo.addEventListener('ended',()=>{music.play().catch(()=>{});});
+memoryVideo.addEventListener('pause',()=>{if(memoryVideo.currentTime>0 && !memoryVideo.ended)music.play().catch(()=>{});});
+</script>
+</body>
+</html>
