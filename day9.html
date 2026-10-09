@@ -13,6 +13,12 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:#f7e8e7;color:var(--ink);font-family:'Montserrat',sans-serif;overflow-x:hidden}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;z-index:-1;background-image:radial-gradient(#9e263b 0.65px,transparent .65px);background-size:17px 17px}
+.friend-doodles{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden;color:#a52c43;opacity:.75}
+.friend-doodles span{position:absolute;font-family:'Caveat',cursive;font-size:clamp(18px,2.6vw,30px);animation:doodleFloat 5s ease-in-out infinite;filter:drop-shadow(0 1px 0 #fff7)}
+.friend-doodles .pair{font-size:clamp(22px,3vw,36px)}
+@keyframes doodleFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-9px) rotate(5deg)}}
+.next-slide{margin-top:24px}
+.slide{scroll-margin-top:20px}
 header{text-align:center;padding:42px 18px 25px;background:linear-gradient(180deg,#f0cfd2,#f7e8e7 92%);position:relative}
 .kicker{font:11px 'DM Mono',monospace;letter-spacing:3px;text-transform:uppercase;color:#9e263b}
 h1{font:600 clamp(38px,7vw,66px) 'Cormorant Garamond',serif;line-height:1;margin:14px 0;color:var(--deep)}
@@ -79,6 +85,15 @@ footer{text-align:center;padding:30px 15px 50px;font:18px 'Caveat',cursive;color
 </style>
 </head>
 <body>
+<div class="friend-doodles" aria-hidden="true">
+  <span class="pair" style="top:9%;left:1%">👭</span>
+  <span style="top:20%;right:2%">besties ♡</span>
+  <span class="pair" style="top:39%;left:1%;animation-delay:1s">👧🏻♡👧🏻</span>
+  <span style="top:55%;right:1%;animation-delay:2s">girl talk ☕</span>
+  <span class="pair" style="top:73%;left:1%;animation-delay:.5s">👭</span>
+  <span style="top:86%;right:2%;animation-delay:1.5s">snack dates ♡</span>
+  <span style="top:31%;left:2%;animation-delay:2.5s">✿ friendship ✿</span>
+</div>
 <header>
   <div class="kicker">A little love, every day · 09 / 19</div>
   <h1>The Things I’ve<br>Never Told You</h1>
@@ -95,9 +110,10 @@ footer{text-align:center;padding:30px 15px 50px;font:18px 'Caveat',cursive;color
     </form>
     <p class="small-note">There are no wrong answers here. Just you being you. ❤️</p>
     <div id="answerStatus" class="feedback-status" aria-live="polite"></div>
+    <button class="primary next-slide hidden" id="next2" type="button">Next slide → ♡</button>
   </section>
 
-  <section class="card">
+  <section class="card slide hidden" id="slide2">
     <div class="section-tag">02 · today's soundtrack</div>
     <div class="music-row">
       <div class="music-note">Hey babyyyy,<br>I love youuuu! ♡</div>
@@ -114,9 +130,10 @@ footer{text-align:center;padding:30px 15px 50px;font:18px 'Caveat',cursive;color
         Your browser does not support video.
       </video>
     </div>
+    <button class="primary next-slide" id="next3" type="button">Next slide → ♡</button>
   </section>
 
-  <section class="card">
+  <section class="card slide hidden" id="slide3">
     <div class="section-tag">03 · a letter from Heaven ☁️</div>
     <h2>A little reminder from above</h2>
     <div class="verse-stage">
@@ -129,9 +146,16 @@ footer{text-align:center;padding:30px 15px 50px;font:18px 'Caveat',cursive;color
         <p class="personal-verse">See alkuuu... I found this about us.... Nee evide pokunn avide njanum... Extra aayit pryuvanel nee eth valli pidichalum njnm ath pidikumm hihihi ♡</p>
       </div>
     </div>
+    <button class="primary next-slide" id="next4" type="button">Next slide → ♡</button>
   </section>
 
-  <section class="card" id="letterSection">
+  <section class="card slide hidden" id="slide4">
+    <div class="doodle-field global-doodles" aria-hidden="true">
+      <span class="doodle" style="top:8%;left:2%;--r:-12deg">besties ♡</span>
+      <span class="doodle" style="top:25%;right:2%;--r:12deg">girl talk ☕</span>
+      <span class="doodle" style="top:53%;left:1%;--r:8deg">👭</span>
+      <span class="doodle" style="bottom:20%;right:3%;--r:-8deg">snack dates ♡</span>
+    </div>
     <div class="section-tag">04 · from little Dia, with all her heart</div>
     <h2>Today's letter 📖</h2>
     <p>Some things have been living in this little heart of mine for a while. Open today's diary entry, bbg. ❤️</p>
@@ -175,9 +199,10 @@ From, little Dia.</div>
         <span style="text-align:right"><span class="girl-doodle">👧🏻</span><br>big sister Alku ♡</span>
       </div>
     </article>
+    <button class="primary next-slide" id="next5" type="button">Next slide → ♡</button>
   </section>
 
-  <section class="card">
+  <section class="card slide hidden" id="slide5">
     <div class="section-tag">05 · officially official-ish</div>
     <h2>The official bestie certificate 🏅</h2>
     <div class="certificate">
@@ -189,9 +214,10 @@ From, little Dia.</div>
       <div class="cert-sub" style="margin-top:16px">Valid forever · non-transferable · no expiry date</div>
       <div class="cert-seal">♡</div>
     </div>
+    <button class="primary next-slide" id="next6" type="button">One last thing → ♡</button>
   </section>
 
-  <section class="card" id="feedbackCard">
+  <section class="card slide hidden" id="slide6">
     <div class="section-tag">06 · leave a little note</div>
     <h2>Feedback for your Dia? 💌</h2>
     <p>Tell me anything, Alku. What you loved, what made you laugh, or anything you want me to know. This goes straight to my little secret inbox. ♡</p>
@@ -228,6 +254,7 @@ answerForm.addEventListener('submit', async (e) => {
   answerStatus.textContent = 'Answer saved! You are officially today’s favourite human. ❤️';
   answerInput.value = '';
   button.textContent = 'Answer saved ♡';
+  document.getElementById('next2').classList.remove('hidden');
 });
 
 const heavenEnvelope = document.getElementById('heavenEnvelope');
@@ -272,9 +299,43 @@ feedbackForm.addEventListener('submit', async (e)=>{
 
 const music=document.getElementById('music');
 const memoryVideo=document.getElementById('memoryVideo');
+// Browsers may block audible autoplay until a user gesture. Try on load, then retry on the first interaction.
+window.addEventListener('load',()=>{music.play().catch(()=>{});});
+function startMusicOnce(){music.play().catch(()=>{});document.removeEventListener('pointerdown',startMusicOnce);document.removeEventListener('keydown',startMusicOnce);}
+document.addEventListener('pointerdown',startMusicOnce,{once:true});
+document.addEventListener('keydown',startMusicOnce,{once:true});
+const memoryVideo=document.getElementById('memoryVideo');
 memoryVideo.addEventListener('play',()=>{if(!music.paused)music.pause();});
 memoryVideo.addEventListener('ended',()=>{music.play().catch(()=>{});});
 memoryVideo.addEventListener('pause',()=>{if(memoryVideo.currentTime>0 && !memoryVideo.ended)music.play().catch(()=>{});});
+
+const slidePairs = [
+  ['next2','slide2','slide3'],
+  ['next3','slide3','slide4'],
+  ['next4','slide4','slide5'],
+  ['next5','slide5','slide6'],
+  ['next6','slide6',null]
+];
+document.getElementById('next2').addEventListener('click',()=>{
+  document.getElementById('slide2').classList.remove('hidden');
+  document.getElementById('slide2').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('next3').addEventListener('click',()=>{
+  document.getElementById('slide3').classList.remove('hidden');
+  document.getElementById('slide3').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('next4').addEventListener('click',()=>{
+  document.getElementById('slide4').classList.remove('hidden');
+  document.getElementById('slide4').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('next5').addEventListener('click',()=>{
+  document.getElementById('slide5').classList.remove('hidden');
+  document.getElementById('slide5').scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('next6').addEventListener('click',()=>{
+  document.getElementById('slide6').classList.remove('hidden');
+  document.getElementById('slide6').scrollIntoView({behavior:'smooth',block:'start'});
+});
 </script>
 </body>
 </html>
