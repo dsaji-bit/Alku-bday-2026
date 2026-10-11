@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 11 — The Alku Awards</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--burn:#c94f20;--orange:#ef762f;--deep:#702d19;--cream:#fff4e8;--paper:#fffaf2;--ink:#492b22;--muted:#91685a;--line:#e9b18e;--gold:#f5bd61}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Montserrat, sans-serif;overflow-x:hidden}button,input,textarea{font:inherit}button{cursor:pointer}.page{width:min(850px,100%);margin:auto;padding:22px 18px 54px;position:relative}.topline{font:11px 'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--burn);text-align:center}.title{font:600 clamp(42px,8vw,76px)/.98 'Cormorant Garamond',serif;text-align:center;color:var(--deep);margin:12px 0 8px}.subtitle{text-align:center;font:italic 23px Caveat,cursive;color:var(--burn);margin:0 0 28px}.card{background:var(--paper);border:1.5px solid var(--line);border-radius:20px;padding:clamp(18px,4vw,32px);margin:22px 0;box-shadow:5px 6px 0 #e9b18e55;position:relative}.eyebrow{font:10px 'DM Mono',monospace;text-transform:uppercase;letter-spacing:2px;color:var(--burn)}h2{font:600 35px 'Cormorant Garamond',serif;margin:7px 0 14px;color:var(--deep)}p{line-height:1.75}.question{text-align:center}.question label{display:block;font:600 clamp(25px,5vw,37px)/1.15 'Cormorant Garamond',serif;margin:15px 0 22px}.answer{width:100%;border:1px solid var(--line);border-radius:12px;background:white;padding:14px;color:var(--ink);outline-color:var(--orange)}.btn{border:0;border-radius:999px;background:var(--burn);color:#fffaf2;padding:12px 22px;font-weight:700;margin-top:13px;box-shadow:0 4px 0 #702d19}.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #702d19}.small{font-size:12px;color:var(--muted);line-height:1.6}.hidden{display:none!important}.musicbox{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.disc{width:65px;height:65px;flex:0 0 65px;border-radius:50%;background:repeating-radial-gradient(circle,#51241d 0 3px,#1d1716 4px 6px);display:grid;place-items:center;animation:spin 7s linear infinite}.disc:after{content:'';width:17px;height:17px;background:var(--gold);border:3px solid var(--paper);border-radius:50%}@keyframes spin{to{transform:rotate(360deg)}}.songline{font:600 clamp(20px,4vw,28px) Caveat,cursive;color:var(--burn);margin:0}.audio{width:100%;margin-top:15px;accent-color:var(--burn)}.photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}.photos img{width:100%;height:100%;max-height:410px;object-fit:cover;border-radius:13px;border:1px solid var(--line)}.video{width:100%;max-height:460px;border-radius:14px;background:#2c1913}.media-caption{font:18px Caveat,cursive;text-align:center;color:var(--muted);margin:10px 0 0}
+/* hand-drawn margin doodles */
+.doodle{position:absolute;pointer-events:none;opacity:.7;fill:none;stroke:var(--burn);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.doodle.sun{width:50px;top:20px;left:12px}.doodle.steth{width:52px;right:8px;top:130px}.doodle.book{width:55px;left:2px;bottom:90px}.doodle.star{width:35px;right:12px;bottom:20px}.scribble{font:20px Caveat,cursive;color:var(--burn);text-align:right;margin-top:8px}
+.bible-card{overflow:hidden}.margin-page{position:relative;min-height:180px;background:#fff8ec;border:1px solid #e9c49c;border-radius:12px;padding:18px 17px 20px 31px;background-image:repeating-linear-gradient(transparent 0 25px,#efcfb5 26px 27px)}.margin-page:before{content:'';position:absolute;left:18px;top:0;bottom:0;border-left:1px solid #e7a38a}.page-turn{transform-origin:left center;transition:transform .8s ease;position:absolute;inset:0;background:#ffefd9;border:1px solid #e9b18e;border-radius:12px;display:flex;align-items:center;justify-content:center;font:23px Caveat,cursive;color:var(--burn);z-index:2}.page-turn.open{transform:rotateY(-100deg);pointer-events:none}.margin-doodles{font:22px Caveat,cursive;color:#c86c3f;display:flex;gap:10px;flex-wrap:wrap;margin:2px 0 7px}.wiggle{display:inline-block;animation:wiggle 1.3s infinite;cursor:pointer}@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(8deg)}75%{transform:rotate(-8deg)}}.verse{font:600 26px/1.25 'Cormorant Garamond',serif;color:var(--deep);opacity:0;transform:translateY(7px);transition:.5s}.verse.show{opacity:1;transform:none}.verse-ref{font:11px 'DM Mono',monospace;letter-spacing:1px;color:var(--burn);margin-top:8px}.bible-note{font:20px/1.5 Caveat,cursive;color:var(--burn);margin:13px 0 0;opacity:0;transition:.5s}.bible-note.show{opacity:1}.caption{text-align:center;font:19px Caveat,cursive;color:var(--muted);margin:13px 0 0}
+.letter-intro{text-align:center;font:italic 25px Caveat,cursive;color:var(--burn)}.pssst{position:absolute;right:15px;top:13px;font:17px Caveat,cursive;color:var(--burn);transform:rotate(5deg)}.envelope-wrap{display:flex;justify-content:center;padding:14px 0 4px}.envelope{position:relative;width:190px;height:128px;border:0;background:transparent;padding:0;transition:transform .3s}.env-body{position:absolute;inset:14px 0 0;background:#ef9a55;border:2px solid #c85a27;border-radius:4px 4px 9px 9px;box-shadow:0 5px 0 #d76b34}.env-flap{position:absolute;top:14px;left:0;width:0;height:0;border-left:95px solid transparent;border-right:95px solid transparent;border-top:70px solid #f6bd7b;transform-origin:top;transition:transform .7s;z-index:3}.env-heart{position:absolute;z-index:4;top:42px;left:80px;font-size:25px;color:#a43e24;transition:.4s}.envelope.open .env-flap{transform:rotateX(180deg);z-index:0}.envelope.open .env-heart{opacity:0}.envelope.open{transform:translateY(-4px)}.letter-sheet{max-height:0;overflow:hidden;opacity:0;transform:translateY(-12px);transition:max-height 1.2s ease,opacity .7s,transform .7s;background:#fffdf7;border:1px solid #e6b88f;border-radius:8px;padding:0 18px;margin:0 auto;max-width:700px}.letter-sheet.open{max-height:10000px;opacity:1;transform:none;padding:25px 20px;margin-top:18px}.letter-text{font:19px/1.72 'Cormorant Garamond',serif;white-space:pre-wrap;overflow-wrap:anywhere}.letter-text .letter-heading{font:700 27px/1.2 Caveat,cursive;color:var(--burn);display:block;margin:5px 0 16px}.ps-text{font:20px/1.55 Caveat,cursive;color:var(--deep);white-space:pre-wrap;margin-top:18px;padding-top:15px;border-top:1px dashed var(--line)}
+.duck-area{position:relative;min-height:175px;overflow:hidden;display:flex;align-items:center;justify-content:center}.duck{width:105px;height:105px;position:relative;animation:waddle 1.1s ease-in-out infinite;transform-origin:bottom center}.duck-body{position:absolute;width:73px;height:54px;left:16px;top:37px;background:#f5c94c;border:2px solid #c77d26;border-radius:55% 50% 48% 50%}.duck-head{position:absolute;width:44px;height:43px;left:43px;top:13px;background:#f7d45f;border:2px solid #c77d26;border-radius:50%}.duck-eye{position:absolute;width:5px;height:5px;border-radius:50%;background:#4d3024;left:70px;top:29px}.duck-beak{position:absolute;left:81px;top:31px;width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:15px solid #e7782a}.duck-wing{position:absolute;width:35px;height:24px;left:28px;top:51px;border:2px solid #c77d26;border-radius:60%;transform:rotate(-20deg);background:#f8d96e}.duck-foot{position:absolute;top:85px;left:30px;width:20px;height:9px;border-bottom:4px solid #d56a2b;border-radius:50%}.duck-foot.two{left:59px}.duck-sign{position:absolute;top:0;left:0;background:#fff8e9;border:2px solid #c66b36;border-radius:7px;padding:7px 10px;font:19px Caveat,cursive;color:var(--deep);min-width:180px;max-width:235px;text-align:center;box-shadow:3px 3px 0 #eab18b;transform:rotate(-3deg);opacity:0;transition:.25s}.duck-sign.show{opacity:1}.duck-layout{display:flex;align-items:center;gap:20px;justify-content:center;flex-wrap:wrap}@keyframes waddle{0%,100%{transform:rotate(-4deg) translateX(-2px)}50%{transform:rotate(4deg) translateX(2px)}}.duck-button{background:#fff0dc;color:var(--deep);border:1px solid var(--line);border-radius:999px;padding:9px 15px;font:18px Caveat,cursive}.feedback textarea{min-height:110px;resize:vertical}.status{font-size:12px;color:var(--muted);margin-top:9px;min-height:17px}.footer{text-align:center;font:18px Caveat,cursive;color:var(--burn);margin-top:28px}
+@media(max-width:520px){.page{padding:17px 13px 38px}.card{padding:18px 15px}.photos{gap:8px}.photos img{max-height:300px}.letter-text{font-size:18px}.doodle.steth{top:105px;width:42px}.margin-page{padding-left:28px}.duck-sign{position:relative;top:auto;left:auto}.duck-layout{gap:7px}}
+</style>
+</head>
+<body>
+<main class="page">
+<svg class="doodle sun" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="10"/><path d="M30 4v10M30 46v10M4 30h10M46 30h10M11 11l7 7M42 42l7 7M49 11l-7 7M18 42l-7 7"/></svg>
+<svg class="doodle steth" viewBox="0 0 60 70" aria-hidden="true"><path d="M14 8v16c0 13 22 13 22 0V8M8 8h12M30 8h12M8 8v7M42 8v7M25 39v8c0 11 20 11 20 0v-5"/><circle cx="45" cy="39" r="6"/></svg>
+<div class="topline">Alku’s birthday countdown · day 11</div>
+<h1 class="title">The Alku Awards</h1>
+<p class="subtitle">Eight days to go, my girl.</p>
+<section class="card question" id="questionCard">
+  <div class="eyebrow">before we begin</div>
+  <label for="answer">If diamol was a thing, what would it be and why?</label>
+  <input class="answer" id="answer" maxlength="500" placeholder="Tell me your answer, Alku…" autocomplete="off">
+  <button class="btn" id="beginBtn">Let's go, bbg ♡</button>
+  <div class="status" id="answerStatus" aria-live="polite"></div>
+</section>
+<div id="memories" class="hidden">
+<section class="card">
+  <div class="eyebrow">today's soundtrack</div>
+  <div class="musicbox"><div class="disc" aria-hidden="true"></div><p class="songline">ik it aint suiting but helll yeahhh I'm proud of you my baby girlll!</p></div>
+  <audio class="audio" id="music" controls preload="metadata"><source src="ennil erinju.m4a" type="audio/mp4">Your browser does not support audio.</audio>
+</section>
+<section class="card bible-card">
+  <div class="eyebrow">a little word for you</div><h2>A verse hidden in the margins</h2>
+  <div class="margin-page" id="marginPage">
+    <div class="page-turn" id="pageTurn">turn the page ♡</div>
+    <div class="margin-doodles"><span>little notes</span><span class="wiggle" id="marginDoodle">♡</span><span>tiny reminders</span></div>
+    <div class="verse" id="verse">“I have the strength for everything through him who empowers me.”</div>
+    <div class="verse-ref" id="verseRef">PHILIPPIANS 4:13</div>
+    <p class="bible-note" id="bibleNote">So alku, you are able to do everything because god is with you... And dont you dare to consider yourself small because thats how much eeso ninde kai pidich oronn cheypikkunnuu... You are his favchild!!</p>
+  </div>
+  <p class="caption">God didn't make you ordinary, bbg.</p>
+</section>
+<section class="card">
+  <div class="eyebrow">proof of our lore</div>
+  <div class="photos"><img src="IMG-20261011-WA0037.jpg" alt="A memory of Alku and Diyamol"><img src="IMG-20261011-WA0032.jpg" alt="A memory from where it all began"></div>
+  <video class="video" id="memoryVideo" controls playsinline preload="metadata" style="margin-top:12px"><source src="VID-20261011-WA0039.mp4" type="video/mp4">Your browser does not support video.</video>
+</section>
+<section class="card">
+  <div class="eyebrow">a very official announcement</div><h2>The tiny duck has something to say</h2>
+  <div class="duck-area"><div class="duck-layout">
+    <div class="duck" aria-label="A waddling little duck illustration"><div class="duck-body"></div><div class="duck-head"></div><div class="duck-eye"></div><div class="duck-beak"></div><div class="duck-wing"></div><div class="duck-foot"></div><div class="duck-foot two"></div></div>
+    <div><div class="duck-sign show" id="duckSign">Alkuuu is amazingg</div><button class="duck-button" id="duckBtn">Next announcement →</button></div>
+  </div></div>
+</section>
+<section class="card">
+  <div class="eyebrow">a letter for you</div><p class="letter-intro">8 DAYS. JUST 8 DAYS LEFT...</p>
+  <button class="envelope" id="envelope" aria-label="Open the letter"><span class="pssst">pssst… Alku.</span><span class="env-body"></span><span class="env-flap"></span><span class="env-heart">♥</span></button>
+  <p class="small" style="text-align:center;margin-top:0">Tap the tiny envelope.</p>
+  <article class="letter-sheet" id="letterSheet"><div class="letter-text" id="letterText"></div><div class="ps-text">THE VIDEO IS JUST A RANDOM VIDEO, OUR MEMORY OFC...THE PICS? FROM WHERE WE STARTED AND YOUR DREAM OF WANTING TO EXPERIENCE SNOW COMING TRUE...AND THE SONG??? IK IT AINT SUITING A BDAY WEBSITE BUT YEAH JUST TO SHOW MUCH POWERFUL AND CAPABLE YOU ARE, I NEEDED THIS. SORRYYY</div></article>
+</section>
+<section class="card feedback">
+  <div class="eyebrow">before you go</div><h2>Tell me anything, Alku.</h2><p class="small">Anything you want to tell me about today's page ♡</p>
+  <textarea class="answer" id="feedbackText" maxlength="3000" placeholder="Write anything here…"></textarea>
+  <button class="btn" id="feedbackBtn">Send it to Dia ♡</button><div class="status" id="feedbackStatus" aria-live="polite"></div>
+</section>
+</div>
+<svg class="doodle book" viewBox="0 0 70 55" aria-hidden="true"><path d="M5 12c12-5 22-2 30 4v32C25 41 15 39 5 43zM65 12c-12-5-22-2-30 4v32c10-7 20-9 30-5zM35 16v32"/><path d="M12 20l13 2M12 27l13 2M45 22l13-2M45 29l13-2"/></svg>
+<svg class="doodle star" viewBox="0 0 45 45" aria-hidden="true"><path d="M22 3l4 13 14 1-11 8 4 14-11-8-11 8 4-14L4 17l14-1z"/></svg>
+<div class="footer">forever proud of you, my baby girl.</div>
+</main>
+<script>
+const SUPABASE_URL='https://poowacsncuoucptqjblg.supabase.co';
+const SUPABASE_KEY='sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const letter=`And today, we're talking about Alku Awards....I mean you should be given an award for just existing itself.... and today, Alku, I know I always tell you how much you mean to me and how much value you hold in my life...So today, I am not going to speak about that.... But Ill talk about how perfect you are as a human being in general.
+
+Starting with, Ill give alku the best daughter award. Yeah nee ippo nee krnm veetukarkk vanna budhimutt ellm orkkuvayirikum and idk if you consider yourself as someone great but trust me alku, from a third person view, you are indeed one of a kind... The daughter who styaed even after life was hard on her.... I mean ithil njn thante parentsineyo aniyaneyo alla blame cheyunne... but ik you carry certain regrets of not being the best daughter to them... What I want to say is Alku...nee eppzhm veetukrde krythil bhynkara understanding aanu...deep down you have complaints, baaki piller okke life enjoy chymbm njn maathram ingane okke jeevikkanolllo enn vicharich... but you are never vocal about that... Thanne first kandapo thott njn notice cheyunna oru krym aan, like thanik enth inconvenience ondenkil polum thaan maximum thante krym maati vech thaan ath cheyn nookum...athum excuses onnm prynd...When it comes to what Im saying, ik how much kashtapetta thaan jolikk pokunneyum, ellm tolerate cheyth avde nikkunneyum enn... But still everyday you put up a brave smiley face and leave for kindergarten...
+You never know how much proud I am of you Alku....
+Njan ipo proud aayekond thanik prethyekich prayojanam onnm illen ik... but still ille, Im proud of the way you carry yourself without any complaints... ithoru compliment aakunne illegal aan athra nalla ppdy alla ik alku, but Im glad thante livesile negatives okke thaan onninum oru excuse aayi eduknd mumbott pokunnathin...
+
+Next is of how much of a good friend you are ft. DILKIN.... Akkune help cheyyunnath even tho you arent responsible, pinne enne chummannond nadakkunnee, pine even after achunte all koprayams, still coping with him.... Yk you are the go to go person of everyone...Akkunu aayalum, enik aayalum, stefikk aayalum... sometimes I do think, enikum thanne pole aakan pattiyirunnel enn... not only in the case of dilkin, but generallyy...We gonna talk about it later....And back to dilkin, the way you are the main entertainer, ellm organise cheynna oral, ellathinum theerumanam olla oral....Dilkin is nothing without you babyyyy....
+Again, speaking of how much of a good friend you are for people who betrayed you or just randomly left you... Last day when you said thante old frnds thanik ethir aanu plus you deeply regret the fact that avrde lifeil thaan oru muriv aanoo enn... Thanik aa oru bodham enkilum undellodooo... I wouldnt say you were the perfect friend for them..( YOU ARE ONLY PERFECT FOR ME LOL) But still when you thought you might have hurt them and the fact that, that thought hurt you, alone speaks you did care for them. And that care was real... Because if you never cared for them genuinely, thanik angane oru thonnal varilla....and again, this is life alku.....we never know aarokke kaanum aarokke kaanilla enn...unpredictable aanu...Just bcz pandathe friendship fell apart, it doesnt mean you are at fault.... nothing lasts alku... ende oru fav philosophical saanam ond, like Randomly, some people will walk out of your life...and it doesnt have to be because you stopped caring or they stopped caring...it can be because their time in your life is over and you have to move forward....They moved forward...so do you...Pathrosine pole aaku...mistakes accept cheyyamm but never let that gulit take over you...because at the end everyone had their individual choices....dont be like yoodas where the guilt took over him....
+Again how much of a good friend you are for people who betrayed you ft.Neston....I know how much you trusted and loved Ahana, Betru, Nadamika and all....esp Aishu... Aishunte krythil lets say I was indeed posessive....You were so talkative to aishu n nada, you guys were really in vibe w eo, ninglk eppzhm mindn kaanum and it felt like honestly you enjoyed time w them....While njn onn mindn polum ariynd, thante athrem activeum alla thaanum avrum pole oru enjoyment vibeum aavanila...I mean i didnt know how to talk honestly...kayinja letteril prnjapole, wallsinodum flowersinodum samsaricha njn, really struggled to talk to you....angane thanne nashtapeduvo enna pediyil ninn aanu njan othiri change aaye...like idk if you feel it but njn ichire koode talk cheyn sremichu ichire kkode thante koode thante ishtathin nikkn okke try cheythu....oohhh topic maari poyii....so like ik how pure you were with hstlile ellarum bt last avr kaanicheyum ik and thaan ipo avre treat cheyunneyum ik...I mean who does that Alku??? Indeed you are a gem...and I know they also know that...Aishu aanelum back to back ninde aduth varunnondel, nada keeps asking athum ithum are examples that they also know how much of a pure hearted girl you are....
+And even in adhoc....thaan main allarnu...thanik proper consideration onnm kittiyitilla ik...but still to everyone, you were the best alku...
+And about the part i was jealous....not jealous in a way but there were times I used to think how I wish i could be like Alku, to talk to veryone, to cheer them up and not caring about silly things and doing stuffs what makes you happy...There are also days I feel bad for myself cuz I see you working so hard and studying harder and there exists me who lives half of her unproductive and wasting her skills....I know its not an easy path for you to manage everything, but youre managing something really hard-MBBS and being a literal teacher together....
+You should be proud of yourself too, Alku...Dont go too hard on yourself...You, out of alll the people out there, deserves to get the outmost love and care and Ill make sure to give whatever i can...
+Traet yourself a bit more smoother, love yourself a bit more cuz you are capable of doing many difficult things!!!
+You show your best versions to everyone, despite how much broken you are inside...Indeed a loving, selfless sister I have...
+Diamol is so proud to have you as  her sister Alku!!! Proud is an understatement to what I feel about you actually...
+ Proud of you my baby girlll...
+And as usual, I LOVE YOU ALKUUU
+from, your diyamol...`;
+let started=false;
+$('beginBtn').addEventListener('click',async()=>{
+ const value=$('answer').value.trim(); if(!value){$('answerStatus').textContent='Give me your genuine answer first, bbg ♡';return}
+ $('beginBtn').disabled=true;$('answerStatus').textContent='Saving your answer…';
+ try{const {error}=await db.from('responses').insert([{day:11,answer:value,feedback:''}]);if(error)throw error;$('answerStatus').textContent='Saved ♡';}catch(e){$('answerStatus').textContent='Opening your day…';console.error(e)}
+ $('questionCard').classList.add('hidden');$('memories').classList.remove('hidden');started=true;
+ const m=$('music');m.play().catch(()=>{});
+});
+$('pageTurn').addEventListener('click',()=>{$('pageTurn').classList.add('open');setTimeout(()=>{$('marginDoodle').textContent='♡';$('verse').classList.add('show');$('bibleNote').classList.add('show');},520)});
+$('marginDoodle').addEventListener('click',()=>{$('pageTurn').classList.add('open');$('verse').classList.add('show');$('bibleNote').classList.add('show')});
+$('memoryVideo').addEventListener('play',()=>{if(!$('music').paused)$('music').pause()});
+$('memoryVideo').addEventListener('pause',()=>{if(started&&$('memoryVideo').currentTime>0&&!$('memoryVideo').ended)$('music').play().catch(()=>{})});
+$('memoryVideo').addEventListener('ended',()=>{if(started)$('music').play().catch(()=>{})});
+$('letterText').innerHTML='<span class="letter-heading">The Alku Awards ♡</span>'+letter.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+$('envelope').addEventListener('click',()=>{$('envelope').classList.add('open');$('letterSheet').classList.add('open');$('envelope').setAttribute('aria-expanded','true')});
+const announcements=['Alkuuu is amazingg','Diyamol is proud of her Alku','Alku is the besttt!'];let duckIndex=0;
+$('duckBtn').addEventListener('click',()=>{duckIndex=(duckIndex+1)%announcements.length;$('duckSign').classList.remove('show');setTimeout(()=>{$('duckSign').textContent=announcements[duckIndex];$('duckSign').classList.add('show')},160)});
+$('feedbackBtn').addEventListener('click',async()=>{const value=$('feedbackText').value.trim();if(!value){$('feedbackStatus').textContent='Write me something first, if you want ♡';return}$('feedbackBtn').disabled=true;$('feedbackStatus').textContent='Sending…';try{const {error}=await db.from('responses').insert([{day:11,answer:'',feedback:value}]);if(error)throw error;$('feedbackStatus').textContent='Sent to Dia ♡ Thank you, Alku!';$('feedbackText').value=''}catch(e){console.error(e);$('feedbackStatus').textContent='Could not save right now. Please try again.';$('feedbackBtn').disabled=false}});
+</script>
+</body></html>
