@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Day 13 — Another Universe ♡</title>
+<title>Day 13 — The Space Between Our Classes</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
-:root{--silver:#d9dce2;--silver2:#eef0f4;--ink:#454650;--mid:#737783;--dark:#565a66;--paper:#fff;--line:#d9dce4;--shadow:0 12px 32px #45465014}
+:root{--silver:#d9dce2;--silver2:#f3f4f7;--ink:#484b55;--mid:#7a7e89;--dark:#5b606c;--paper:#fff;--line:#d9dce4;--shadow:0 12px 32px #45465014}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:linear-gradient(135deg,#f6f7f9,#e5e7ec 48%,#f9f9fb);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+body{margin:0;min-height:100vh;background:linear-gradient(135deg,#f7f8fa,#e4e6eb 48%,#fbfbfc);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:radial-gradient(#8e929e .65px,transparent .65px);background-size:16px 16px}
-.wrap{width:min(850px,92%);margin:auto;padding:26px 0 48px;position:relative}
+.wrap{width:min(880px,92%);margin:auto;padding:25px 0 48px;position:relative;z-index:1}
 .eyebrow{text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#858996}
 h1,h2{font-family:'Cormorant Garamond',serif;font-weight:600}
-h1{font-size:clamp(40px,8vw,70px);line-height:.98;text-align:center;color:#555a66;margin:12px 0}
+h1{font-size:clamp(39px,8vw,68px);line-height:.98;text-align:center;color:#555a66;margin:12px 0}
 .subtitle{text-align:center;font:23px 'Caveat',cursive;color:#818592;margin:0 0 25px}
-.card{background:#ffffffed;border:1px solid #dfe1e7;border-radius:23px;padding:clamp(18px,4vw,29px);margin:18px 0;box-shadow:var(--shadow);position:relative}
-.card:after{content:"✧";position:absolute;right:18px;top:8px;font:28px 'Caveat',cursive;color:#b9bdc8}
+.card{background:#ffffffed;border:1px solid #dfe1e7;border-radius:23px;padding:clamp(17px,4vw,29px);margin:18px 0;box-shadow:var(--shadow);position:relative}
+.card:after{content:"✧";position:absolute;right:17px;top:7px;font:27px 'Caveat',cursive;color:#b9bdc8;pointer-events:none}
 .kicker{font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#858996;margin:0 0 9px}
 h2{font-size:clamp(27px,5vw,38px);color:#565a66;margin:0 0 12px}
 p{line-height:1.75}
@@ -25,37 +25,43 @@ p{line-height:1.75}
 input,textarea{width:100%;border:1px solid #d2d5de;border-radius:14px;background:#fff;padding:13px 14px;font:16px 'DM Sans',sans-serif;color:var(--ink);outline:none}
 input:focus,textarea:focus{border-color:#898e9c;box-shadow:0 0 0 3px #b9bdc833}
 textarea{resize:vertical}
-button{border:0;border-radius:999px;padding:12px 19px;background:#686d7a;color:white;font:600 14px 'DM Sans',sans-serif;cursor:pointer}
+button{border:0;border-radius:999px;padding:12px 19px;background:#686d7a;color:white;font:600 14px 'DM Sans',sans-serif;cursor:pointer;transition:transform .2s}
+button:active{transform:scale(.97)}
 button:disabled{opacity:.6;cursor:default}
 .status{font-size:13px;color:#727784;min-height:20px;margin-top:9px}
 .musicbox{border:1px dashed #c6c9d2;border-radius:18px;padding:16px;background:linear-gradient(135deg,#f6f7f9,#eceef2)}
 audio{width:100%;margin-top:8px}
-.verse-stage{position:relative;min-height:275px;background:linear-gradient(135deg,#f7f8fa,#e8eaf0);border:1px solid #dfe1e7;border-radius:20px;overflow:hidden;padding:17px;text-align:center}
-.cloud{position:absolute;width:70px;height:26px;background:#fff;border-radius:40px;opacity:.85;top:17px;left:-90px;animation:cloudfly 7s linear infinite}
-.cloud:before,.cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}
-.cloud:before{width:27px;height:27px;top:-13px;left:12px}.cloud:after{width:35px;height:35px;top:-18px;left:31px}
-.angel{width:78px;height:88px;position:absolute;top:15px;left:-100px;opacity:0;animation:angelDeliver 3.1s ease-in-out forwards}
+.verse-stage{position:relative;min-height:270px;background:linear-gradient(135deg,#f7f8fa,#e8eaf0);border:1px solid #dfe1e7;border-radius:20px;overflow:hidden;padding:17px;text-align:center}
+.angel{width:78px;height:88px;position:absolute;top:12px;left:-100px;opacity:0;z-index:2;pointer-events:none}
+.angel.fly{animation:angelDeliver 3.1s ease-in-out forwards}
 .angel svg{width:100%;height:100%;overflow:visible}
-@keyframes cloudfly{0%{left:-90px}100%{left:110%}}
-@keyframes angelDeliver{0%{left:-100px;opacity:0;transform:rotate(-8deg)}25%{opacity:1}55%{left:calc(50% - 39px);opacity:1;transform:rotate(3deg)}70%{left:calc(50% - 39px);top:76px;opacity:1;transform:rotate(0)}90%{left:calc(50% + 120px);top:8px;opacity:.9}100%{left:calc(50% + 220px);top:-20px;opacity:0}}
-.scroll{width:min(470px,95%);margin:118px auto 8px;background:linear-gradient(90deg,#e2e3e8,#fff,#e2e3e8);border:1px solid #c4c7d0;border-radius:6px;padding:14px 13px;box-shadow:0 5px 10px #6d71801a;cursor:pointer;transition:all .7s ease;min-height:54px}
-.scroll:before,.scroll:after{content:"";display:block;height:7px;background:#c6c9d2;border-radius:9px;margin:0 -6px}
-.scroll:after{margin-top:12px}
-.scroll.collapsed{width:110px;height:37px;min-height:37px;padding:0;background:#d4d6de;overflow:hidden}
+@keyframes angelDeliver{0%{left:-100px;opacity:0;transform:rotate(-8deg)}25%{opacity:1}55%{left:calc(50% - 39px);opacity:1;transform:rotate(3deg)}70%{left:calc(50% - 39px);top:74px;opacity:1;transform:rotate(0)}90%{left:calc(50% + 120px);top:8px;opacity:.9}100%{left:calc(50% + 230px);top:-20px;opacity:0}}
+.scroll{width:min(500px,96%);margin:105px auto 8px;background:linear-gradient(90deg,#e2e3e8,#fff,#e2e3e8);border:1px solid #c4c7d0;border-radius:6px;padding:12px;box-shadow:0 5px 10px #6d71801a;cursor:pointer;transition:all .6s ease;min-height:48px}
+.scroll:before,.scroll:after{content:"";display:block;height:7px;background:#c6c9d2;border-radius:9px;margin:0 -5px}
+.scroll:after{margin-top:10px}
+.scroll.collapsed{width:105px;height:35px;min-height:35px;padding:0;background:#d4d6de;overflow:hidden}
 .scroll.collapsed:before,.scroll.collapsed:after{display:none}
 .scroll-content{display:none;white-space:pre-line;font:20px/1.65 'Caveat',cursive;text-align:left;padding:10px 5px}
-.scroll.open .scroll-content{display:block;animation:fadeIn .9s ease}
+.scroll.open .scroll-content{display:block;animation:fadeIn .8s ease}
 .scroll.open{cursor:default}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .scroll-hint{font:18px 'Caveat',cursive;color:#737784;margin:7px 0 0}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.gallery img,.gallery video{width:100%;display:block;object-fit:cover;border:4px solid white;border-radius:16px;box-shadow:0 5px 16px #4e526018;max-height:380px}
-.gallery video{grid-column:1/-1;background:#e5e7ec;max-height:420px}
 .story-intro{font:clamp(21px,4vw,28px)/1.45 'Cormorant Garamond',serif;text-align:center;color:#565a66;margin:0 0 18px}
-.download-box{background:linear-gradient(135deg,#f5f6f8,#e7e9ef);border:1px solid #d7dae2;border-radius:20px;padding:20px;text-align:center}
+.story-cover{position:relative;overflow:hidden;border-radius:22px;padding:24px 18px;background:linear-gradient(135deg,#dfe2e9,#f8f8fa 45%,#d2d6df);border:1px solid #cdd1da;text-align:center;margin-bottom:18px}
+.story-cover:before{content:"";position:absolute;inset:10px;border:1px solid #b5bac6;border-radius:15px;pointer-events:none}
+.story-cover h3{font:clamp(30px,6vw,44px)/1.05 'Cormorant Garamond',serif;margin:8px 0;color:#4f5360;position:relative}
+.story-cover .cover-small{font:18px 'Caveat',cursive;color:#737987;position:relative}
+.story-cover .cover-symbol{font:38px 'Caveat',cursive;color:#858b99;position:relative}
+.story-text{font:18px/1.8 'Cormorant Garamond',serif;white-space:pre-wrap;color:#4d505a}
+.story-text p{margin:0 0 17px}
+.story-text .chapter-break{text-align:center;color:#9da2ae;font-size:22px;letter-spacing:.4em;margin:20px 0}
+.download-box{background:linear-gradient(135deg,#f5f6f8,#e7e9ef);border:1px solid #d7dae2;border-radius:20px;padding:20px;text-align:center;margin-top:20px}
 .download-box p{margin:0 0 14px}
 .pdfbutton{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;background:#656a77;color:white;border-radius:999px;padding:13px 20px;font:600 14px 'DM Sans',sans-serif;cursor:pointer}
 .download-status{font-size:12px;color:#727784;min-height:19px;margin-top:10px}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gallery img,.gallery video{width:100%;display:block;object-fit:cover;border:4px solid white;border-radius:16px;box-shadow:0 5px 16px #4e526018;max-height:380px}
+.gallery video{grid-column:1/-1;background:#e5e7ec;max-height:420px}
 .dance-stage{background:linear-gradient(135deg,#f6f7f9,#e9ebf0);border-radius:20px;padding:22px 12px 18px;text-align:center;overflow:hidden}
 .dance{height:120px;display:flex;align-items:center;justify-content:center;gap:45px;position:relative}
 .girl{width:55px;height:93px;position:relative;animation:dance 1s ease-in-out 3}
@@ -75,24 +81,39 @@ audio{width:100%;margin-top:8px}
 .dance-heart{font:28px 'Caveat',cursive;color:#858997;opacity:0;transform:translateY(8px);transition:.4s}
 .dance-heart.show{opacity:1;transform:translateY(0)}
 .dilku{font:26px 'Caveat',cursive;color:#646977;margin:5px 0 0}
-.doodles{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.46}
-.doodle{position:absolute;width:58px;height:58px;stroke:#999eaa;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.doodle.a{left:2%;top:17%;transform:rotate(-12deg)}.doodle.b{right:1%;top:44%;transform:rotate(9deg)}.doodle.c{left:2%;bottom:15%;transform:rotate(8deg)}.doodle.d{right:2%;bottom:6%;transform:rotate(-10deg)}
+.doodles{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.52}
+.doodle{position:absolute;width:55px;height:55px;stroke:#999eaa;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.doodle.a{left:2%;top:10%;transform:rotate(-12deg)}.doodle.b{right:1%;top:29%;transform:rotate(9deg)}.doodle.c{left:2%;top:53%;transform:rotate(8deg)}.doodle.d{right:2%;top:71%;transform:rotate(-10deg)}.doodle.e{left:5%;bottom:3%;transform:rotate(8deg)}.doodle.f{right:6%;bottom:2%;transform:rotate(-7deg)}
+#heartLayer{position:fixed;inset:0;z-index:10;pointer-events:none;overflow:hidden}
+.tap-heart{position:absolute;font-size:23px;animation:heartFloat 1.45s ease-out forwards;filter:drop-shadow(0 2px 2px #72778425)}
+@keyframes heartFloat{0%{opacity:0;transform:translate(-50%,-20%) scale(.45) rotate(-12deg)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.15) rotate(8deg)}100%{opacity:0;transform:translate(calc(-50% + var(--drift)),calc(-50% - 90px)) scale(.75) rotate(20deg)}}
+.wheel-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+.wheel{width:min(270px,72vw);aspect-ratio:1;border-radius:50%;border:7px solid #fff;box-shadow:0 7px 20px #666b7a25;position:relative;overflow:hidden;transition:transform 3s cubic-bezier(.12,.72,.16,1);background:conic-gradient(#f4c5d5 0deg 90deg,#d9d9f2 90deg 180deg,#f7dfac 180deg 270deg,#c8e6dc 270deg 360deg)}
+.wheel:before{content:"HUG";position:absolute;top:19%;left:50%;transform:translateX(-50%);font:20px 'Caveat',cursive;color:#555a66}
+.wheel:after{content:"ILY";position:absolute;bottom:19%;left:50%;transform:translateX(-50%);font:20px 'Caveat',cursive;color:#555a66}
+.wheel-label{position:absolute;font:19px 'Caveat',cursive;color:#555a66}
+.wheel-label.compliment{right:7%;top:47%;transform:rotate(90deg)}
+.wheel-label.chocolate{left:6%;top:47%;transform:rotate(-90deg)}
+.wheel-pointer{width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-top:25px solid #656a77;margin-bottom:-25px;z-index:2}
+.wheel-result{font:24px 'Caveat',cursive;color:#626775;min-height:34px;text-align:center}
 .footer{text-align:center;font:20px 'Caveat',cursive;color:#818592;margin-top:25px}
-@media(max-width:540px){.wrap{width:92%;padding-top:20px}.gallery{gap:8px}.gallery img{max-height:270px}.scroll-content{font-size:19px}.doodle{opacity:.22;width:43px;height:43px}.dance{gap:24px}}
+@media(max-width:540px){.wrap{width:92%;padding-top:20px}.gallery{gap:8px}.gallery img{max-height:270px}.scroll-content{font-size:19px}.story-text{font-size:17px}.doodle{opacity:.25;width:42px;height:42px}.dance{gap:24px}}
 </style>
 </head>
 <body>
 <div class="doodles" aria-hidden="true">
 <svg class="doodle a" viewBox="0 0 60 60"><path d="M10 30c0-11 9-20 20-20s20 9 20 20-9 20-20 20S10 41 10 30Z"/><path d="M21 26h1m16 0h1M22 37q8 8 16 0"/></svg>
-<svg class="doodle b" viewBox="0 0 60 60"><path d="M30 49S8 34 10 21C12 8 26 10 30 21 34 10 48 8 50 21 52 34 30 49 30 49Z"/><path d="M18 29q12-9 24 0"/></svg>
+<svg class="doodle b" viewBox="0 0 60 60"><path d="M30 49S8 34 10 21C12 8 26 10 30 21 34 10 48 8 50 21 52 34 30 49 30 49Z"/></svg>
 <svg class="doodle c" viewBox="0 0 60 60"><path d="M10 12h40v36H10Z"/><path d="M17 21h26M17 29h26M17 37h17"/><path d="M22 12V7h16v5"/></svg>
 <svg class="doodle d" viewBox="0 0 60 60"><path d="M30 50V26M30 35C9 35 8 18 8 18s18-1 22 17M30 30C31 11 49 10 52 10s-2 19-22 20"/><path d="M22 50h16"/></svg>
+<svg class="doodle e" viewBox="0 0 60 60"><path d="M8 30q22-30 44 0-22 30-44 0Z"/><circle cx="30" cy="30" r="8"/></svg>
+<svg class="doodle f" viewBox="0 0 60 60"><path d="M12 46 30 12l18 34Z"/><path d="M22 34h16M26 26h8"/></svg>
 </div>
+<div id="heartLayer" aria-hidden="true"></div>
 <main class="wrap">
   <div class="eyebrow">Alku's Birthday Countdown · Day 13</div>
-  <h1>Another Universe ♡</h1>
-  <p class="subtitle">if we met somewhere else, in another life…</p>
+  <h1>The Space Between Our Classes</h1>
+  <p class="subtitle">if we met in another universe… ♡</p>
 
   <section class="card">
     <p class="kicker center">Today's question</p>
@@ -106,10 +127,10 @@ audio{width:100%;margin-top:8px}
 
   <section class="card">
     <p class="kicker">Today's song</p>
-    <h2>Then Kiliye ♡</h2>
+    <h2>A song for this universe ♡</h2>
     <div class="musicbox">
       <audio id="music" controls preload="metadata">
-        <source src="Then kiliye.m4a" type="audio/mp4">
+        <source src="New.m4a" type="audio/mp4">
         Your browser does not support audio playback.
       </audio>
     </div>
@@ -117,9 +138,8 @@ audio{width:100%;margin-top:8px}
 
   <section class="card">
     <p class="kicker">Today's Bible verse</p>
-    <h2>A little message delivered from above</h2>
+    <h2>The angel's delivery ☁️</h2>
     <div class="verse-stage">
-      <div class="cloud"></div>
       <div class="angel" id="angel" aria-hidden="true">
         <svg viewBox="0 0 80 90">
           <path d="M25 39C2 16 5 6 19 15c11 7 16 20 17 28" fill="#fff" stroke="#9ca1ae" stroke-width="1.6"/>
@@ -130,13 +150,12 @@ audio{width:100%;margin-top:8px}
           <path d="M37 25q3 3 6 0" fill="none" stroke="#686d7a" stroke-width="1.3"/>
           <path d="M31 33q9-5 18 0l5 23H26Z" fill="#e5e7ed" stroke="#858b99" stroke-width="1.6"/>
           <path d="M31 37 19 49M49 37 61 47" fill="none" stroke="#858b99" stroke-width="3" stroke-linecap="round"/>
-          <path d="M31 34q9 10 18 0" fill="none" stroke="#858b99" stroke-width="1.5"/>
           <rect x="51" y="39" width="18" height="12" rx="2" fill="#fff" stroke="#858b99" stroke-width="1.3" transform="rotate(-12 51 39)"/>
           <path d="M55 42h10M55 45h8" stroke="#a2a6b1" stroke-width="1"/>
         </svg>
       </div>
       <div class="scroll collapsed" id="verseScroll" role="button" tabindex="0" aria-label="Open the Bible verse scroll">
-        <div class="scroll-content" id="verseContent">“Two are better than one: They get a good wage for their toil. If the one falls, the other will help the fallen one. But woe to the solitary person! If that one should fall, there is no other to help. So also, if two sleep together, they keep each other warm. How can one alone keep warm?”
+        <div class="scroll-content">“Two are better than one: They get a good wage for their toil. If the one falls, the other will help the fallen one. But woe to the solitary person! If that one should fall, there is no other to help. So also, if two sleep together, they keep each other warm. How can one alone keep warm?”
 Ecclesiastes 4:9–11
 
 Soo alkuuu sabhaprasngakan prynee kandooo... Nmlekurich alleee ithokleee... Enthokeyo prynm enn ond but type cheyth maduth so... Yk this is 
@@ -148,20 +167,23 @@ about us!!!</div>
 
   <section class="card">
     <p class="kicker">An alternate-universe story</p>
-    <h2>The Space Between Our Classes</h2>
+    <div class="story-cover">
+      <div class="cover-symbol">✧ ☾ ✧</div>
+      <h3>The Space Between<br>Our Classes</h3>
+      <div class="cover-small">a story of university, growing up, and finding your person</div>
+    </div>
     <p class="story-intro">Somewhere in another universe, maybe we meet in a different hallway, live a different life, and still somehow find our way to each other.</p>
+    <div class="story-text" id="storyText"></div>
     <div class="download-box">
-      <p style="font:21px/1.5 'Caveat',cursive">A little story about another version of us — and the kind of friendship that might find each other in every universe.</p>
-      <p>Take this story with you, Alku. Save it and read it whenever you want to visit that other world again. ♡</p>
-      <a class="pdfbutton" id="downloadStory" href="The_Space_Between_Our_Classes.pdf" download="The_Space_Between_Our_Classes.pdf">
-        <span aria-hidden="true">↓</span> Download our AU story (PDF)
-      </a>
-      <div class="download-status" id="downloadStatus" aria-live="polite">The PDF downloads here without leaving this page.</div>
+      <p style="font:23px/1.45 'Caveat',cursive">For the universe where a spilled coffee starts everything…</p>
+      <p>Keep this little story, Alku. A different beginning, a thousand ordinary moments, and a friendship that becomes part of your life. ♡</p>
+      <button type="button" class="pdfbutton" id="downloadStory">↓ Download the story (PDF)</button>
+      <div class="download-status" id="downloadStatus" aria-live="polite">Downloads here without leaving this page.</div>
     </div>
   </section>
 
   <section class="card">
-    <p class="kicker">A few memories from this universe</p>
+    <p class="kicker">Little pieces of our universe</p>
     <div class="gallery">
       <img src="IMG-20261014-WA0002.jpg" alt="A memory of us" loading="lazy">
       <img src="IMG-20261014-WA0001.jpg" alt="Another little memory" loading="lazy">
@@ -177,16 +199,25 @@ about us!!!</div>
     <h2>The two-second dance</h2>
     <div class="dance-stage">
       <div class="dance" aria-label="Two little doodle girls doing a silly dance">
-        <div class="girl one">
-          <span class="hair"></span><span class="head"></span><span class="body"></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span>
-        </div>
-        <div class="girl two">
-          <span class="hair"></span><span class="head"></span><span class="body"></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span>
-        </div>
+        <div class="girl one"><span class="hair"></span><span class="head"></span><span class="body"></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span></div>
+        <div class="girl two"><span class="hair"></span><span class="head"></span><span class="body"></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span></div>
       </div>
       <div class="dance-heart" id="danceHeart">♡</div>
       <div class="dilku" id="dilkuText">Dilku forever.</div>
       <button type="button" id="danceAgain" style="margin-top:13px">Dance again ♡</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <p class="kicker">A little wheel of affection</p>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer"></div>
+      <div class="wheel" id="wheel" aria-label="Affection wheel">
+        <span class="wheel-label compliment">COMPLIMENT</span>
+        <span class="wheel-label chocolate">CHOCOLATE</span>
+      </div>
+      <button type="button" id="spinButton">Spin for affection ♡</button>
+      <div class="wheel-result" id="wheelResult" aria-live="polite"></div>
     </div>
   </section>
 
@@ -212,12 +243,7 @@ async function saveResponse(payload, statusEl, successMessage) {
   try {
     const response = await fetch(`${SUPABASE_URL}/rest/v1/responses`, {
       method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
+      headers: {'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
       body: JSON.stringify(payload)
     });
     if (!response.ok) throw new Error(await response.text() || `HTTP ${response.status}`);
@@ -230,12 +256,12 @@ async function saveResponse(payload, statusEl, successMessage) {
 document.getElementById('answerForm').addEventListener('submit', async event => {
   event.preventDefault();
   const answer = document.getElementById('answerInput').value.trim();
-  if (answer) await saveResponse({day:DAY_NUMBER, answer, feedback:''}, document.getElementById('answerStatus'), 'Your answer is saved ♡');
+  if (answer) await saveResponse({day:DAY_NUMBER,answer,feedback:''},document.getElementById('answerStatus'),'Your answer is saved ♡');
 });
 document.getElementById('feedbackForm').addEventListener('submit', async event => {
   event.preventDefault();
   const feedback = document.getElementById('feedbackInput').value.trim();
-  if (feedback) await saveResponse({day:DAY_NUMBER, answer:'', feedback}, document.getElementById('feedbackStatus'), 'Your note reached Dia ♡');
+  if (feedback) await saveResponse({day:DAY_NUMBER,answer:'',feedback},document.getElementById('feedbackStatus'),'Your note reached Dia ♡');
 });
 
 const scroll = document.getElementById('verseScroll');
@@ -244,66 +270,473 @@ function openScroll(){
   scroll.classList.remove('collapsed');
   scroll.classList.add('open');
   document.getElementById('scrollHint').textContent = 'A little word about us ♡';
-  document.getElementById('angel').style.animationPlayState = 'running';
 }
-scroll.addEventListener('click', openScroll);
-scroll.addEventListener('keydown', event => { if(event.key === 'Enter' || event.key === ' '){event.preventDefault();openScroll();} });
+scroll.addEventListener('click',openScroll);
+scroll.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openScroll();}});
+window.addEventListener('load',()=>{document.getElementById('angel').classList.add('fly');});
 
-// Fetch the PDF into a blob and trigger a download from this page, keeping the audio player/page in place.
-// If the browser blocks the fetch (e.g. the file isn't uploaded yet), fall back to the same-origin download link.
-document.getElementById('downloadStory').addEventListener('click', async event => {
-  event.preventDefault();
-  const link = event.currentTarget;
-  const status = document.getElementById('downloadStatus');
-  const originalText = link.innerHTML;
-  link.style.opacity = '.75';
-  status.textContent = 'Preparing your story…';
-  try {
-    const response = await fetch('The_Space_Between_Our_Classes.pdf');
-    if (!response.ok) throw new Error('PDF not available');
-    const blob = await response.blob();
-    const blobUrl = URL.createObjectURL(blob);
-    const temp = document.createElement('a');
-    temp.href = blobUrl;
-    temp.download = 'The_Space_Between_Our_Classes.pdf';
-    document.body.appendChild(temp);
-    temp.click();
-    temp.remove();
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
-    status.textContent = 'Your story is downloading ♡';
-  } catch (error) {
-    status.textContent = 'If the download did not start, check that the PDF is uploaded beside day13.html, then tap again.';
-    // Same-origin fallback. download attribute requests download rather than navigating to the PDF.
-    link.href = 'The_Space_Between_Our_Classes.pdf';
-    link.download = 'The_Space_Between_Our_Classes.pdf';
-    link.innerHTML = originalText;
-    link.style.opacity = '1';
-    link.onclick = null;
-    link.addEventListener('click', () => { status.textContent = 'Starting PDF download…'; }, {once:true});
-    link.click();
+// Story text displayed attractively in paragraphs; complete story retained.
+const story = `The funny thing about meeting Alka was that Dia almost didn't.
+
+She was late for a cybersecurity lecture, carrying her laptop in one hand and a coffee she hadn't had time to drink in the other, when someone stepped out of a classroom and knocked the coffee straight onto her sleeve.
+
+"Oh my God. I'm so sorry!"
+
+Dia looked at the stain.
+
+Then at the girl standing in front of her, holding a stack of laboratory notes and looking genuinely horrified.
+
+"It's okay," Dia said automatically.
+
+It wasn't okay. The coffee was hot, her sleeve was wet, and she was now even later.
+
+The girl offered her tissues. Dia accepted them.
+
+"I'm Alka. Biotechnology."
+
+"Dia. Cybersecurity."
+
+"Please tell me you're not going to report me for a cybercrime."
+
+Dia stared at her.
+
+Then she laughed.
+
+It was a terrible joke. She knew it. Alka knew it.
+
+But somehow, it worked.
+
+They went their separate ways, and Dia forgot about the incident by lunchtime.
+
+Alka didn't.
+
+The following week, she spotted Dia in the cafeteria and bought her a coffee.
+
+"Peace offering," she said.
+
+"You're bribing me?"
+
+"I'm a biotechnology student. I have no idea how the legal system works."
+
+Dia took the coffee.
+
+"That's concerning."
+
+And that was how it began.
+
+Not with a perfect first impression, but with a stain on a sleeve and a coffee that was marginally better than the first one.
+
+Alka and Dia were not immediately best friends.
+
+For a while, they were simply familiar.
+
+They waved when they passed each other. Sometimes they sat together in the cafeteria. Occasionally, Alka asked Dia to explain something technical, and Dia asked Alka questions about laboratory work she would probably never fully understand.
+
+Their schedules rarely matched.
+
+Alka spent long hours in laboratories, waiting for experiments to finish or repeating procedures that hadn't worked. Dia spent afternoons troubleshooting code, working through security labs, and wondering how a single misplaced character could ruin an entire evening.
+
+They had different friends, different assignments, and different ways of spending their free time.
+
+Stephen, who studied cybersecurity with Dia, occasionally joined them for lunch. He and Dia had an easy friendship built around sarcastic remarks and arguments about the best way to solve a technical problem.
+
+Luca, Alka's biotechnology classmate, was often the reason she arrived late to lunch, usually because a laboratory discussion had somehow turned into a debate about something completely unrelated.
+
+The four of them became acquainted gradually.
+
+But even when Stephen and Luca were around, Alka and Dia had a way of finding their own conversation.
+
+Sometimes it was about something serious.
+
+Sometimes it was about the strange man who had fallen asleep during a lecture.
+
+Sometimes it was nothing at all.
+
+And slowly, without either girl making a decision about it, they began to save the best parts of their days for each other.
+
+The first time Dia realised she had become important to Alka was on an ordinary Wednesday.
+
+Dia had cancelled their lunch plans because a project had gone wrong. She sent a quick apology, expecting Alka to reply whenever she saw it.
+
+Instead, Alka messaged her an hour later.
+
+Did you eat anything?
+
+Dia typed yes.
+
+Alka replied:
+
+What did you eat?
+
+Dia stared at the screen.
+
+Why are you conducting an investigation?
+
+Because I know you.
+
+Dia hadn't eaten.
+
+She admitted it.
+
+Twenty minutes later, Alka appeared outside the computer laboratory with a packet of sandwiches.
+
+"I have practicals in ten minutes," she explained. "So eat quickly."
+
+Dia looked at the food, then at her.
+
+"You didn't have to come all the way here."
+
+"I know."
+
+Alka said it so simply that Dia didn't know what to do with the answer.
+
+There was no expectation of gratitude. No reminder that she'd made an effort. Alka had noticed something small and done something about it.
+
+Dia ate the sandwich while Alka complained about her laboratory supervisor.
+
+Before leaving, Alka stole the last bite.
+
+"Hey!"
+
+"Payment for delivery."
+
+"You are unbelievable."
+
+"And yet, you ate the sandwich."
+
+Dia laughed.
+
+She didn't tell Alka that the gesture had stayed with her long after the afternoon ended.
+
+Some things were too small to explain.
+
+They were still worth remembering.
+
+Of course, caring about someone didn't automatically make you good at understanding them.
+
+A few months later, Alka was unusually quiet for several days. Dia assumed she needed space and didn't want to bother her.
+
+Alka, meanwhile, thought Dia had become too busy to notice.
+
+Neither was particularly proud of this misunderstanding when they finally talked about it.
+
+"I thought you wanted to be alone," Dia said.
+
+"I thought you didn't have time for me."
+
+Dia frowned.
+
+"Alka, you can literally tell me that you want to talk."
+
+"You can also ask."
+
+"That's annoyingly reasonable."
+
+"I try."
+
+They sat together outside the library, watching students hurry past with bags, books, and the particular exhaustion of people who had several deadlines approaching.
+
+Alka explained what had been bothering her. Dia listened, then told her about a few things she had been struggling with herself.
+
+Neither had known the other was carrying so much.
+
+When they finally stood up, Alka bumped her shoulder against Dia's.
+
+"Next time, we communicate like normal people?"
+
+"Let's not set unrealistic expectations."
+
+Alka laughed.
+
+And they walked back inside.
+
+Their friendship didn't become perfect after that conversation. They still misunderstood each other occasionally.
+
+But they became a little more willing to ask instead of assume.
+
+A little more careful with each other's silences.
+
+A little less afraid of admitting when something mattered.
+
+Near the end of the academic year, the university held an exhibition for student projects.
+
+Dia spent most of the afternoon explaining cybersecurity concepts to people who kept asking whether she could recover their forgotten social media passwords.
+
+Alka visited her stall between sessions.
+
+"How many times have you explained the same thing today?" she asked.
+
+"Enough to consider changing majors."
+
+"Come to biotechnology. We suffer in entirely different ways."
+
+Dia laughed.
+
+Later, Dia visited Alka's display and listened to her explain her research. She didn't understand every detail, but she asked questions because she wanted to know what Alka was excited about.
+
+Alka noticed.
+
+Afterward, they found Stephen and Luca near the entrance, arguing about where to eat.
+
+The four of them went out together.
+
+They talked about the exhibition, complained about university, and took a photograph that nobody particularly liked.
+
+Stephen blinked.
+
+Luca looked away.
+
+Dia was laughing at something Alka had said.
+
+Alka was looking at Dia instead of the camera.
+
+It was a terrible photograph.
+
+Alka saved it.
+
+A few weeks later, their semester ended.
+
+Everyone became busy with exams, family visits, and plans for the break. The university corridors grew quieter, and the cafeteria stopped feeling like the centre of the world.
+
+Dia and Alka didn't meet for a while.
+
+They still messaged, but not constantly. Sometimes a whole day passed without a conversation.
+
+Then one evening, Dia received a photograph from Alka.
+
+It was a picture of a coffee cup on a table.
+
+This coffee is terrible, Alka wrote.
+
+Dia smiled.
+
+You should report it to the authorities.
+
+I don't trust you with legal advice.
+
+Good. I'm a cybersecurity major.
+
+Alka sent a laughing voice note.
+
+Dia listened while packing her things for the following day.
+
+It was such an ordinary exchange that she almost moved on without thinking about it.
+
+Then she paused.
+
+She realised she had spent the past few months collecting little pieces of Alka without meaning to.
+
+Her jokes.
+
+Her complaints.
+
+Her photographs of laboratory mishaps.
+
+The way she asked whether Dia had eaten.
+
+The way she could make a difficult day feel less lonely without pretending that it wasn't difficult.
+
+Dia had not planned to make room for another person in her life.
+
+She had simply kept making room, one small moment at a time.
+
+And somewhere along the way, Alka had become someone whose absence was noticeable and whose presence never needed an explanation.
+
+Years later, their lives might look very different.
+
+Dia might be working in cybersecurity, surrounded by complicated systems and problems that demanded her attention long after working hours.
+
+Alka might be building her career in biotechnology, spending her days with questions that required patience and answers that didn't arrive quickly.
+
+Stephen and Luca might remain part of their lives, or university might eventually become the place where they all first met and nothing more.
+
+The future would be uncertain in the ordinary ways futures are uncertain.
+
+But perhaps, on some evening years from now, Dia would receive a message from Alka.
+
+Edi, listen to what happened today.
+
+And Dia would put down whatever she was doing and reply.
+
+Tell me.
+
+Not because she would always have time.
+
+Not because she could fix whatever had happened.
+
+But because she would still want to know.
+
+And perhaps Alka would do the same for her.
+
+They would continue to have separate lives, separate ambitions, and separate worlds that the other could never completely inhabit.
+
+Yet they would keep finding little doorways into those worlds.
+
+A story from work.
+
+A complaint about a difficult day.
+
+A photograph of something ridiculous.
+
+A quiet admission that things hadn't been going well.
+
+They would keep learning who the other was becoming.
+
+And perhaps that was the real gift of their friendship: not that they would remain exactly the same, but that they would get to witness each other's changes.
+
+The girl who had once apologised for spilling coffee would get to know the woman Dia became.
+
+The girl who had once accepted a terrible peace-offering coffee would get to know the woman Alka became.
+
+And somewhere in between, they would have accumulated years of memories that nobody else could quite understand.
+
+Because a friendship doesn't always announce its importance.
+
+Sometimes it is a thousand small things that look ordinary when they happen.
+
+A coffee.
+
+A sandwich.
+
+A conversation after a difficult day.
+
+A photograph nobody else would save.
+
+A message sent simply because something reminded you of the other person.
+
+Until one day, you look back and realise that someone has been there for so much of your life that you can no longer tell the story of those years without mentioning them.
+
+And you think, with a kind of quiet gratitude, that you are glad the coffee spilled.
+
+Not because it was fate.
+
+Not because the universe had planned anything.
+
+But because, in a life full of people passing one another without stopping, two people had stopped long enough to become important.
+
+And for Dia and Alka, that was how a stranger became a friend, a friend became family, and an ordinary university year became a part of their lives they would always be glad to have shared.
+
+Some people don't change your life all at once.
+
+They become part of it quietly, until their name appears in so many ordinary memories that you cannot imagine those years without them.
+
+And one day, you realise that the best thing about meeting them was never the way it began.
+
+It was everything that came after. 🤍`;
+const storyContainer = document.getElementById('storyText');
+story.split(/\n\s*\n/).forEach((paragraph,index)=>{
+  const p=document.createElement('p');
+  p.textContent=paragraph;
+  storyContainer.appendChild(p);
+  if([7,18,30,43,55,68,80].includes(index)){
+    const divider=document.createElement('div');
+    divider.className='chapter-break';
+    divider.textContent='✧  ·  ♡  ·  ✧';
+    storyContainer.appendChild(divider);
   }
-  link.style.opacity = '1';
 });
 
-const danceHeart = document.getElementById('danceHeart');
-function restartDance(){
-  const girls = document.querySelectorAll('.girl');
-  girls.forEach(girl => {
-    girl.style.animation = 'none';
-    void girl.offsetWidth;
-    girl.style.animation = '';
-  });
-  danceHeart.classList.remove('show');
-  document.getElementById('dilkuText').textContent = 'Dilku forever.';
-  setTimeout(() => danceHeart.classList.add('show'), 3000);
-}
-document.getElementById('danceAgain').addEventListener('click', restartDance);
-setTimeout(() => danceHeart.classList.add('show'), 3000);
+// PDF download: generate a nicely formatted PDF in-browser from the full story.
+// If jsPDF cannot load, download a text copy instead, without navigating away from the page.
+document.getElementById('downloadStory').addEventListener('click', async()=>{
+  const status=document.getElementById('downloadStatus');
+  status.textContent='Preparing your story…';
+  try{
+    if(!window.jspdf){
+      await new Promise((resolve,reject)=>{
+        const s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        s.onload=resolve;s.onerror=reject;document.head.appendChild(s);
+      });
+    }
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({unit:'mm',format:'a4'});
+    const pageW=210,pageH=297,margin=18,usableW=pageW-margin*2;
+    let y=22;
+    pdf.setFillColor(238,240,244);pdf.rect(0,0,pageW,pageH,'F');
+    pdf.setDrawColor(170,175,187);pdf.setLineWidth(.4);pdf.roundedRect(9,9,pageW-18,pageH-18,4,4,'S');
+    pdf.setFont('times','italic');pdf.setFontSize(25);pdf.setTextColor(75,79,91);
+    pdf.text('The Space Between Our Classes',pageW/2,y,{align:'center',maxWidth:usableW});y+=10;
+    pdf.setFont('times','normal');pdf.setFontSize(11);pdf.setTextColor(115,120,133);
+    pdf.text('An alternate-universe story about university, growing up,',pageW/2,y,{align:'center'});y+=5;
+    pdf.text('and the person who slowly becomes part of your everyday life.',pageW/2,y,{align:'center'});y+=13;
+    pdf.setDrawColor(190,194,203);pdf.line(margin,y,pageW-margin,y);y+=10;
+    pdf.setFont('times','normal');pdf.setFontSize(11);pdf.setTextColor(65,68,77);
+    const paragraphs=story.split(/\n\s*\n/);
+    for(const para of paragraphs){
+      const lines=pdf.splitTextToSize(para,usableW);
+      const blockH=lines.length*5.2+4;
+      if(y+blockH>pageH-margin){
+        pdf.addPage();pdf.setFillColor(250,250,252);pdf.rect(0,0,pageW,pageH,'F');
+        pdf.setDrawColor(210,213,220);pdf.roundedRect(9,9,pageW-18,pageH-18,4,4,'S');
+        y=20;
+      }
+      pdf.text(lines,margin,y,{lineHeightFactor:1.35});
+      y+=blockH;
+    }
+    const total=pdf.getNumberOfPages();
+    for(let i=1;i<=total;i++){pdf.setPage(i);pdf.setFont('times','italic');pdf.setFontSize(9);pdf.setTextColor(130,134,145);pdf.text('Dilku forever  ·  '+i,pageW/2,pageH-12,{align:'center'});}
+    pdf.save('The_Space_Between_Our_Classes.pdf');
+    status.textContent='Your story is downloading ♡';
+  }catch(error){
+    console.error(error);
+    const blob=new Blob([story],{type:'text/plain;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='The_Space_Between_Our_Classes.txt';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),30000);
+    status.textContent='PDF could not be prepared, so a text copy is downloading instead.';
+  }
+});
 
-const music = document.getElementById('music');
-const video = document.getElementById('memoryVideo');
-video.addEventListener('play', () => { music.dataset.wasPlaying = String(!music.paused); if (!music.paused) music.pause(); });
-video.addEventListener('ended', () => { if (music.dataset.wasPlaying === 'true') music.play().catch(()=>{}); });
+const heartLayer=document.getElementById('heartLayer');
+const heartColors=['♡','♥','🤍','♡','♥'];
+document.addEventListener('pointerdown',event=>{
+  if(event.target.closest('button,a,input,textarea,audio,video,[role="button"]')) return;
+  const heart=document.createElement('span');heart.className='tap-heart';
+  heart.textContent=heartColors[Math.floor(Math.random()*heartColors.length)];
+  heart.style.left=event.clientX+'px';heart.style.top=event.clientY+'px';
+  heart.style.color=['#9ba1af','#c2a9c8','#d5a7b7','#8f9aa9'][Math.floor(Math.random()*4)];
+  heart.style.setProperty('--drift',(Math.random()*70-35)+'px');
+  heartLayer.appendChild(heart);setTimeout(()=>heart.remove(),1550);
+});
+
+const danceHeart=document.getElementById('danceHeart');
+function restartDance(){
+  const girls=document.querySelectorAll('.girl');
+  girls.forEach(girl=>{girl.style.animation='none';void girl.offsetWidth;girl.style.animation='';});
+  danceHeart.classList.remove('show');
+  setTimeout(()=>danceHeart.classList.add('show'),3000);
+}
+document.getElementById('danceAgain').addEventListener('click',restartDance);
+setTimeout(()=>danceHeart.classList.add('show'),3000);
+
+const prizes=['A huge virtual hug! 🤗','Compliment: you make ordinary days feel special. ♡','A virtual chocolate, all for you! 🍫','ILY — I love you, Alku! ♡'];
+let wheelRotation=0,spinning=false;
+document.getElementById('spinButton').addEventListener('click',()=>{
+  if(spinning)return;
+  spinning=true;
+  const idx=Math.floor(Math.random()*prizes.length);
+  const segment=360/4;
+  const target=360*5+(idx*segment)+(segment/2);
+  wheelRotation+=target;
+  document.getElementById('wheel').style.transform=`rotate(${wheelRotation}deg)`;
+  document.getElementById('wheelResult').textContent='Spinning… ♡';
+  setTimeout(()=>{
+    document.getElementById('wheelResult').textContent=prizes[idx];
+    spinning=false;
+  },3050);
+});
+
+const music=document.getElementById('music');
+const video=document.getElementById('memoryVideo');
+video.addEventListener('play',()=>{
+  music.dataset.wasPlaying=String(!music.paused);
+  if(!music.paused)music.pause();
+});
+video.addEventListener('ended',()=>{
+  if(music.dataset.wasPlaying==='true')music.play().catch(()=>{});
+});
 </script>
+<!-- jsPDF is loaded on demand when the story download button is pressed. -->
 </body>
 </html>
