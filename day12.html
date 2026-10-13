@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 12 — Us in 2036 ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+:root{--pink:#f8dce8;--pink2:#f4bfd5;--rose:#b65d83;--ink:#593c4b;--paper:#fffafc;--lav:#eadff5;--shadow:0 12px 35px #9c55751b}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 12% 8%,#fff 0 3%,transparent 24%),linear-gradient(145deg,#fff5f9,#f9dfeb 48%,#f5e8fb);min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(#c57b9c 0.7px,transparent .7px);background-size:17px 17px}
+.wrap{width:min(850px,92%);margin:auto;padding:28px 0 54px;position:relative}
+.topline{text-align:center;font:12px 'DM Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#a66b87}
+h1,h2{font-family:'Cormorant Garamond',serif;font-weight:600}
+h1{font-size:clamp(42px,8vw,72px);line-height:.95;text-align:center;margin:12px 0 10px;color:#9b4d72}
+.subtitle{text-align:center;font:22px 'Caveat',cursive;color:#9e6a83;margin:0 0 24px}
+.card{background:#fffafceF;border:1px solid #eecddd;border-radius:24px;padding:clamp(18px,4vw,30px);margin:18px 0;box-shadow:var(--shadow);position:relative}
+.card:after{content:"♡";position:absolute;right:18px;top:10px;font:27px 'Caveat';color:#e5a8c5;transform:rotate(12deg)}
+.kicker{font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#ad6b8a;margin:0 0 9px}
+h2{font-size:clamp(28px,5vw,39px);margin:0 0 12px;color:#9b4d72}
+p{line-height:1.75}
+.question{font:clamp(25px,5vw,34px) 'Caveat',cursive;text-align:center;margin:4px 0 18px}
+input,textarea{font:16px 'DM Sans',sans-serif;width:100%;border:1px solid #e3b6ca;background:#fff;border-radius:14px;padding:13px 14px;color:var(--ink);outline:none}
+input:focus,textarea:focus{border-color:#b65d83;box-shadow:0 0 0 3px #f4bfd544}
+button{border:0;background:#b65d83;color:white;padding:12px 20px;border-radius:999px;font:600 14px 'DM Sans',sans-serif;cursor:pointer;box-shadow:0 5px 14px #b65d8325}
+button:active{transform:scale(.98)}
+.center{text-align:center}
+.small{font-size:12px;color:#a57b8e}
+.status{font-size:13px;min-height:20px;margin-top:9px;color:#8b5470}
+.musicbox{background:linear-gradient(135deg,#fff2f7,#f6e8fc);border:1px dashed #d8a4bd;border-radius:18px;padding:17px;margin-top:14px}
+.musicbox audio{width:100%;margin-top:8px}
+.disclaimer{font:19px/1.55 'Caveat',cursive;white-space:pre-line;margin:0}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gallery img,.gallery video{width:100%;display:block;object-fit:cover;border-radius:17px;border:4px solid white;box-shadow:0 6px 18px #89506a20;max-height:390px}
+.gallery video{grid-column:1/-1;max-height:420px;background:#f5e2eb}
+.verse-stage{background:linear-gradient(135deg,#fff6fa,#f6e6f7);border-radius:20px;padding:18px;text-align:center;min-height:250px;overflow:hidden;position:relative}
+.typewriter{font:clamp(17px,3.8vw,21px)/1.65 'Caveat',cursive;white-space:pre-wrap;min-height:75px;text-align:left;max-width:610px;margin:0 auto}
+.type-title{font:22px 'Cormorant Garamond',serif;color:#a04e76;margin-bottom:10px}
+.type-cursor{display:inline-block;animation:blink .8s infinite}
+@keyframes blink{50%{opacity:0}}
+.tinyheart{color:#d35e93;display:inline-block;animation:pop .5s ease}
+@keyframes pop{from{transform:scale(.2)}to{transform:scale(1)}}
+.start-type{margin-top:12px}
+.lyrics-title{text-align:center;font:30px 'Caveat',cursive;color:#a24e78;margin:4px 0 14px;animation:float 3.5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.lyrics{font:21px/1.65 'Caveat',cursive;white-space:pre-wrap;text-align:center;background:#fff6fa;border:1px dashed #e2b4ca;border-radius:18px;padding:20px 14px}
+.lyrics-note{font:18px 'Caveat',cursive;text-align:center;color:#a35b7b}
+.heart-fold{display:block;margin:0 auto 12px;width:118px;height:105px;cursor:pointer;transition:transform .4s}
+.heart-fold:hover{transform:scale(1.05) rotate(-3deg)}
+.paper-heart{width:100%;height:100%;background:linear-gradient(145deg,#f4a9c9,#d9689d);clip-path:polygon(50% 94%,8% 50%,4% 37%,6% 23%,17% 12%,31% 13%,50% 32%,69% 13%,83% 12%,94% 23%,96% 37%,92% 50%);filter:drop-shadow(0 8px 6px #b65d8333);position:relative}
+.paper-heart:after{content:"tap to unfold ♡";position:absolute;inset:42% 0 auto;text-align:center;color:white;font:15px 'Caveat'}
+.letter-paper{display:none;background:repeating-linear-gradient(#fffdf8 0 34px,#f0e1e6 35px 36px);border:1px solid #e7c9d4;border-radius:6px;padding:22px 18px;box-shadow:5px 7px 0 #d9afc1;transform-origin:top;animation:unfold .8s ease}
+.letter-paper.open{display:block}
+@keyframes unfold{from{transform:perspective(600px) rotateX(-75deg) scaleY(.2);opacity:.2}to{transform:perspective(600px) rotateX(0) scaleY(1);opacity:1}}
+.letter-text{font:19px/1.8 'Caveat',cursive;white-space:pre-wrap}
+.letter-end{text-align:center;font:24px 'Caveat',cursive;color:#a04e76;margin-top:18px}
+.locket-area{text-align:center;padding:14px}
+.locket{width:118px;height:118px;border-radius:50%;border:5px solid #dca0bb;background:linear-gradient(145deg,#fff0f7,#e8b2ca);color:#a14e76;display:flex;align-items:center;justify-content:center;font-size:54px;margin:0 auto 10px;cursor:pointer;box-shadow:inset 0 0 0 4px #fff8,0 8px 20px #a85c7b20;transition:.4s}
+.locket.open{transform:rotate(-15deg) scale(1.05);background:#fff4f8}
+.locket-message{display:none;font:22px 'Caveat',cursive;color:#9b4d72}
+.locket-message.show{display:block;animation:pop .5s ease}
+.feedback textarea{min-height:110px;resize:vertical}
+.doodle{position:fixed;pointer-events:none;z-index:0;opacity:.48;color:#c47e9c;font:24px 'Caveat',cursive}
+.d1{top:13%;left:2%;transform:rotate(-13deg)}.d2{top:36%;right:2%;transform:rotate(11deg)}.d3{bottom:20%;left:2%;transform:rotate(8deg)}.d4{bottom:7%;right:3%;transform:rotate(-9deg)}
+.doodle svg{width:50px;height:50px;stroke:#bd7b9b;fill:none;stroke-width:1.8}
+.footer{text-align:center;font:18px 'Caveat',cursive;color:#a76b87;margin-top:25px}
+@media(max-width:540px){.wrap{width:92%;padding-top:20px}.gallery{gap:8px}.gallery img{max-height:270px}.lyrics{font-size:19px;padding:15px 10px}.letter-text{font-size:18px}.doodle{opacity:.25}}
+</style>
+</head>
+<body>
+<div class="doodle d1" aria-hidden="true"><svg viewBox="0 0 60 60"><path d="M8 30c9-18 35-18 44 0-9 18-35 18-44 0Z"/><path d="M30 10v40M10 30h40"/><circle cx="30" cy="30" r="7"/></svg></div>
+<div class="doodle d2" aria-hidden="true"><svg viewBox="0 0 60 60"><path d="M30 48S7 34 9 20C11 7 27 9 30 20 35 7 50 7 52 20 54 34 30 48 30 48Z"/></svg></div>
+<div class="doodle d3" aria-hidden="true"><svg viewBox="0 0 60 60"><path d="M13 46V14h34v32Z"/><path d="M18 22h24M18 29h24M18 36h17"/><path d="M20 14V8h20v6"/></svg></div>
+<div class="doodle d4" aria-hidden="true"><svg viewBox="0 0 60 60"><path d="M9 48c4-13 10-22 21-27 8-4 15-5 21-5-2 12-7 21-15 27-8 6-17 7-27 5Z"/><path d="M9 48 42 22"/></svg></div>
+
+<main class="wrap">
+  <div class="topline">Alku's Birthday Countdown · Day 12</div>
+  <h1>Us in 2036 ♡</h1>
+  <p class="subtitle">dear my crazy soulmate, ten years from now…</p>
+
+  <section class="card" id="questionCard">
+    <p class="kicker center">Today's question</p>
+    <div class="question">“what do you think about us in 2036?”</div>
+    <form id="answerForm">
+      <textarea id="answerInput" rows="3" placeholder="Tell me your honest answer, Alku… ♡" required></textarea>
+      <div class="center" style="margin-top:13px"><button type="submit">Save your answer ♡</button></div>
+      <div class="status center" id="answerStatus" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section class="card">
+    <p class="kicker">A little disclaimer</p>
+    <h2>For my crazy soulmate 🎶</h2>
+    <div class="musicbox">
+      <p class="disclaimer">Disclaimer: ik you hate korean songs, but this song is dedicated to you... See the lyrics... IU is one the most popular artists in korea and she dedicated this song to her best friend Yoo Inna.... And so, me, Diamol is also dedicating this song to her best friend Alkumol!!!See the lyrics below! Mwahhh</p>
+      <audio id="music" controls preload="metadata">
+        <source src="My crazy soulmate.m4a" type="audio/mp4">
+        Your browser does not support audio playback.
+      </audio>
+    </div>
+  </section>
+
+  <section class="card">
+    <p class="kicker">Today's Bible verse</p>
+    <h2>A little reminder from God 📖</h2>
+    <div class="verse-stage">
+      <div class="type-title" id="typeTitle">A word for you, Alku ♡</div>
+      <div class="typewriter" id="verseText">Tap below to reveal today's verse…</div>
+      <button class="start-type" id="typeButton" type="button">Reveal the verse ♡</button>
+    </div>
+    <p style="font:20px/1.65 'Caveat',cursive;white-space:pre-line;margin-bottom:0">So alkuuu... Just a reminder tht whatever the future holds for us, onnm daivam ariynd alla.... Soo nmle onnipichapo karthav knew we needed each other.... So trusting in that eeso for our future... Le eeso be like aavashtathin ningle onnipichitt ningl entha kaatikoottaneee????</p>
+  </section>
+
+  <section class="card">
+    <p class="kicker">The song's message</p>
+    <div class="lyrics-title">Dear my crazy soulmate ♡</div>
+    <div class="lyrics">Dear my crazy soulmate
+Your story
+Till the world finally gives up on us,
+Let’s stay just like this, just the two of us
+That’s why we are the best soulmate
+
+Yet again today, you confess how weird you are
+And say, “You’re disappointed, aren’t you?”
+In front of me, you can be weird your whole life
+That’s why I like you even more
+
+Here, we’re not interested in MAN, LOVE
+And forget all about WORK, HATE
+
+My dream is for us to become two weird grammas together
+
+Dear my crazy soulmate
+Your story
+Till the world finally gives up on us,
+Let’s stay just like this, just the two of us
+That’s why we are the best soulmate
+
+My cliché our story
+Even if it’s a little predictable, with no troubles along the way,
+Happy ending is eternal
+Because we are the best soulmate
+
+I’ll wear the funny t-shirt you gifted me
+And the necklace with the Blue moon on it too
+When you laugh while watching me fool around
+That’s when I like you the most
+
+When we’re together, everything is P E R F E C T
+Who cares what’s FAKE, REAL?
+
+My dream is to become two weird grammas together
+
+Dear my crazy soulmate 
+Your story
+Till the world finally gives up on us,
+Let’s stay just like this, being our weird selves
+That’s why we are the best soulmate
+
+My scaredy-cat, No worries
+Even when the whole world comes crashing down
+I’ll still fool around for you
+weirdo best soulmate
+
+So you and I, We best soulmate
+Yeah you and I, We best soulmate
+Oh you and I, We best soulmate
+Sure you and I, We best soulmate
+
+Dear my crazy soulmate
+Your story
+Till the world finally gives up on us,
+Let’s stay just like this, just the two of us
+That’s why we are the best soulmate</div>
+    <p class="lyrics-note">ik you hate korean songs but see the lyrics darling!!! ♡</p>
+  </section>
+
+  <section class="card">
+    <p class="kicker">A memory for the future</p>
+    <h2>Little pieces of us ♡</h2>
+    <div class="gallery">
+      <img src="IMG-20261013-WA0134.jpg" alt="A memory of us" loading="lazy">
+      <img src="IMG-20261013-WA0131.jpg" alt="A memory from our story" loading="lazy">
+      <video id="memoryVideo" controls playsinline preload="metadata">
+        <source src="VID-20261013-WA0133.mp4" type="video/mp4">
+        Your browser does not support video playback.
+      </video>
+    </div>
+  </section>
+
+  <section class="card">
+    <p class="kicker">A letter from today</p>
+    <h2>7 DAMN DAYS…</h2>
+    <p style="font:19px 'Caveat',cursive;text-align:center">A folded paper heart, with a whole future tucked inside.</p>
+    <button type="button" class="heart-fold" id="heartButton" aria-label="Unfold the letter"><span class="paper-heart"></span></button>
+    <p class="center small" id="heartHint">Tap the origami heart to unfold your letter ♡</p>
+    <article class="letter-paper" id="letterPaper">
+      <div class="letter-text">7 DAMN DAYS...
+
+Ten years from now on, where would we be? This is a letter full of hopes and the promises I hope I could keep!
+10 years from now on, that means on 2036...
+We'll finish our medical journey in georgia (idk im tearing up thinking abt that itself... :(()....no idea whats gonna happen to dilkin... We both will probably be best friends after everything... And we might finish our pg in india??? Or somewhere else??? And we'll probably get married too bcz now we are 20 n 22 so in 10 years thats 30 n 32 damnnn thats soo olddd.... Idkk maybe kids??? Who knows....
+
+But what I want is, whatever happens, we never know what life keeps for us but whatever happens I hope we are still friends... Nooo best friends and sisters I mean.... When chitta and Kunjanty calls amma randomly to ask about yk veetile kryngl (some sister things), I also imagine you calling me at very random times asking me about this and that.... And if we are speaking of imaging ourselves in the future, i hope we get to marry 2 green flags- if not... Yk who all.... 2 guys who are friends and yk plans stuff for us does all sorts of amazon rainforest husband stuff.... 
+And then comes the us part....
+I hope we stay best friends just like now, the ride or die type... Not just the comforting formal friends but also the crazy informal friendship we have where we randomly go to stalk just to get some tea, when we are depressed, we just go and eat, keri irangi nadakkuka all the thrift shops, randomly avidem ividem poyi irikkukaa, spilling teas, cooking for eo, caring for eo and what more.... Even tho we won't be with eo 24 7,i do hope we will be able to meet often, hangout together (w n wo hubby)....
+I don't expect us to stay the same... Like it would be great if we could but yk life would be more serious then (aarrkkariya georgia vrmbm life serious aakunn prnja teams aanu ipo lallalla paadi nadakune so idkk)
+I hope we wont fall apart... Krnm thaan ende life inn poyal, ik there won't be another best  friend... Krnm is thante athram njn close aayapole aarde aduthum close aavn enik thalparyam illa efforts idanum vayya... For you i wouldn't say i put efforts... It came automatically.... Sooo yeahh.... And enik thaanee olledooo... And njn eppzhm prym ellarkum ellardem lyf aakumbo avr avravrde vayikk pokunn... I won't force you to stay krnm thanik chetan n kids aakmbm ofc athayiriknm thante priority but enne idakk okke orthekkaneee.....
+
+Pinne ennaa... Nmk orumich same hospil joli kittuvanel adipoli aayenee allee... Last day jaanu called... Jaanu said nmk 3 perkum same sthalath joli cheyann... Idk about anyone else bt nml randum same sthalath aanell.... Good luck to the patients and staff... Orth nookikkee varunna nalla patientsine vaayinookunneee.... And thaan gynec alleee appo thaan pg chechimarde hus green flag aan ivide oral ond enik enokke parayuneee....
+Or imagine dilkin working together in same hosp... In case nml set aakuvanel njnum stefi okke evidelum ninn varthanam pryne thaan kandd pinne adi aayi behalam aakune okkee....
+Or imagine nmde piller beinb besties... Nmlepole matching dress okke nml nmde pillere idipikkuneee... Me beinh the stylist...or nmde pillerde bday occasions il okke nml angottum ingottum gift vaangikond irikunnee.... And our anniversary over weddung anniversary... Our chetnmar together complaining nmk avrekkalum nmleya ishtm ennn.... Or thante kochine njn fst edukunnee😭😭ith vere route povva athond back to us hehehe
+So like... Idk what the future holds for us, but I genuinely hope we won't fall apart alkuu... I wont survive that...lets be old grandmas together telling our makkal and makkalde makkal, that we didn't have any generational wealth so ninglkum njngl onnm ondaki vechittilla enn! 
+
+I love you alkuu... In the past, now and in the future, I'll keep on loving you... A silent promise!
+
+Chakkara ummaa 😘😘</div>
+    </article>
+  </section>
+
+  <section class="card">
+    <p class="kicker">A tiny surprise</p>
+    <h2>The heart locket 💕</h2>
+    <div class="locket-area">
+      <button type="button" class="locket" id="locketButton" aria-label="Open the heart locket">♡</button>
+      <div class="locket-message" id="locketMessage">🌸<br>A little place for you in my heart. Always.</div>
+    </div>
+  </section>
+
+  <section class="card feedback">
+    <p class="kicker">One last thing</p>
+    <h2>Leave me a little note ♡</h2>
+    <p>Anything you want to tell me about today's page, Alku.</p>
+    <form id="feedbackForm">
+      <textarea id="feedbackInput" placeholder="Your thoughts, feedback, or anything at all… ♡" required></textarea>
+      <div class="center" style="margin-top:13px"><button type="submit">Send to Dia ♡</button></div>
+      <div class="status center" id="feedbackStatus" aria-live="polite"></div>
+    </form>
+  </section>
+  <div class="footer">In 2026, in 2036, and in every version of tomorrow — ♡</div>
+</main>
+
+<script>
+const SUPABASE_URL = 'https://poowacsncuoucptqjblg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr';
+const DAY_NUMBER = 12;
+
+async function saveResponse(payload, statusEl, successMessage) {
+  statusEl.textContent = 'Saving…';
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/responses`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+      const detail = await response.text();
+      throw new Error(detail || `HTTP ${response.status}`);
+    }
+    statusEl.textContent = successMessage;
+  } catch (error) {
+    console.error(error);
+    statusEl.textContent = 'Could not save right now. Please try again.';
+  }
+}
+document.getElementById('answerForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const answer = document.getElementById('answerInput').value.trim();
+  if (!answer) return;
+  await saveResponse({day: DAY_NUMBER, answer, feedback: ''}, document.getElementById('answerStatus'), 'Your answer is saved, Alku ♡');
+});
+document.getElementById('feedbackForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const feedback = document.getElementById('feedbackInput').value.trim();
+  if (!feedback) return;
+  await saveResponse({day: DAY_NUMBER, answer: '', feedback}, document.getElementById('feedbackStatus'), 'Your note reached Dia ♡');
+});
+
+const verseFull = '“Do not worry about tomorrow; tomorrow will take care of itself. Sufficient for a day is its own evil.”\\nMatthew 6:34';
+const verseLetter = 'So alkuuu... Just a reminder tht whatever the future holds for us, onnm daivam ariynd alla.... Soo nmle onnipichapo karthav knew we needed each other.... So trusting in that eeso for our future... Le eeso be like aavashtathin ningle onnipichitt ningl entha kaatikoottaneee????';
+const typeButton = document.getElementById('typeButton');
+const verseText = document.getElementById('verseText');
+const typeTitle = document.getElementById('typeTitle');
+let typing = false;
+typeButton.addEventListener('click', async () => {
+  if (typing) return;
+  typing = true;
+  typeButton.disabled = true;
+  typeButton.textContent = 'Revealing…';
+  typeTitle.textContent = 'Matthew 6:34 ♡';
+  verseText.textContent = '';
+  const lines = [verseFull, '', verseLetter];
+  for (const line of lines) {
+    if (line === '') { verseText.appendChild(document.createElement('br')); verseText.appendChild(document.createElement('br')); continue; }
+    for (const char of line) {
+      if (char === '.' || char === '!' || char === '?') {
+        verseText.append(char);
+        if (Math.random() > 0.65) {
+          const heart = document.createElement('span'); heart.className = 'tinyheart'; heart.textContent = ' ♥';
+          verseText.appendChild(heart);
+        }
+        await new Promise(resolve => setTimeout(resolve, 240));
+      } else {
+        verseText.append(char);
+        await new Promise(resolve => setTimeout(resolve, 29));
+      }
+    }
+    verseText.appendChild(document.createElement('br'));
+    await new Promise(resolve => setTimeout(resolve, 550));
+  }
+  typeButton.textContent = 'Verse revealed ♡';
+});
+
+document.getElementById('heartButton').addEventListener('click', () => {
+  const paper = document.getElementById('letterPaper');
+  paper.classList.add('open');
+  document.getElementById('heartHint').textContent = 'Every crease, one little piece of our future ♡';
+  document.getElementById('heartButton').style.display = 'none';
+  paper.scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('locketButton').addEventListener('click', () => {
+  document.getElementById('locketButton').classList.toggle('open');
+  document.getElementById('locketMessage').classList.toggle('show');
+});
+
+const music = document.getElementById('music');
+const video = document.getElementById('memoryVideo');
+video.addEventListener('play', () => { if (!music.paused) music.pause(); });
+video.addEventListener('ended', () => { if (music.dataset.wasPlaying === 'true') music.play().catch(()=>{}); });
+video.addEventListener('play', () => { music.dataset.wasPlaying = String(!music.paused); });
+</script>
+</body>
+</html>
