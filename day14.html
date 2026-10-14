@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#eee7e1">
+<title>The Alku Museum ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@300;400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#eef6fc;--ink:#354957;--muted:#718a9a;--rose:#c49db2;--line:#c4d9e8;--card:#fbfdff;--sage:#8daabd}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(circle at 10% 5%,#e8d7d3 0,transparent 28%),radial-gradient(circle at 90% 30%,#dce0d5 0,transparent 24%),var(--paper);color:var(--ink);font-family:Montserrat,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:radial-gradient(#88766e .5px,transparent .5px);background-size:20px 20px;z-index:-1}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.hero{min-height:78vh;padding:55px 20px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative}
+.eyebrow,.micro{font:9px 'DM Mono',monospace;letter-spacing:4px;text-transform:uppercase;color:var(--muted)}
+.hero h1{font:500 clamp(56px,12vw,100px)/.85 'Cormorant Garamond',serif;letter-spacing:-2px;margin:25px 0 20px}
+.hero h1 em{color:#a9757b;font-weight:400}
+.hero p{font:italic 21px/1.55 'Cormorant Garamond',serif;max-width:510px;color:#78645f}
+.stamp{margin-top:32px;border:1px solid #c6a9a0;border-radius:50%;width:88px;height:88px;display:grid;place-items:center;transform:rotate(-9deg);font:10px/1.6 'DM Mono',monospace;color:#9d7274}
+.intro{max-width:800px;margin:0 auto;padding:20px 22px 30px;text-align:center}
+.intro h2{font:500 42px 'Cormorant Garamond',serif;margin:10px 0}
+.intro p{font:18px/1.7 'Cormorant Garamond',serif;color:var(--muted);max-width:600px;margin:auto}
+.surprise-bar{max-width:980px;margin:0 auto 35px;padding:0 20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.action{border:1px solid #b8d0e1;background:#fbfdffd9;color:#674e4b;padding:12px 18px;border-radius:999px;font:10px 'DM Mono',monospace;letter-spacing:1px;transition:.2s}
+.action:hover{transform:translateY(-2px);background:white;box-shadow:0 8px 22px #63453a14}
+.filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:0 18px 25px}
+.filter{border:1px solid var(--line);background:#fff8f2a8;color:var(--muted);border-radius:99px;padding:9px 14px;font-size:11px}
+.filter.active{background:#75605b;color:white;border-color:#75605b}
+.gallery{max-width:1180px;margin:0 auto;padding:0 20px 80px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+.exhibit{background:var(--card);border:1px solid #e0d2c7;padding:9px 9px 15px;box-shadow:0 10px 28px #4c37300d;transform:rotate(var(--tilt,0deg));transition:transform .25s,box-shadow .25s;min-width:0;cursor:pointer}
+.exhibit:hover{transform:translateY(-5px) rotate(0);box-shadow:0 16px 34px #4c373018}
+.photo{aspect-ratio:4/5;background:linear-gradient(145deg,#e8d9d1,#f5ece5 55%,#dfe1d7);position:relative;overflow:hidden;display:grid;place-items:center}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo .placeholder{padding:18px;text-align:center;color:#8e7770;font:italic 18px/1.35 'Cormorant Garamond',serif}
+.photo .placeholder small{display:block;font:8px 'DM Mono',monospace;letter-spacing:2px;margin-top:10px}
+.exhibit-caption{padding:13px 5px 0}
+.exhibit-number{font:8px 'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:#ad8985}
+.exhibit h3{font:600 22px/1.05 'Cormorant Garamond',serif;margin:7px 0 5px}
+.exhibit p{font:12px/1.55 'Montserrat',sans-serif;color:#806e67}
+.note{max-width:760px;margin:0 auto 70px;padding:0 20px}
+.note-card{background:#fffaf4d9;border:1px solid var(--line);padding:30px;position:relative;box-shadow:0 14px 36px #5b44370d}
+.note-card:before{content:"✦";position:absolute;top:-15px;left:25px;background:var(--paper);padding:0 10px;color:#b17f83}
+.note-card h2{font:500 34px 'Cormorant Garamond',serif;margin-bottom:8px}
+.note-card p{font:17px/1.7 'Cormorant Garamond',serif;color:#7b6861}
+.field-label{display:block;font:9px 'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+textarea,input{width:100%;border:1px solid #c4d9e8;background:#fffdf9;padding:13px;color:var(--ink);outline:none;border-radius:2px}
+textarea:focus,input:focus{border-color:#b88a8c}
+textarea{min-height:95px;resize:vertical}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.message{font:12px/1.5 'DM Mono',monospace;color:#7c7160;margin-top:10px;min-height:16px}
+footer{text-align:center;padding:0 20px 55px;color:#9c817b}
+footer .rule{width:42px;height:1px;background:#cbb0a6;margin:0 auto 18px}
+footer p{font:italic 19px 'Cormorant Garamond',serif}
+.modal{position:fixed;inset:0;background:#2d2423d9;z-index:20;display:none;align-items:center;justify-content:center;padding:18px}
+.modal.show{display:flex}
+.modal-box{background:var(--paper);max-width:780px;width:100%;max-height:92vh;overflow:auto;padding:14px;position:relative}
+.modal-close{position:absolute;right:10px;top:10px;border:0;background:#fffaf0e8;border-radius:50%;width:38px;height:38px;font-size:22px;z-index:2}
+.modal-image{width:100%;max-height:68vh;object-fit:contain;background:#e8ddd4;display:block}
+.modal-caption{padding:17px 10px 10px}
+.modal-caption .micro{margin-bottom:8px}
+.modal-caption h2{font:500 32px 'Cormorant Garamond',serif;margin-bottom:5px}
+.modal-caption p{font:15px/1.6 'Cormorant Garamond',serif;color:var(--muted)}
+.surprise-message{display:none;margin:0 auto 35px;max-width:580px;padding:18px 24px;text-align:center;background:#fff9f1;border:1px dashed #c6a29d;font:italic 22px/1.5 'Cormorant Garamond',serif;color:#8d6269}
+.surprise-message.show{display:block;animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+@media(max-width:900px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}}
+@media(max-width:600px){.hero{min-height:65vh;padding-top:45px}.hero h1{font-size:60px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0 12px 55px}.exhibit{padding:6px 6px 12px}.exhibit h3{font-size:19px}.exhibit p{font-size:11px}.intro h2{font-size:35px}.note-card{padding:24px 19px}.note-card h2{font-size:30px}}
+@media(max-width:350px){.gallery{grid-template-columns:1fr}.photo{aspect-ratio:5/4}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="eyebrow">A tiny museum · made with love</div>
+  <h1>The Alku<br><em>Museum</em></h1>
+  <p>An exhibition of the little things, the loud things, the silly things, and every version of you that I am lucky enough to know. ♡</p>
+<div class="music-card" style="width:min(540px,94vw);margin:24px auto 0;padding:17px;background:#ffffffd9;border:1px solid #c4d9e8;text-align:left">
+<div style="font:9px 'DM Mono',monospace;letter-spacing:3px;text-transform:uppercase;color:#7898ad;margin-bottom:9px">A song that screams Dilku</div>
+<audio controls autoplay loop preload="auto" style="width:100%"><source src="perfect.m4a" type="audio/mp4"></audio>
+<p style="font:italic 18px/1.5 'Cormorant Garamond',serif;margin-top:10px;color:#617d91">“'Cause we were just kids when we fell in love, not knowin' what it was<br>I will not give you up this time”</p>
+<p style="font:italic 17px/1.6 'Cormorant Garamond',serif;margin-top:9px;color:#617d91">Just heard these lyrics and it screams Dilku... When we met, I never knew you would be this important for me, Alku... But here we are... And I, Dia, refuse to let you go! ♡</p>
+</div>
+
+  <div class="stamp">EST. WITH<br>LOVE<br>♡ 2026 ♡</div>
+</header>
+
+<section class="intro">
+  <div class="micro">PLEASE KEEP YOUR HANDS AND HEART OPEN</div>
+  <h2>Welcome to your very own museum.</h2>
+  <p>Sixty tiny exhibits. Each one is a little proof that ordinary moments become extraordinary when they're yours. Tap any frame to take a closer look.</p>
+</section>
+
+<div class="surprise-bar">
+  <button class="action" id="randomExhibit">✦ Take me to a random exhibit</button>
+  <button class="action" id="surpriseButton">♡ Open a tiny surprise</button>
+</div>
+<div class="surprise-message" id="surpriseMessage" aria-live="polite"></div>
+
+
+<section style="max-width:800px;margin:0 auto 35px;padding:0 20px;text-align:center">
+<div style="font:9px 'DM Mono',monospace;letter-spacing:4px;text-transform:uppercase;color:#7898ad">A MESSAGE FROM THE CLOUDS</div>
+<div id="cloudStage" style="min-height:190px;display:grid;place-items:center;position:relative">
+<button id="cloudButton" aria-label="Tap cloud to reveal Bible verse" style="border:0;background:transparent;width:min(330px,85vw);animation:cloudfloat 4s ease-in-out infinite">
+<svg viewBox="0 0 360 180" style="width:100%;filter:drop-shadow(0 8px 8px #7b9ab01c)" aria-hidden="true"><path d="M80 130C42 130 27 108 34 83c5-19 22-30 43-27 8-31 37-43 62-30 13 7 21 18 24 31 23-17 54-9 64 15 30-7 58 14 57 41-1 11-7 17-16 22-7 4-17 5-27 5H80Z" fill="#fff" stroke="#c7ddeb" stroke-width="2"/></svg>
+<span style="display:block;margin-top:-73px;margin-bottom:55px;font:10px 'DM Mono',monospace;letter-spacing:2px;color:#64849b">TAP THE CLOUD</span></button><div id="starfall" style="position:absolute;inset:0;overflow:hidden;pointer-events:none"></div></div>
+<article id="verseScroll" style="display:none;text-align:left;background:#fffdf7;border:1px solid #d9cdb9;padding:25px;margin:0 auto;max-width:650px">
+<div style="text-align:center;font:9px 'DM Mono',monospace;letter-spacing:3px;color:#7898ad">A LITTLE MESSAGE FOR DILKU</div>
+<h2 style="font:500 30px 'Cormorant Garamond',serif;text-align:center;margin:10px 0">A bond that feels like home</h2>
+<p style="font:italic 22px/1.6 'Cormorant Garamond',serif;text-align:center;color:#536e80">“Jonathan’s life became bound up with David’s life; he loved him as his very self.”</p>
+<p style="text-align:center;font:9px 'DM Mono',monospace;letter-spacing:2px;color:#8b9da7;margin:10px 0 18px">1 SAMUEL 18:1</p>
+<p style="font:16px/1.7 'Cormorant Garamond',serif;text-align:center;color:#6c7f89">Read this today and the bond of Jonathan and David reminded me of us! How we love and care for each other more than ourselves! ❤️</p>
+</article></section>
+<style>@keyframes cloudfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}@keyframes fallstar{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translateY(140px) rotate(130deg);opacity:0}}</style>
+
+<nav class="filters" aria-label="Museum collections">
+  <button class="filter active" data-filter="all">All photos · 60</button>
+  <button class="filter" data-filter="moments">Little moments</button>
+  <button class="filter" data-filter="chaos">Certified Alku behaviour</button>
+  <button class="filter" data-filter="favourites">My favourite versions</button>
+  <button class="filter" data-filter="lore">Our lore</button>
+</nav>
+
+<main class="gallery" id="gallery" aria-label="Photo exhibits"></main>
+
+
+<section style="text-align:center;padding:30px 20px 55px">
+<div style="font:9px 'DM Mono',monospace;letter-spacing:3px;text-transform:uppercase;color:#7898ad">A VERY IMPORTANT EXHIBIT</div>
+<h2 style="font:500 38px 'Cormorant Garamond',serif;color:#496a80;margin:8px 0">One virtual hug, just for you.</h2>
+<p style="font:17px 'Cormorant Garamond',serif;color:#718a9a">Tap the teddy. Curator's orders.</p>
+<button id="teddyButton" aria-label="Tap teddy bear for a virtual hug" style="border:0;background:transparent;width:180px;max-width:60vw;margin:14px auto;display:block">
+<svg viewBox="0 0 220 230" style="width:100%;filter:drop-shadow(0 8px 8px #58768b18)" aria-hidden="true">
+<ellipse cx="63" cy="48" rx="29" ry="31" fill="#c9b5a5" stroke="#9c8578" stroke-width="2"/><ellipse cx="157" cy="48" rx="29" ry="31" fill="#c9b5a5" stroke="#9c8578" stroke-width="2"/><ellipse cx="63" cy="48" rx="14" ry="16" fill="#eadbd0"/><ellipse cx="157" cy="48" rx="14" ry="16" fill="#eadbd0"/>
+<ellipse cx="110" cy="126" rx="68" ry="72" fill="#d7c3b3" stroke="#9c8578" stroke-width="2"/><circle cx="110" cy="83" r="53" fill="#d7c3b3" stroke="#9c8578" stroke-width="2"/><ellipse cx="110" cy="99" rx="27" ry="21" fill="#f0e3d9"/><circle cx="91" cy="79" r="4.5" fill="#51433d"/><circle cx="129" cy="79" r="4.5" fill="#51433d"/><path d="M105 93q5-6 10 0l-5 5z" fill="#8b5f62"/><path d="M110 98q-7 9-14 0M110 98q7 9 14 0" fill="none" stroke="#8b5f62" stroke-width="2" stroke-linecap="round"/>
+<ellipse cx="59" cy="151" rx="24" ry="32" transform="rotate(-28 59 151)" fill="#d7c3b3" stroke="#9c8578" stroke-width="2"/><ellipse cx="161" cy="151" rx="24" ry="32" transform="rotate(28 161 151)" fill="#d7c3b3" stroke="#9c8578" stroke-width="2"/><ellipse cx="82" cy="190" rx="29" ry="20" fill="#d7c3b3" stroke="#9c8578" stroke-width="2"/><ellipse cx="138" cy="190" rx="29" ry="20" fill="#d7c3b3" stroke="#9c8578" stroke-width="2"/><path id="teddyHeart" d="M110 174s-30-18-30-37c0-16 20-20 30-5 10-15 30-11 30 5 0 19-30 37-30 37z" fill="#d58fa7" stroke="#a96882" stroke-width="2"/></svg></button>
+<div id="hugMessage" style="display:none;max-width:500px;margin:10px auto;padding:17px 20px;background:#fffdfd;border:1px dashed #c9a6b8;font:italic 21px/1.5 'Cormorant Garamond',serif;color:#8c687d">Alku has received one virtual hug. Please squeeze your pillow for the full experience.</div></section>
+
+<section class="note">
+  <div class="note-card">
+    <div class="micro">THE VISITOR'S BOOK</div>
+    <h2>What’s one Dilku memory you want to preserve forever?</h2>
+    <p>Tell me the Dilku memory you would preserve forever, and leave a little feedback for the curator.</p>
+    <form id="museumForm">
+      <label class="field-label" for="museumAnswer">Your Dilku memory</label>
+      <textarea id="museumAnswer" placeholder="A Dilku memory I want to preserve forever is…"></textarea>
+      <label class="field-label" for="museumFeedback">Feedback for the curator (optional)</label>
+      <textarea id="museumFeedback" placeholder="Anything you want to tell me…"></textarea>
+      <div class="form-actions">
+        <button class="action" type="submit">Leave in the visitor's book ♡</button>
+      </div>
+      <div class="message" id="formMessage" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<footer><div class="rule"></div><p>Curated with all my love, for Alku. ♡</p></footer>
+
+<div class="modal" id="photoModal" role="dialog" aria-modal="true" aria-label="Photo exhibit">
+  <div class="modal-box">
+    <button class="modal-close" id="closeModal" aria-label="Close">×</button>
+    <img class="modal-image" id="modalImage" alt="">
+    <div class="modal-caption">
+      <div class="micro" id="modalNumber"></div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalText"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+/*
+  PHOTO SETUP:
+  1. Upload your 50 photos into the same GitHub folder as day14.html.
+  2. Name them museum-01.jpg through museum-50.jpg (or update each filename below).
+  3. Replace the example captions with your own captions.
+  Tip: use compressed JPG/WebP photos for faster loading on phones.
+*/
+const exhibits = [
+  {file:"IMG-20261014-WA0084.jpg", title:"A little piece of you", caption:"One of those moments I wish I could keep in a tiny frame forever.", category:"moments"},
+  {file:"IMG-20261014-WA0078.jpg", title:"Certified Alku behaviour", caption:"Exhibit 02: evidence that being you is an entire personality.", category:"chaos"},
+  {file:"IMG-20261014-WA0087.jpg", title:"A favourite version", caption:"There are so many versions of you to love. This is one of them.", category:"favourites"},
+  {file:"IMG-20261014-WA0133.jpg", title:"Our little lore", caption:"You had to be there. Actually, you were there. That's the point.", category:"lore"},
+  {file:"IMG-20261014-WA0128.jpg", title:"A moment worth keeping", caption:"An ordinary moment that became a memory I love.", category:"moments"},
+  {file:"IMG-20261014-WA0082.jpg", title:"Alku being Alku", caption:"No explanation needed. The exhibit speaks for itself.", category:"chaos"},
+  {file:"IMG-20261014-WA0077.jpg", title:"My favourite smile", caption:"A small reminder of how lovely your happiness looks.", category:"favourites"},
+  {file:"IMG-20261014-WA0088.jpg", title:"The lore continues", caption:"Another page in the very unserious history of us.", category:"lore"},
+  {file:"IMG-20261014-WA0080.jpg", title:"A tiny treasure", caption:"Some memories don't look huge. They just feel huge.", category:"moments"},
+  {file:"IMG-20261014-WA0090.jpg", title:"Museum of Alku", caption:"A rare specimen: Alku, being completely and unapologetically herself.", category:"chaos"},
+  {file:"IMG-20261014-WA0092.jpg", title:"One of my favourites", caption:"If I could save a feeling as a photograph, it might look like this.", category:"favourites"},
+  {file:"IMG-20261014-WA0138.jpg", title:"You remember this?", caption:"I hope this brings back the same little spark it brings me.", category:"lore"},
+  {file:"IMG-20261014-WA0139.jpg", title:"A day to keep", caption:"Filed under: moments I am glad happened.", category:"moments"},
+  {file:"IMG-20261014-WA0136.jpg", title:"Alku, unfiltered", caption:"No posing required. Your natural chaos is museum-worthy.", category:"chaos"},
+  {file:"IMG-20261014-WA0137.jpg", title:"A soft little memory", caption:"A little snapshot of a version of you I adore.", category:"favourites"},
+  {file:"IMG-20261014-WA0135.jpg", title:"Inside joke archive", caption:"The explanation would take too long. The memory is enough.", category:"lore"},
+  {file:"IMG-20261014-WA0134.jpg", title:"The ordinary magic", caption:"Proof that the smallest things can become the biggest memories.", category:"moments"},
+  {file:"IMG-20261014-WA0125.jpg", title:"Peak Alku energy", caption:"Researchers are still studying this phenomenon.", category:"chaos"},
+  {file:"IMG-20261014-WA0127.jpg", title:"A version I treasure", caption:"I hope you know how much there is to love about you.", category:"favourites"},
+  {file:"IMG-20261014-WA0129.jpg", title:"Our story, exhibit 20", caption:"A little piece of our lore, preserved for future generations.", category:"lore"},
+  {file:"IMG-20261014-WA0130.jpg", title:"A memory in colour", caption:"A moment I am happy to have tucked away.", category:"moments"},
+  {file:"IMG-20261014-WA0131.jpg", title:"Alku doing the most", caption:"Some people make an entrance. You make an entire exhibit.", category:"chaos"},
+  {file:"IMG-20261014-WA0126.jpg", title:"My kind of favourite", caption:"One more reason this museum had to exist.", category:"favourites"},
+  {file:"IMG-20261014-WA0124.jpg", title:"The story behind this", caption:"The photo is here. The full story is probably ten times funnier.", category:"lore"},
+  {file:"IMG-20261014-WA0123.jpg", title:"A little forever", caption:"If a moment could stay, I would let this one stay a while.", category:"moments"},
+  {file:"IMG-20261014-WA0122.jpg", title:"Unmistakably you", caption:"A hundred people could be in a room and I would still know this energy.", category:"chaos"},
+  {file:"IMG-20261014-WA0120.jpg", title:"The way I see you", caption:"A tiny window into one of the many reasons I adore you.", category:"favourites"},
+  {file:"IMG-20261014-WA0121.jpg", title:"Lore nobody can decode", caption:"For the record, I regret nothing. Absolutely nothing.", category:"lore"},
+  {file:"IMG-20261009-WA0094.jpg", title:"A moment with you", caption:"The kind of memory that quietly makes a day better.", category:"moments"},
+  {file:"IMG-20261014-WA0115.jpg", title:"Museum-grade nonsense", caption:"Please do not feed the exhibit. It is already dramatic enough.", category:"chaos"},
+  {file:"IMG-20261014-WA0116.jpg", title:"A favourite little detail", caption:"There is always something lovely hiding in the details.", category:"favourites"},
+  {file:"IMG-20261014-WA0117.jpg", title:"Our archive", caption:"Some stories are better because we lived them together.", category:"lore"},
+  {file:"IMG-20261014-WA0118.jpg", title:"A little joy, saved", caption:"Consider this a tiny jar of happiness in photo form.", category:"moments"},
+  {file:"IMG-20261014-WA0119.jpg", title:"Alku being iconic", caption:"The museum committee unanimously approved this exhibit.", category:"chaos"},
+  {file:"IMG-20261014-WA0113.jpg", title:"One to remember", caption:"I hope future-us looks at this and smiles just as much.", category:"favourites"},
+  {file:"IMG-20261014-WA0111.jpg", title:"A page from our lore", caption:"No context for strangers. Full context for us.", category:"lore"},
+  {file:"IMG-20261014-WA0110.jpg", title:"The little things", caption:"Not every treasured thing announces itself loudly.", category:"moments"},
+  {file:"IMG-20261014-WA0109.jpg", title:"Absolutely Alku", caption:"An authentic and unrepeatable Alku moment.", category:"chaos"},
+  {file:"IMG-20261014-WA0108.jpg", title:"A view I love", caption:"There are so many ways to be wonderful. This is one.", category:"favourites"},
+  {file:"IMG-20261014-WA0107.jpg", title:"Remember when…", caption:"A tiny exhibit dedicated to a memory only we can fully explain.", category:"lore"},
+  {file:"IMG-20261014-WA0100.jpg", title:"A small piece of today", caption:"Someday this ordinary day might feel like a treasure.", category:"moments"},
+  {file:"IMG-20261014-WA0101.jpg", title:"Chaos, carefully curated", caption:"Beautifully chaotic. Historically significant. Very Alku.", category:"chaos"},
+  {file:"IMG-20261014-WA0102.jpg", title:"A favourite feeling", caption:"Some photos remind me less of what happened and more of how it felt.", category:"favourites"},
+  {file:"IMG-20261014-WA0103.jpg", title:"The lore never ends", caption:"One more story for the unofficial archive of us.", category:"lore"},
+  {file:"IMG-20261014-WA0104.jpg", title:"A moment I kept", caption:"I am glad this little moment exists somewhere outside my memory.", category:"moments"},
+  {file:"IMG-20261014-WA0106.jpg", title:"Alku: limited edition", caption:"One of one. No replicas. No replacements.", category:"chaos"},
+  {file:"IMG-20261014-WA0098.jpg", title:"A little love note", caption:"If you ever forget how loved you are, start here.", category:"favourites"},
+  {file:"IMG-20261014-WA0097.jpg", title:"Our kind of history", caption:"The kind of history that won't be in textbooks, but matters to me.", category:"lore"},
+  {file:"IMG-20261014-WA0096.jpg", title:"Almost the last exhibit", caption:"A reminder that there is always more to remember.", category:"moments"},
+  {file:"IMG-20261014-WA0105.jpg", title:"The most important exhibit", caption:"The museum was never really about the photos. It was about you. ♡", category:"favourites"},
+  {file:"IMG-20261014-WA0095.jpg", title:"A little more Dilku", caption:"There is always one more memory I want to keep.", category:"moments"},
+  {file:"IMG-20261014-WA0094.jpg", title:"Alku in her element", caption:"A tiny exhibit for your very particular kind of magic.", category:"chaos"},
+  {file:"IMG-20261014-WA0093.jpg", title:"A memory with a heartbeat", caption:"This photo feels like a little piece of home.", category:"favourites"},
+  {file:"IMG-20261014-WA0086.jpg", title:"Our story keeps growing", caption:"Another chapter for our very unofficial history book.", category:"lore"},
+  {file:"IMG-20261014-WA0089.jpg", title:"The small things stay", caption:"One more ordinary moment that means a lot to me.", category:"moments"},
+  {file:"IMG-20261014-WA0083.jpg", title:"Peak Alku energy, again", caption:"The museum has confirmed this is a recurring phenomenon.", category:"chaos"},
+  {file:"IMG-20261014-WA0081.jpg", title:"A version I hope you see", caption:"I hope you see even a little of what I see in you.", category:"favourites"},
+  {file:"IMG-20261014-WA0079.jpg", title:"A story only we know", caption:"No public explanation available. Dilku archive only.", category:"lore"},
+  {file:"IMG-20261014-WA0091.jpg", title:"One more for the keepsake box", caption:"Some moments are too sweet to leave in the camera roll.", category:"moments"},
+  {file:"IMG-20261014-WA0085.jpg", title:"Forever exhibit", caption:"The photos end here; my love for you doesn't. ♡", category:"favourites"}
+];
+
+const gallery = document.getElementById("gallery");
+const modal = document.getElementById("photoModal");
+let lastFocused = null;
+
+function renderGallery(filter = "all") {
+  gallery.innerHTML = "";
+  exhibits.forEach((item, index) => {
+    if (filter !== "all" && item.category !== filter) return;
+    const card = document.createElement("article");
+    card.className = "exhibit";
+    card.tabIndex = 0;
+    card.style.setProperty("--tilt", `${[-1.2,0.7,1.1,-0.5][index % 4]}deg`);
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Open exhibit ${index + 1}: ${item.title}`);
+
+    const photo = document.createElement("div");
+    photo.className = "photo";
+    const img = document.createElement("img");
+    img.src = item.file;
+    img.alt = item.title;
+    img.loading = "lazy";
+    img.onerror = () => {
+      img.remove();
+      if (!photo.querySelector(".placeholder")) {
+        const placeholder = document.createElement("div");
+        placeholder.className = "placeholder";
+        placeholder.innerHTML = `Your photo goes here<small>EXHIBIT ${String(index + 1).padStart(2,"0")}</small>`;
+        photo.appendChild(placeholder);
+      }
+    };
+    photo.appendChild(img);
+
+    const caption = document.createElement("div");
+    caption.className = "exhibit-caption";
+    caption.innerHTML = `<div class="exhibit-number">Exhibit ${String(index + 1).padStart(2,"0")}</div><h3></h3><p></p>`;
+    caption.querySelector("h3").textContent = item.title;
+    caption.querySelector("p").textContent = item.caption;
+    card.append(photo, caption);
+    card.addEventListener("click", () => openExhibit(index));
+    card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openExhibit(index); }});
+    gallery.appendChild(card);
+  });
+}
+function openExhibit(index) {
+  const item = exhibits[index];
+  lastFocused = document.activeElement;
+  const img = document.getElementById("modalImage");
+  img.src = item.file;
+  img.alt = item.title;
+  img.onerror = () => { img.removeAttribute("src"); };
+  document.getElementById("modalNumber").textContent = `EXHIBIT ${String(index + 1).padStart(2,"0")} · THE ALKU MUSEUM`;
+  document.getElementById("modalTitle").textContent = item.title;
+  document.getElementById("modalText").textContent = item.caption;
+  modal.classList.add("show");
+  document.body.style.overflow = "hidden";
+  document.getElementById("closeModal").focus();
+}
+function closeModal() {
+  modal.classList.remove("show");
+  document.body.style.overflow = "";
+  if (lastFocused && lastFocused.focus) lastFocused.focus();
+}
+document.getElementById("closeModal").addEventListener("click", closeModal);
+modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    renderGallery(button.dataset.filter);
+  });
+});
+
+document.getElementById("randomExhibit").addEventListener("click", () => {
+  const index = Math.floor(Math.random() * exhibits.length);
+  openExhibit(index);
+});
+const surprises = [
+  "Curator's note: the museum has officially confirmed that Alku is one of one. ♡",
+  "Secret exhibit unlocked: someone is very, very lucky to know you.",
+  "Please remember: you are so much more lovable than you sometimes realise. 🤍",
+  "Museum announcement: this visitor is required to accept one virtual hug.",
+  "A little reminder from the curator: I would choose your friendship in every universe."
+];
+document.getElementById("surpriseButton").addEventListener("click", () => {
+  const box = document.getElementById("surpriseMessage");
+  box.textContent = surprises[Math.floor(Math.random() * surprises.length)];
+  box.classList.remove("show");
+  void box.offsetWidth;
+  box.classList.add("show");
+  box.scrollIntoView({behavior:"smooth",block:"center"});
+});
+
+/* Supabase: this page inserts only; it does not read visitor responses. */
+const SUPABASE_URL = "https://poowacsncuoucptqjblg.supabase.co";
+const SUPABASE_KEY = "sb_publishable_MsOhDe2KI_iQzjZcj7wVvA_uZ3TUwDr";
+
+document.getElementById("museumForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const answer = document.getElementById("museumAnswer").value.trim();
+  const feedback = document.getElementById("museumFeedback").value.trim();
+  const message = document.getElementById("formMessage");
+  if (!answer && !feedback) {
+    message.textContent = "Write a little something before leaving your note. ♡";
+    return;
+  }
+  message.textContent = "Saving your note…";
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/responses`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify({day:14, answer, feedback})
+    });
+    if (!response.ok) throw new Error("Save failed");
+    message.textContent = "Your note has been tucked into the visitor's book. ♡";
+    document.getElementById("museumForm").reset();
+  } catch (error) {
+    message.textContent = "Couldn't save just now. Please check your connection and try again.";
+  }
+});
+
+
+document.getElementById("cloudButton").addEventListener("click",()=>{
+ const scroll=document.getElementById("verseScroll");scroll.style.display="block";
+ const area=document.getElementById("starfall");
+ for(let i=0;i<18;i++){const star=document.createElement("span");star.textContent=i%3===0?"✧":"✦";star.style.cssText=`position:absolute;left:${8+Math.random()*84}%;top:35%;color:#d6ad62;font-size:${12+Math.random()*12}px;animation:fallstar 1.7s ease-in forwards;animation-delay:${Math.random()*.5}s`;area.appendChild(star);setTimeout(()=>star.remove(),2400);}
+ scroll.scrollIntoView({behavior:"smooth",block:"center"});
+});
+document.getElementById("teddyButton").addEventListener("click",()=>{
+ const heart=document.getElementById("teddyHeart"),msg=document.getElementById("hugMessage");const open=msg.style.display!=="block";msg.style.display=open?"block":"none";heart.style.transform=open?"translateY(-8px) scale(1.12)":"";heart.style.transformBox="fill-box";heart.style.transformOrigin="center";
+});
+
+renderGallery();
+</script>
+</body>
+</html>
