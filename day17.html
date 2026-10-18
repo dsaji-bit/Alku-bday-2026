@@ -1,425 +1,1577 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#211238">
+<meta name="theme-color" content="#21112f">
 <title>Day 17 — The Timeline of Us ♡</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Caveat:wght@400;500;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
 <style>
-:root{
-  --night:#211238;--deep:#2b1744;--violet:#4a2d68;--lav:#d9c8f0;
-  --paper:#fffaff;--ink:#332447;--muted:#a99abc;--line:#e7dcef;
+:root {
+  --bg: #21112f;
+  --bg2: #321b47;
+  --lavender: #d7c0f3;
+  --pale: #f9f3ff;
+  --ink: #392347;
+  --white: #fffaff;
+  --muted: #c5aed8;
+  --line: #76558d;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;color:#fbf7ff;font-family:Montserrat,sans-serif;overflow-x:hidden;
-  background:radial-gradient(ellipse at 15% 10%,#56366f66,transparent 34%),
-  radial-gradient(ellipse at 90% 35%,#6a4c8760,transparent 32%),var(--night);
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
 }
-body:before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.15;
-  background-image:radial-gradient(#fff 0.7px,transparent .7px);background-size:22px 22px;
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 10% 5%, #70428b55, transparent 30%),
+    radial-gradient(ellipse at 95% 35%, #8e66a033, transparent 27%),
+    radial-gradient(ellipse at 15% 80%, #5d397d44, transparent 35%),
+    var(--bg);
+  color: var(--white);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+  position: relative;
 }
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-main,header,footer{position:relative;z-index:1}
-.hero{min-height:65vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:72px 20px 42px}
-.eyebrow{font:10px 'DM Mono',monospace;letter-spacing:4px;text-transform:uppercase;color:#d4c1eb}
-h1{font:clamp(55px,11vw,105px)/.88 'Cormorant Garamond',serif;font-weight:500;margin:24px 0 12px;color:#fffaff}
-h1 span{display:block;color:#d8c3f2;font-style:italic}
-.hero p{max-width:550px;font:italic 22px/1.5 'Cormorant Garamond',serif;color:#e6d9f2;margin:20px auto 0}
-.day-tag{margin-top:28px;border:1px solid #ffffff40;padding:10px 15px;border-radius:999px;font:9px 'DM Mono',monospace;letter-spacing:2px;color:#e6d9f2}
-.music-wrap{width:min(700px,92vw);margin:0 auto 34px;padding:18px 20px;display:flex;gap:15px;align-items:center;border:1px solid #ffffff2b;background:#ffffff0b;border-radius:18px;backdrop-filter:blur(8px)}
-.music-icon{width:42px;height:42px;border:1px solid #ffffff55;border-radius:50%;display:grid;place-items:center;color:#e5d3ff;flex-shrink:0}
-.music-copy{flex:1;min-width:0}
-.music-copy strong{display:block;font:italic 21px 'Cormorant Garamond',serif;color:#fff}
-.music-copy small{display:block;margin-top:3px;font:9px 'DM Mono',monospace;letter-spacing:1.5px;color:#c8b4df}
-audio{width:100%;height:32px;margin-top:8px;accent-color:#c8a8f4}
-.autoplay-note{font-size:10px;color:#c7b7d9;margin:7px 0 0}
-.section{width:min(1050px,94vw);margin:0 auto;padding:38px 0 70px}
-.section-kicker{text-align:center;font:9px 'DM Mono',monospace;letter-spacing:4px;text-transform:uppercase;color:#cdb6e6}
-.section-title{text-align:center;font:clamp(34px,6vw,54px) 'Cormorant Garamond',serif;font-weight:500;margin:10px 0 13px}
-.section-intro{text-align:center;max-width:620px;margin:0 auto 32px;color:#d8cce5;font:italic 19px/1.5 'Cormorant Garamond',serif}
-.question-card{max-width:720px;margin:0 auto 48px;padding:clamp(24px,5vw,42px);border:1px solid #ffffff30;background:#ffffff0b;border-radius:20px;box-shadow:0 20px 60px #10071d33}
-.question-label{font:9px 'DM Mono',monospace;letter-spacing:3px;color:#d4b8f3;text-transform:uppercase}
-.question-card h2{font:clamp(27px,5vw,38px)/1.2 'Cormorant Garamond',serif;font-weight:500;margin:15px 0 22px}
-input[type=text],textarea{width:100%;border:1px solid #d7c4e8;border-radius:12px;background:#fffaff;color:#30203f;padding:14px 15px;outline:none}
-input[type=text]:focus,textarea:focus{box-shadow:0 0 0 3px #c6a2ef45}
-.btn{border:0;border-radius:999px;background:#d7bdf4;color:#2c1940;padding:13px 21px;font-weight:600;margin-top:13px;transition:transform .2s,background .2s}
-.btn:hover{transform:translateY(-2px);background:#eadbff}
-.answer-message{display:none;margin-top:14px;color:#f0dfff;font:italic 18px 'Cormorant Garamond',serif}
-.answer-message.show{display:block}
-.verse-area{max-width:760px;margin:0 auto 65px;text-align:center;padding:28px 22px 35px;position:relative}
-.verse-area:before,.verse-area:after{content:"";position:absolute;width:70px;height:1px;background:#bda0df;left:calc(50% - 35px)}
-.verse-area:before{top:0}.verse-area:after{bottom:0}
-.stars{height:75px;display:flex;align-items:center;justify-content:center;gap:36px}
-.star{width:15px;height:15px;background:#fff2c8;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 94%,50% 71%,21% 94%,32% 57%,2% 35%,39% 35%);filter:drop-shadow(0 0 9px #fff0b9);opacity:.25;transition:opacity .5s,transform .5s}
-.star.lit{opacity:1;transform:scale(1.35)}
-.starline{width:30px;height:1px;background:#fff2c8;opacity:.15;transition:opacity .5s}
-.starline.lit{opacity:.9}
-.verse-reveal{display:none;animation:rise .8s ease both}
-.verse-reveal.show{display:block}
-.verse-text{font:clamp(25px,4.5vw,36px)/1.35 'Cormorant Garamond',serif;color:#fff}
-.verse-ref{font:10px 'DM Mono',monospace;letter-spacing:2px;color:#d4b8f3;margin-top:15px}
-.verse-note{font:italic 19px/1.6 'Cormorant Garamond',serif;color:#e5d7f2;max-width:570px;margin:18px auto 0}
-.small-button{border:1px solid #ffffff50;background:#ffffff0b;color:#f4eaff;border-radius:999px;padding:10px 16px;font-size:11px;margin-top:16px}
-.letter-section{position:relative;padding:35px 0 80px}
-.letter-heading{text-align:center;margin-bottom:28px}
-.letter-heading h2{font:clamp(37px,7vw,66px) 'Cormorant Garamond',serif;font-weight:500;margin:7px 0;color:#fff}
-.letter-heading p{font:italic 18px 'Cormorant Garamond',serif;color:#d8c6ea;margin:0}
-.letter-stage{position:relative;max-width:850px;margin:auto;padding:0 14px}
-.letter-paper{
-  position:relative;z-index:2;background:var(--paper);color:var(--ink);border-radius:3px;
-  padding:clamp(24px,6vw,62px);box-shadow:0 25px 90px #10071d77;border:1px solid #e6d8ef;
+
+/* Tiny stars across the violet background */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .35;
+  background-image:
+    radial-gradient(#fff 0.7px, transparent 1px),
+    radial-gradient(#d7c0f3 0.8px, transparent 1px);
+  background-size: 43px 47px, 71px 83px;
+  background-position: 0 0, 23px 17px;
+  z-index: 0;
 }
-.paper-top{text-align:center;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:24px}
-.paper-top .mini{font:9px 'DM Mono',monospace;letter-spacing:3px;text-transform:uppercase;color:#9b7eb7}
-.paper-top h3{font:clamp(29px,5.5vw,44px) 'Cormorant Garamond',serif;font-weight:600;margin:12px 0 4px}
-.paper-top p{font:italic 18px 'Cormorant Garamond',serif;color:#8d72a6;margin:0}
-.letter-content{font:clamp(17px,2.1vw,19px)/1.82 'Cormorant Garamond',serif;white-space:normal}
-.letter-content p{margin:0 0 19px}
-.letter-content .chapter{font:600 13px Montserrat,sans-serif;letter-spacing:1.2px;color:#704b91;margin:29px 0 12px;text-transform:uppercase}
-.letter-content .emphasis{font-weight:700;color:#704b91}
-.signature{margin-top:30px;padding-top:20px;border-top:1px dashed #d8c5e7;font:italic 22px/1.5 'Caveat',cursive;color:#704b91}
-.flower-row{display:flex;justify-content:center;gap:10px;margin-top:20px}
-.flower{width:13px;height:13px;border-radius:50%;background:#d9b6ef;position:relative;animation:bloom 2.8s ease-in-out infinite alternate}
-.flower:before{content:"";position:absolute;width:100%;height:100%;border-radius:50%;background:#eacbe9;transform:translateY(-6px)}
-.flower:nth-child(2){animation-delay:.3s}.flower:nth-child(3){animation-delay:.6s}.flower:nth-child(4){animation-delay:.9s}
-@keyframes bloom{from{transform:scale(.8) rotate(0)}to{transform:scale(1.12) rotate(12deg)}}
-.polaroid-field{position:absolute;z-index:3;inset:-15px -35px auto;display:flex;justify-content:space-between;pointer-events:none}
-.polaroid-stack{display:flex;flex-direction:column;gap:25px;width:92px;pointer-events:auto}
-.polaroid{position:relative;background:white;padding:5px 5px 17px;box-shadow:0 7px 20px #11071e55;border:1px solid #e8deee;width:86px;transform:rotate(var(--rot,-5deg));transition:transform .25s,box-shadow .25s;cursor:pointer}
-.polaroid:nth-child(even){transform:rotate(5deg)}
-.polaroid:hover{transform:rotate(0) scale(1.08);box-shadow:0 12px 24px #11071e77;z-index:5}
-.polaroid:before{content:"";position:absolute;top:-7px;left:27px;width:30px;height:12px;background:#d9c7efc9;transform:rotate(-5deg);z-index:1}
-.polaroid img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#eee}
-.polaroid .tiny-dot{position:absolute;bottom:5px;left:0;right:0;text-align:center;font:8px 'Caveat',cursive;color:#765a8c}
-.inline-memories{display:none}
-.doodle{position:absolute;z-index:1;pointer-events:none;opacity:.65;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.doodle-heart{width:42px;height:38px}
-.doodle-spark{width:30px;height:30px}
-.doodle-flower{width:42px;height:42px}
-.doodle-label{position:absolute;color:#e7d7f8;font:italic 17px 'Caveat',cursive;transform:rotate(-8deg);opacity:.8;pointer-events:none}
-.surprise{max-width:650px;margin:15px auto 60px;text-align:center;padding:34px 20px;border:1px dashed #ffffff55;border-radius:18px;background:#ffffff08}
-.surprise .tiny-label{font:9px 'DM Mono',monospace;letter-spacing:3px;color:#cdb4e7}
-.surprise h3{font:clamp(25px,4vw,34px) 'Cormorant Garamond',serif;font-weight:500;margin:12px 0}
-.dont-click{background:#f5eaff;color:#301d45;border:0;padding:14px 24px;border-radius:999px;font-weight:700;letter-spacing:1px;box-shadow:0 6px 0 #b59acb;transition:transform .1s}
-.dont-click:active{transform:translateY(4px);box-shadow:0 2px 0 #b59acb}
-.surprise-message{display:none;font:italic 26px 'Caveat',cursive;color:#f4e6ff;margin:22px 0 0;animation:rise .5s ease both}
-.surprise-message.show{display:block}
-.feedback{max-width:650px;margin:0 auto 80px;padding:28px;background:#ffffff0b;border:1px solid #ffffff30;border-radius:18px}
-.feedback h3{text-align:center;font:32px 'Cormorant Garamond',serif;font-weight:500;margin:0 0 8px}
-.feedback p{text-align:center;color:#d8c9e7;font:italic 17px 'Cormorant Garamond',serif;margin:0 0 20px}
-textarea{min-height:115px;resize:vertical}
-.feedback-status{text-align:center;color:#e9d8fb;font-size:12px;margin-top:12px;min-height:16px}
-footer{text-align:center;padding:0 20px 45px;color:#cbb8de;font:italic 18px 'Cormorant Garamond',serif}
-footer small{display:block;font:8px 'DM Mono',monospace;letter-spacing:3px;margin-top:10px}
-.lightbox{display:none;position:fixed;inset:0;z-index:50;background:#12091beF;align-items:center;justify-content:center;padding:22px}
-.lightbox.show{display:flex}
-.lightbox-inner{max-width:min(90vw,700px);max-height:90vh;text-align:center}
-.lightbox img{max-width:100%;max-height:78vh;object-fit:contain;border:8px solid white;border-bottom-width:24px;box-shadow:0 20px 70px #0008}
-.lightbox-close{position:absolute;right:18px;top:18px;border:1px solid #ffffff77;background:#ffffff12;color:white;border-radius:50%;width:42px;height:42px;font-size:22px}
-.lightbox-caption{font:italic 18px 'Cormorant Garamond',serif;color:#eee0ff;margin-top:12px}
-@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:900px){
- .polaroid-field{position:relative;inset:auto;justify-content:center;gap:9px;flex-wrap:wrap;margin:0 auto 16px;max-width:550px}
- .polaroid-stack{display:contents}
- .polaroid{width:clamp(52px,10vw,75px);padding:4px 4px 13px}
- .polaroid:before{width:20px;left:calc(50% - 10px);height:8px;top:-5px}
- .polaroid:nth-child(3n){transform:rotate(-6deg) translateY(3px)}
- .polaroid:nth-child(4n){transform:rotate(7deg) translateY(-3px)}
- .polaroid .tiny-dot{font-size:7px;bottom:3px}
+
+button, input, textarea {
+  font: inherit;
 }
-@media(max-width:540px){
- .hero{min-height:55vh;padding-top:54px}
- .music-wrap{align-items:flex-start;padding:14px}
- .music-icon{width:34px;height:34px}
- .music-copy strong{font-size:19px}
- .section{padding-top:25px}
- .letter-paper{padding:23px 19px}
- .letter-content{font-size:17px;line-height:1.72}
- .polaroid{width:clamp(45px,12vw,63px)}
- .polaroid-field{gap:6px}
- .question-card{padding:24px 19px}
+
+button { -webkit-tap-highlight-color: transparent; }
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+section {
+  position: relative;
+  z-index: 2;
+  width: min(760px, calc(100% - 34px));
+  margin: 0 auto;
+}
+
+.hero {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 75px 12px 55px;
+}
+
+.eyebrow {
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(48px, 12vw, 86px);
+  line-height: .91;
+  font-weight: 500;
+  margin: 0;
+  color: #fffaff;
+  text-shadow: 0 0 35px #c9a4ff22;
+}
+
+.hero-script {
+  font: clamp(24px, 6vw, 38px) 'Caveat', cursive;
+  color: var(--lavender);
+  margin-top: 20px;
+}
+
+.hero-note {
+  font-size: 18px;
+  color: #e4d4ef;
+  max-width: 390px;
+  line-height: 1.6;
+  margin-top: 18px;
+}
+
+.small-rule {
+  width: 65px;
+  height: 1px;
+  background: #bda0d7;
+  margin: 27px auto;
+}
+
+.section-label {
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(34px, 8vw, 49px);
+  font-weight: 500;
+  margin: 10px 0 14px;
+  line-height: 1.1;
+}
+
+.section-intro {
+  text-align: center;
+  font-size: 19px;
+  line-height: 1.65;
+  color: #e0cfe9;
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+
+/* MUSIC */
+
+.music-card {
+  padding: 23px;
+  border: 1px solid #cdb5e533;
+  background: #ffffff08;
+  border-radius: 18px;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 590px;
+  box-shadow: 0 15px 45px #09041130;
+}
+
+.music-title {
+  font: 27px 'Caveat', cursive;
+  color: #f0dcff;
+  margin-bottom: 13px;
+}
+
+audio {
+  width: 100%;
+  height: 42px;
+  accent-color: #a77dd2;
+}
+
+.audio-note {
+  font: 10px 'DM Mono', monospace;
+  color: #cbb4dc;
+  margin-top: 10px;
+}
+
+/* QUESTION */
+
+.question-section {
+  padding-top: 22px;
+  padding-bottom: 70px;
+}
+
+.question-card {
+  max-width: 590px;
+  margin: 0 auto;
+  padding: clamp(23px, 6vw, 42px);
+  border: 1px solid #d9c2ee55;
+  border-radius: 18px;
+  background: #382248;
+  box-shadow: 0 20px 55px #09041140;
+  text-align: center;
+}
+
+.question-card h2 {
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: 500;
+  margin: 13px 0 23px;
+}
+
+.field {
+  width: 100%;
+  display: block;
+  padding: 14px 15px;
+  border-radius: 10px;
+  border: 1px solid #c5a4df77;
+  color: white;
+  background: #24142f;
+  outline: none;
+  font-size: 16px;
+}
+
+.field:focus {
+  border-color: #e6d2ff;
+  box-shadow: 0 0 0 3px #c7a4e422;
+}
+
+.field::placeholder { color: #bba8c8; }
+
+.primary-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 25px;
+  color: #291436;
+  background: #e6d0ff;
+  cursor: pointer;
+  font: 12px 'DM Mono', monospace;
+  transition: transform .2s, background .2s;
+  margin-top: 17px;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  background: white;
+}
+
+.helper {
+  color: #cdb9dd;
+  font-size: 15px;
+  margin-top: 15px;
+}
+
+#answerMessage {
+  display: none;
+  font: 17px 'Caveat', cursive;
+  color: #f0dcff;
+  margin-top: 17px;
+}
+
+#answerMessage.show { display: block; }
+
+/* REVEALED CONTENT */
+
+#unlockedContent { display: none; }
+
+#unlockedContent.show {
+  display: block;
+  animation: fadeUp .8s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.content-section {
+  padding-top: 55px;
+  padding-bottom: 55px;
+}
+
+/* VERSE REVEAL */
+
+.stars-card {
+  position: relative;
+  max-width: 650px;
+  margin: 0 auto;
+  border: 1px solid #d8c0ed44;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #39234a, #271435);
+  padding: 27px 20px 30px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.stars-card::before,
+.stars-card::after {
+  content: "✧";
+  position: absolute;
+  color: #d9c0f5;
+  font-size: 28px;
+  opacity: .6;
+}
+
+.stars-card::before { top: 13px; left: 18px; }
+.stars-card::after { right: 18px; bottom: 13px; }
+
+.star-controls {
+  display: flex;
+  justify-content: center;
+  gap: clamp(20px, 8vw, 65px);
+  padding: 16px 0 24px;
+}
+
+.star-button {
+  border: 1px solid #b99bd3;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  background: #2d1a3b;
+  color: #c6a8e2;
+  font-size: 27px;
+  cursor: pointer;
+  transition: .35s;
+}
+
+.star-button.lit {
+  color: white;
+  background: #9b73be;
+  box-shadow: 0 0 25px #caa5f6aa;
+  transform: scale(1.12);
+}
+
+.verse-reveal {
+  display: none;
+  padding: 22px 10px 0;
+  animation: fadeUp .8s ease both;
+}
+
+.verse-reveal.show { display: block; }
+
+.verse-text {
+  font-size: clamp(23px, 5vw, 31px);
+  line-height: 1.5;
+  color: #fff9ff;
+}
+
+.verse-reference {
+  margin-top: 18px;
+  color: #d5b9f0;
+  font: 10px 'DM Mono', monospace;
+  letter-spacing: 2px;
+}
+
+.verse-message {
+  font-size: 19px;
+  line-height: 1.8;
+  color: #e1d1ed;
+  margin-top: 22px;
+}
+
+/* LETTER */
+
+.letter-wrap {
+  position: relative;
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.letter-paper {
+  position: relative;
+  z-index: 2;
+  background: #fbf7ff;
+  color: var(--ink);
+  border: 1px solid #d9c5e9;
+  border-radius: 4px;
+  padding: clamp(22px, 6vw, 55px);
+  box-shadow: 0 22px 70px #09041155;
+}
+
+.letter-top {
+  text-align: center;
+  border-bottom: 1px solid #d9c5e9;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+}
+
+.letter-top .letter-label {
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #8c6caa;
+}
+
+.letter-top h2 {
+  font: clamp(35px, 8vw, 53px) 'Caveat', cursive;
+  color: #58366e;
+  line-height: 1;
+  margin: 15px 0;
+}
+
+.letter-top p {
+  font: 18px 'Caveat', cursive;
+  color: #8c6caa;
+}
+
+.letter-content {
+  font-size: clamp(17px, 4vw, 19px);
+  line-height: 1.95;
+  overflow-wrap: anywhere;
+}
+
+.letter-content p {
+  margin: 0 0 22px;
+  white-space: normal;
+}
+
+.letter-content h3 {
+  font: 26px 'Caveat', cursive;
+  line-height: 1.35;
+  color: #744d90;
+  margin: 30px 0 12px;
+}
+
+.letter-content .emphasis {
+  font: 25px 'Caveat', cursive;
+  color: #8254a2;
+}
+
+.signature {
+  text-align: right;
+  padding-top: 12px;
+  font: 27px 'Caveat', cursive;
+  color: #744d90;
+}
+
+/* SCATTERED POLAROIDS.
+   A single absolute layer covers the full page.
+   JavaScript spreads the photos along the document. */
+
+#memoryLayer {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.floating-polaroid {
+  position: absolute;
+  width: 76px;
+  padding: 5px 5px 14px;
+  border: 1px solid #e4d5ee;
+  background: #fff;
+  box-shadow: 0 6px 18px #09041150;
+  transform: rotate(var(--rotation, -4deg));
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.floating-polaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.floating-polaroid::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 24%;
+  width: 48%;
+  height: 11px;
+  background: #d8c4e9cc;
+  transform: rotate(-7deg);
+}
+
+.floating-polaroid .tiny-dot {
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #805f98;
+  font: 12px 'Caveat', cursive;
+}
+
+.floating-polaroid:hover,
+.floating-polaroid:focus-visible {
+  transform: rotate(0deg) scale(1.13);
+  z-index: 8;
+  box-shadow: 0 12px 30px #09041177;
+}
+
+/* Decorative doodle stickers */
+
+.doodle {
+  position: absolute;
+  z-index: 1;
+  color: #fff;
+  opacity: .7;
+  pointer-events: none;
+  font-family: 'Caveat', cursive;
+  font-size: 30px;
+  transform: rotate(var(--tilt, -8deg));
+}
+
+.doodle-heart {
+  font-size: 27px;
+}
+
+.doodle-star {
+  font-size: 25px;
+}
+
+.doodle-note {
+  font-size: 25px;
+}
+
+.doodle-girl {
+  width: 55px;
+  height: 70px;
+  position: relative;
+  opacity: .65;
+}
+
+.doodle-girl .head {
+  position: absolute;
+  top: 2px;
+  left: 17px;
+  width: 21px;
+  height: 21px;
+  border: 1.5px solid white;
+  border-radius: 50%;
+}
+
+.doodle-girl .hair {
+  position: absolute;
+  top: -2px;
+  left: 14px;
+  width: 27px;
+  height: 20px;
+  border: 1.5px solid white;
+  border-bottom: 0;
+  border-radius: 50% 50% 20% 20%;
+}
+
+.doodle-girl .body {
+  position: absolute;
+  top: 25px;
+  left: 13px;
+  width: 30px;
+  height: 34px;
+  border: 1.5px solid white;
+  border-radius: 12px 12px 4px 4px;
+}
+
+.doodle-girl .arm {
+  position: absolute;
+  top: 31px;
+  width: 18px;
+  height: 2px;
+  background: white;
+}
+
+.doodle-girl .arm.left {
+  left: 0;
+  transform: rotate(30deg);
+}
+
+.doodle-girl .arm.right {
+  right: 0;
+  transform: rotate(-30deg);
+}
+
+/* DON'T CLICK */
+
+.surprise-card {
+  max-width: 570px;
+  margin: 0 auto;
+  border: 1px solid #e1c8f255;
+  background: #ffffff08;
+  border-radius: 20px;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.dont-btn {
+  display: inline-block;
+  border: 1px dashed #e1c8f2;
+  background: #3b234d;
+  color: white;
+  border-radius: 12px;
+  padding: 17px 25px;
+  font: 11px 'DM Mono', monospace;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.dont-btn:hover {
+  background: #604079;
+  transform: rotate(-2deg);
+}
+
+.surprise-message {
+  display: none;
+  font: 28px 'Caveat', cursive;
+  color: #f0dcff;
+  line-height: 1.5;
+  margin: 23px 0 0;
+}
+
+.surprise-message.show {
+  display: block;
+  animation: fadeUp .6s ease both;
+}
+
+/* FEEDBACK */
+
+.feedback-card {
+  max-width: 590px;
+  margin: 0 auto;
+  padding: 27px;
+  border-radius: 18px;
+  border: 1px solid #e1c8f244;
+  background: #ffffff08;
+}
+
+.feedback-card textarea {
+  resize: vertical;
+  min-height: 120px;
+  margin-top: 16px;
+}
+
+.feedback-status {
+  font: 16px 'Caveat', cursive;
+  color: #e6d3f6;
+  margin-top: 15px;
+}
+
+/* PHOTO LIGHTBOX */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+  background: #100817ed;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox.show { display: flex; }
+
+.lightbox-inner {
+  max-width: min(500px, 92vw);
+  max-height: 86vh;
+  padding: 10px 10px 18px;
+  background: white;
+  box-shadow: 0 20px 70px #0008;
+  animation: fadeUp .25s ease both;
+}
+
+.lightbox-inner img {
+  display: block;
+  max-width: 100%;
+  max-height: 74vh;
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  color: #674a79;
+  font: 20px 'Caveat', cursive;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 15px;
+  right: 17px;
+  border: 1px solid #ffffff77;
+  background: #291a36;
+  color: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  padding: 50px 20px 75px;
+  position: relative;
+  z-index: 2;
+}
+
+footer .footer-line {
+  height: 1px;
+  width: 55px;
+  margin: 0 auto 20px;
+  background: #a988c2;
+}
+
+footer p {
+  color: #e5d4f1;
+  font: 26px 'Caveat', cursive;
+}
+
+footer small {
+  font: 8px 'DM Mono', monospace;
+  letter-spacing: 3px;
+  color: #ad91c1;
+  text-transform: uppercase;
+}
+
+/* PHONE */
+
+@media (max-width: 600px) {
+  .hero { min-height: 60vh; padding-top: 55px; }
+
+  section {
+    width: calc(100% - 22px);
+  }
+
+  .content-section {
+    padding-top: 38px;
+    padding-bottom: 42px;
+  }
+
+  .letter-paper {
+    padding: 23px 19px;
+  }
+
+  .letter-content {
+    font-size: 17px;
+    line-height: 1.85;
+  }
+
+  .floating-polaroid {
+    width: 45px;
+    padding: 3px 3px 11px;
+  }
+
+  .floating-polaroid::before {
+    height: 8px;
+    top: -5px;
+  }
+
+  .floating-polaroid .tiny-dot {
+    font-size: 10px;
+  }
+
+  .doodle-girl {
+    transform: scale(.8);
+  }
+
+  .question-card {
+    padding: 25px 18px;
+  }
+
+  .music-card {
+    padding: 20px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
 </style>
 </head>
+
 <body>
-<header class="hero">
-  <div class="eyebrow">a little archive of us · day seventeen</div>
-  <h1>The Timeline <span>of Us</span></h1>
-  <p>Seventeen days of loving you more and more.<br>Two days until Alku day. ♡</p>
-  <div class="day-tag">DILKU · EVERY VERSION, EVERY MEMORY</div>
-</header>
+<div class="page" id="page">
 
-<main>
-  <section class="music-wrap" aria-label="Today's soundtrack">
-    <div class="music-icon" aria-hidden="true">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-    </div>
-    <div class="music-copy">
-      <strong>Today's soundtrack</strong>
-      <small>ONE LITTLE SONG FOR ALKU ♡</small>
-      <audio id="song" controls autoplay loop preload="auto">
-        <source src="indrajaalam.m4a" type="audio/mp4">
-        <source src="indrajaalam.m4a" type="audio/x-m4a">
-        Your browser does not support this audio file.
-      </audio>
-      <p class="autoplay-note" id="audioNote">If your browser blocks autoplay, tap play once. ♡</p>
-    </div>
+  <!-- INTRO -->
+  <section class="hero">
+    <div class="eyebrow">Day seventeen · a little archive of us</div>
+    <h1>The Timeline<br>of Us</h1>
+    <div class="hero-script">Every version of Dilku ♡</div>
+    <p class="hero-note">
+      From the very first hello to all the memories we haven't made yet.
+      One timeline, two girls, an unreasonable amount of lore.
+    </p>
+    <div class="small-rule"></div>
+    <div class="eyebrow">For my Alkamol · forever your Diyamol</div>
   </section>
 
-  <section class="section">
+  <!-- QUESTION FIRST -->
+  <section class="question-section" id="questionSection">
     <div class="question-card">
-      <div class="question-label">01 · today's question</div>
+      <div class="section-label">A little question for you</div>
       <h2>One thing that you wish would change about us now?</h2>
-            <form id="questionForm">
-        <input id="questionAnswer" type="text" placeholder="Tell me honestly, bestie..." autocomplete="off" required>
-        <button class="btn" type="submit">Lock in my answer ♡</button>
+      <form id="questionForm">
+        <input class="field" id="questionAnswer"
+          placeholder="Tell me honestly, Alku..." required>
+        <button class="primary-btn" type="submit">Lock in my answer ♡</button>
       </form>
-      <div class="answer-message" id="answerMessage">Answer saved in this little moment. ♡</div>
+      <p class="helper">Take your time, bbg. I'm listening. ♡</p>
+      <p id="answerMessage"></p>
     </div>
+  </section>
 
-    <div class="verse-area">
-      <div class="section-kicker">02 · a little word for you</div>
+  <!-- EVERYTHING AFTER THE QUESTION -->
+  <div id="unlockedContent">
+
+    <!-- MUSIC -->
+    <section class="content-section" id="musicSection">
+      <div class="section-label">Today's soundtrack</div>
+      <h2 class="section-title">A song for our timeline</h2>
+      <div class="music-card">
+        <div class="music-title">Our memories, in the background ♡</div>
+        <audio id="song" controls autoplay loop preload="auto">
+          <source src="indrajaalam.m4a" type="audio/mp4">
+          Your browser does not support this audio file.
+        </audio>
+        <div class="audio-note" id="audioNote">
+          Trying to start our soundtrack... ♡
+        </div>
+      </div>
+    </section>
+
+    <!-- BIBLE VERSE -->
+    <section class="content-section" id="verseSection">
+      <div class="section-label">Today's vachanam</div>
       <h2 class="section-title">A promise among the stars</h2>
-      <p class="section-intro">Tap the stars one by one and watch them make a little promise.</p>
-      <div class="stars" id="stars">
-        <button class="star" aria-label="Light the first star" data-star="0"></button>
-        <span class="starline"></span>
-        <button class="star" aria-label="Light the second star" data-star="1"></button>
-        <span class="starline"></span>
-        <button class="star" aria-label="Light the third star" data-star="2"></button>
+      <p class="section-intro">
+        Three little stars, one reminder that God is close whenever we call.
+      </p>
+
+      <div class="stars-card">
+        <div class="star-controls">
+          <button class="star-button" type="button" data-star="1"
+            aria-label="Light the first star">✧</button>
+          <button class="star-button" type="button" data-star="2"
+            aria-label="Light the second star">✧</button>
+          <button class="star-button" type="button" data-star="3"
+            aria-label="Light the third star">✧</button>
+        </div>
+
+        <div class="section-label">Tap each star to light it</div>
+
+        <div class="verse-reveal" id="verseReveal">
+          <div class="verse-text">
+            “For what great nation is there that has gods so close to it
+            as the Lord, our God, is to us whenever we call upon him?”
+          </div>
+          <div class="verse-reference">DEUTERONOMY 4:7</div>
+          <p class="verse-message">
+            My fav vachanam. Nothing much today, just know that Eeso is on
+            your side. Aaru ondelum illelum, manas sangadapett onn Eesoye
+            vilichal, Eeso irangi varum thante aduth. So Eeso koode ond kettooo. ♡
+          </p>
+        </div>
       </div>
-      <div class="verse-reveal" id="verseReveal">
-        <div class="verse-text">“For what great nation is there that has gods so close to it as the Lord, our God, is to us whenever we call upon him?”</div>
-        <div class="verse-ref">DEUTERONOMY 4:7</div>
-        <p class="verse-note">My fav vachanam. Nothing much today, just know that Eeso is on your side. Aaru ondelum illelum, manas sangadapett onn Eesoye vilichal, Eeso irangi varum thante aduth. So Eeso koode ond kettooo. ♡</p>
+    </section>
+
+    <!-- THE FULL LETTER -->
+    <section class="content-section" id="letterSection">
+      <div class="section-label">Today's letter</div>
+      <h2 class="section-title">The Timeline of Us</h2>
+      <p class="section-intro">
+        Little memories, long years, and every version of us.
+      </p>
+
+      <div class="letter-wrap" id="letterPaper">
+        <article class="letter-paper">
+          <div class="letter-top">
+            <div class="letter-label">Day 17 · two girls · one little universe</div>
+            <h2>DAY 17 — THE TIMELINE OF US 🫶🏻</h2>
+            <p>For my Alkamol, from your Diyamol ♡</p>
+          </div>
+
+          <div class="letter-content" id="letterContent">
+
+            <p class="emphasis">
+              17 DAYS AGO? NOOOO… 17 DAYS OF LOVING YOU MORE AND MORE,
+              AND NOW ONLY 2 DAYS LEFT FOR ALKUUUU DAYYYYY!!!
+            </p>
+
+            <p>
+              Sooooo Alkuuuuu!!! Today we're going to talk about
+              THE TIMELINE OF US!!! Like, if someone asks me to explain
+              how we became Dilku, I genuinely don't know where to start.
+              Krnm nammal oru normal friendship pole start cheyth oru normal
+              friendship pole continue cheythavar allallo... Nammde timeline
+              eduth nokkiyal, oru full series undakkan olla content ond 😭😭😭
+            </p>
+
+            <p>Appo let's rewind to the beginning, shall weeee???</p>
+
+            <h3>THE BEGINNING — BEFORE DILKU WAS EVEN A THING</h3>
+
+            <p>
+              The very first time we met... In the Mundankal koottayma!! 😭😭
+              Who would have thought annathe nml korach naal kayinj georgia
+              poyi kettipidich kidakunn... Alkul, nee arinjirunno nee lincy
+              chechide kochinte lifeil ithrem valya character aavan povuva enn???
+            </p>
+
+            <p>
+              Pinne nammal thammil samsarich thodangiya time... I genuinely
+              don't remember the exact moment when you went from being just
+              another person to my person. Maybe it was all those random
+              conversations, maybe it was the way we kept finding reasons
+              to talk, or maybe Karthav had already decided that these two
+              udayipps needed each other 😭
+            </p>
+
+            <p>
+              But one thing I know... at some point, I stopped thinking of you
+              as someone I knew and started thinking of you as someone I needed
+              in my life.
+            </p>
+
+            <h3>THE ADHOC ERA — THE START OF OUR UDAYIPPU EMPIRE</h3>
+
+            <p>And then came Adhoccccc!!! BROOOOO 😭😭😭</p>
+
+            <p>
+              Remember how everyone used to say othiri mindnda, mindiyal
+              samsarikkan topic theernupokum enn??? Look at us now!!! Three
+              years of talking, and I still have enough things to tell you
+              that even a lifetime won't be enough. Topic theernittilla,
+              theerukayum illa... maximum njn urangipokum alland vere oru
+              vazhiyum illa 😭 all those times where we used to sit till
+              2am 3 am just to keep talking like some kaamukikaamuknmar.... BROOO
+            </p>
+
+            <p>
+              Nammde bond started with adhoc, prarthanayil thodangiya bond,
+              pinne athengane Friday key edukkanum vekkanum long route aakki,
+              group photos, random talks, and all those silly little things
+              that probably looked normal to everyone else but meant something
+              to us. Lovers core... Ellarkum adhoc vech group memories...
+              Nml athinde idakkoode personal memories umm...
+            </p>
+
+            <p>
+              And the funny part? I don't think either of us knew how important
+              all those tiny moments would become.... I mean oru timeil just
+              random things in our life aayirunn ithokke... Never knew i would
+              try to remember each and every memory to write it down, and
+              cherish it in our own way!
+            </p>
+
+            <p>
+              The Friday print edukkan pokk enna vyajene thendithirinju nadakkal...
+              Sunday St Thomas il late aayi keri chellunnath... bus frontil
+              ondel pokathe nikkunnath... all those tiny little udayipps are
+              our core memories...
+            </p>
+
+            <p class="emphasis">
+              At that time, they were just things we did.
+              Now? THEY'RE MEMORIES I'D GIVE ANYTHING TO RELIVE.
+            </p>
+
+            <h3>THE PALA ERA — WHERE EVERY ROAD HAD A DILKU MEMORY</h3>
+
+            <p>Pinne Palaaaaa!!! 😭</p>
+
+            <p>
+              Honestly, Pala full nammalde memories aanu. Ikkk i wrote about
+              this b4 too but its worth remembering again n again sooo...
+              Oru main krym pidichond weekil 7 days ondel 5 daysum palakk pokk aa...
+              Annitto chuma karangi thirinj nadappum... 1 hr kond cheynda krym
+              nml 7 business days um hoursum eduth aan theerkunee... ente ponno,
+              nammal oru proper productive life jeevichittundo enn thanne
+              samshayam aanu 😭😭😭
+            </p>
+
+            <p>
+              And the best part is, we never needed some grand plan to have fun.
+              Sometimes nammal evide pokunnu enn polum ariyilla. Just oru place
+              ilott irangum, pinne avidunn vere evidekko pokum, pinne food
+              kittiyal athum kazhikkum, pinne random stories delulu tea parayum,
+              pinne veetil ethumbo entha cheythe enn chodhichal proper answer
+              polum undaavilla..... avide poyi block aayirunn ivide cashier
+              illarnn bankile aal leave food kayikan poyi aana thenga chakka maanga again..
+            </p>
+
+            <p>
+              But those were some of my happiest days.
+            </p>
+
+            <p>
+              Because the place was never the main thing, Alku.
+              It was who I was with.
+            </p>
+
+            <p>
+              And somehow, every ordinary place became special because you were there.
+            </p>
+
+            <h3>THE LITTLE THINGS THAT TURNED INTO OUR THINGS</h3>
+
+            <p>
+              Nammde timeline il enik ettavum ishtam ulla oru part enthanenn ariyuvo?
+            </p>
+
+            <p>
+              How random things became ours.
+            </p>
+
+            <p>
+              Buses became ours. Ivideuthe aanelum aviduthe aanelum..
+              Food became ours. Oh please the random food stroll we dooo!!
+              Certain songs became ours. Ullasa gaayikaa amsham... And what
+              moree the memories that linger with certain songs - for dilku n dilkin!
+              Random streets became ours. Getting ready together became ours.
+              The whole concept of stalking became OUR PROFESSIONAL CAREER 😭😭😭
+            </p>
+
+            <p>
+              And don't even get me started on the boys' department. Ente ponnooo,
+              aa oru sector il nammal cheytha research inu oru separate PhD venam.
+              Chetanmare kaanan vendi orungi irangunnath, random places il poyi
+              nokkunnath, pinne avar onnum cheythillenkilum avarde oru small
+              action dissect cheyth hours discussion nadathunnath... WHAT A LIFE
+              WE HAVE LIVED 😭
+            </p>
+
+            <p>
+              And through all this, we became more than two girls who enjoyed
+              doing silly things together.
+            </p>
+
+            <p>
+              We became the people who knew what the other meant even when the
+              explanation wasn't complete. The people who could turn a bad day
+              into a slightly better one just by talking. The people who could
+              fight, tease, complain, and still come back to each other.
+            </p>
+
+            <p>
+              Nammal perfect friends aayirunnilla. We had our own moods,
+              misunderstandings, silly fights, and moments when we didn't know
+              how to explain what we felt.
+            </p>
+
+            <p>
+              But somehow, we kept choosing this friendship.
+            </p>
+
+            <p>And that's what makes our timeline special to me.</p>
+
+            <h3>THEN CAME GEORGIAAAAA 🇬🇪</h3>
+
+            <p>And suddenly, everything changed.</p>
+
+            <p>
+              China aayi Georgia aayi, familiar faces maari, familiar places
+              maari, and life took us somewhere neither of us could have
+              completely imagined.
+            </p>
+
+            <p>
+              SEU, then the whole tbilisi, those random journeys, hostel life,
+              apartment life, uni life... BRO, GEORGIA LIFE = LIFE WITH ALKU.
+            </p>
+
+            <p>
+              I don't think I can ever explain how much those days mean to me.
+              We weren't just making memories anymore. We were actually living
+              a completely different chapter of our lives together.
+            </p>
+
+            <p>
+              New place, new people, new experiences, new problems, new things
+              to complain about... and still, somehow, there was you.
+            </p>
+
+            <p>
+              And I think that's when I understood how much of a home a person
+              can become.
+            </p>
+
+            <p>
+              Because home isn't always a building or a place where you grew up.
+              Sometimes it's the person you can be completely ridiculous with
+              after the longest day. The person you can sit beside without
+              having to pretend you're okay. The person whose presence makes
+              an unfamiliar place feel a little more familiar.
+            </p>
+
+            <p>
+              For me, so much of Georgia became home because I had you there.
+            </p>
+
+            <p>
+              And now when I think about Georgia, I don't just remember the
+              country or the university. I remember US. (and dilkin too)
+            </p>
+
+            <p>
+              The food, the random outings, the photos, the videos, the memories,
+              the conversations, the udayipps, the ordinary days that didn't
+              feel ordinary at all. Special mention to all the vallis we have pidikkuka..
+            </p>
+
+            <p>
+              And honestly, I'm scared of the day when this chapter ends.
+              One day, Georgia will become a place we visit in our memories,
+              and we'll be busy with our own lives somewhere else.
+            </p>
+
+            <p>
+              But I hope that when that day comes, we'll look back at this
+              chapter and smile because we got to live it together.
+            </p>
+
+            <h3>AND THEN CAME THE DISTANCE ERA...</h3>
+
+            <p>And suddenly, nammal same place il alla.</p>
+
+            <p>
+              No more randomly coming to you whenever I feel like it. No more
+              seeing you get ready, stealing little moments together, eating
+              together, sleeping beside you, or just sitting around talking
+              absolute nonsense.
+            </p>
+
+            <p>
+              Now, sometimes all I have is a message, a call, a photo, or a video.
+            </p>
+
+            <p>And yes, I hate that part.</p>
+
+            <p>
+              I hate that when something good happens, I can't immediately run
+              to you and tell you everything. I hate that when I see something
+              you'd love, my first thought is still, "Alku ivide ondarnel..."
+              I hate that sometimes I want a hug from you and all I can do is
+              stare at our pictures like a dramatic heroine in a Malayalam movie 😭
+            </p>
+
+            <p class="emphasis">BUT.</p>
+
+            <p>
+              I also love how distance hasn't changed the most important part of us.
+            </p>
+
+            <p>
+              We still share our nonsense. We still have things to tell each other.
+              We still find reasons to laugh. We still miss each other. We still
+              make plans for the reunion as if we're organising an international summit.
+            </p>
+
+            <p>
+              And every time I realise that we're still us, even from far away,
+              I'm grateful.
+            </p>
+
+            <p>
+              Because maybe growing up means that we won't always be in the same
+              place. Maybe life will keep moving us around. Maybe we'll have days
+              when we're too busy, too tired, or too occupied with our own responsibilities.
+            </p>
+
+            <p>
+              But I hope we never stop making our way back to each other.
+            </p>
+
+            <h3>SO, WHAT DOES OUR TIMELINE MEAN TO ME?</h3>
+
+            <p>
+              It means that a random girl who walked into our koottayma became
+              someone I can't imagine my life without.
+            </p>
+
+            <p>
+              It means that all those ordinary conversations became years of memories.
+            </p>
+
+            <p>
+              It means that the girl I once tried so hard to get close to is now
+              the person I can tell almost anything to.
+            </p>
+
+            <p>
+              It means that we went from being two separate people to being Dilku —
+              a tiny little world of our own, filled with inside jokes, random
+              adventures, questionable decisions, food, boys, tears, laughter,
+              and an unreasonable amount of love.
+            </p>
+
+            <p>
+              And it means that no matter how much our lives change, there will
+              always be a part of me that remembers every version of us.
+            </p>
+
+            <p>
+              The girls we were when we first met.
+            </p>
+
+            <p>
+              The girls who made Adhoc their own little world.
+            </p>
+
+            <p>
+              The girls who wandered around Pala with absolutely no proper plan.
+            </p>
+
+            <p>
+              The girls who made Georgia unforgettable.
+            </p>
+
+            <p>
+              And the girls who are learning how to love each other from a distance.
+            </p>
+
+            <p>I love every version of us, Alku.</p>
+
+            <p class="emphasis">
+              Even the embarrassing ones. ESPECIALLY THE EMBARRASSING ONES 😭😭😭
+            </p>
+
+            <p>
+              And if I could go back to the beginning, knowing everything I know
+              now — all the memories, all the tears, all the silly fights, all
+              the distance, all the missing — I'd still choose to walk up to you
+              and try to become your friend. A bit early if i can for sure...
+            </p>
+
+            <p>I'd still put in all that effort to valakkan you.</p>
+
+            <p>I'd still choose Dilku.</p>
+
+            <p class="emphasis">I'd still choose you.</p>
+
+            <p>
+              And if Karthav allows us to, I hope our timeline keeps going for decades.
+            </p>
+
+            <p>
+              From our random days now, to our medical life, to our PG days,
+              to our weddings, to our future families, to the day we're two old
+              grandmas sitting together and complaining about our husbands,
+              children, and the younger generation.
+            </p>
+
+            <p>I hope we have a million more memories to look back on.</p>
+
+            <p>
+              I hope one day we can sit together and say, "Orkkunno nammal first
+              kandappo..." and then spend the next three hours narrating every
+              single detail even though we both already know the story.
+            </p>
+
+            <p>
+              And I hope, when we're old and our memories aren't as sharp as they
+              used to be, the thought of us still makes us smile.
+            </p>
+
+            <p>
+              Because this friendship has become one of my favourite parts of my life.
+            </p>
+
+            <p>Thank you for being part of my timeline, Alku.</p>
+
+            <p>Thank you for making the ordinary extraordinary.</p>
+
+            <p>
+              Thank you for being my best friend, my sister, my crime partner,
+              my comfort person, and my Alku.
+            </p>
+
+            <p>And thank you, Karthave, for letting our paths cross.</p>
+
+            <p class="emphasis">
+              Our timeline isn't over, bbg. This is just the beginning of
+              everything we haven't lived yet. 🫶🏻
+            </p>
+
+            <p class="emphasis">I love youuuuu, my Alkamol!!!</p>
+
+            <p>Chakkara ummaaaaa 😘😘😘</p>
+
+            <div class="signature">
+              Forever your Diyamol,<br>
+              For her Alku. 💗
+            </div>
+
+          </div>
+        </article>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section letter-section">
-    <div class="letter-heading">
-      <div class="section-kicker">03 · the letter that blooms</div>
-      <h2>DAY 17 — THE TIMELINE OF US 🫶🏻</h2>
-      <p>A folded letter, a thousand little memories, and flowers along the way.</p>
-    </div>
+    <!-- DON'T CLICK SURPRISE -->
+    <section class="content-section" id="surpriseSection">
+      <div class="section-label">A completely trustworthy button</div>
+      <h2 class="section-title">One tiny instruction</h2>
 
-    <div class="letter-stage">
-      <div class="polaroid-field" id="polaroidField" aria-label="Tiny Polaroids of our memories"></div>
+      <div class="surprise-card">
+        <p class="section-intro">
+          Alku, I have one very important thing to tell you.
+        </p>
+        <button class="dont-btn" id="dontClick" type="button">
+          DON'T CLICK
+        </button>
+        <p class="surprise-message" id="surpriseMessage">
+          You never listen. That's why you're my favourite. ♡
+        </p>
+      </div>
+    </section>
 
-      <article class="letter-paper" id="letterPaper">
-        <div class="paper-top">
-          <div class="mini">for my favourite person</div>
-          <h3>The Timeline of Us</h3>
-          <p>every version of us is worth keeping ♡</p>
-        </div>
-        <div class="letter-content">
-          <p><strong>17 DAYS AGO? NOOOO… 17 DAYS OF LOVING YOU MORE AND MORE, AND NOW ONLY 2 DAYS LEFT FOR ALKUUUU DAYYYYY!!!</strong></p>
+    <!-- FEEDBACK -->
+    <section class="content-section" id="feedbackSection">
+      <div class="section-label">Before you go</div>
+      <h2 class="section-title">A little note for me?</h2>
+      <p class="section-intro">
+        Tell me what you thought of today's little piece of us. ♡
+      </p>
 
-          <p>Sooooo Alkuuuuu!!! Today we're going to talk about <span class="emphasis">THE TIMELINE OF US!!!</span> Like, if someone asks me to explain how we became Dilku, I genuinely don't know where to start. Krnm nammal oru normal friendship pole start cheyth oru normal friendship pole continue cheythavar allallo...Nammde timeline eduth nokkiyal, oru full series undakkan olla content ond 😭😭😭</p>
-          <p>Appo let's rewind to the beginning, shall weeee???</p>
+      <div class="feedback-card">
+        <form id="feedbackForm">
+          <label for="feedbackText">Your feedback, Alku ♡</label>
+          <textarea class="field" id="feedbackText"
+            placeholder="Tell your Diyamol..." required></textarea>
+          <button class="primary-btn" type="submit">Save my little note ♡</button>
+        </form>
+        <div class="feedback-status" id="feedbackStatus"></div>
+      </div>
+    </section>
 
-          <p class="chapter">THE BEGINNING — BEFORE DILKU WAS EVEN A THING</p>
-          <p>The very first time we met... In the Mundankal koottayma!! 😭😭Who would have thought annathe nml korach naal kayinj georgia poyi kettipidich kidakunn... Alkul, nee arinjirunno nee lincy chechide kochinte lifeil ithrem valya character aavan povuva enn???</p>
-          <p>Pinne nammal thammil samsarich thodangiya time...I genuinely don't remember the exact moment when you went from being just another person to my person. Maybe it was all those random conversations, maybe it was the way we kept finding reasons to talk, or maybe Karthav had already decided that these two udayipps needed each other 😭</p>
-          <p>But one thing I know...at some point, I stopped thinking of you as someone I knew and started thinking of you as someone I needed in my life.</p>
+    <footer>
+      <div class="footer-line"></div>
+      <p>Our timeline is still being written. ♡</p>
+      <small>Day 17 · forever Dilku</small>
+    </footer>
 
-          <p class="chapter">THE ADHOC ERA — THE START OF OUR UDAYIPPU EMPIRE</p>
-          <p>And then came Adhoccccc!!! BROOOOO 😭😭😭</p>
-          <p>Remember how everyone used to say othiri mindnda, mindiyal samsarikkan topic theernupokum enn??? Look at us now!!! Three years of talking, and I still have enough things to tell you that even a lifetime won't be enough. Topic theernittilla, theerukayum illa...maximum njn urangipokum alland vere oru vazhiyum illa 😭alll those times where we used to sit till 2am 3 am just to keep talking like some kaamukikaamuknmar.... BROOO</p>
-          <p>Nammde bond started with adhoc, prarthanayil thodangiya bond, pinne athengane Friday key edukkanum vekkanum long route aakki, group photos, random talks, and all those silly little things that probably looked normal to everyone else but meant something to us. Lovers core... Ellarkum adhoc vech group memories... Nml athinde idakkoode personal memories umm...</p>
-          <p>And the funny part? I don't think either of us knew how important all those tiny moments would become.... I mean oru timeil just random things in our life aayirunn ithokke... Never knew i would try to remember each and every memory to write it down, and cherish it in our own way!</p>
-          <p>The Friday print edukkan pokk enna vyajene thendithirinju nadakkal...Sunday St Thomas il late aayi keri chellunnath...bus frontil ondel pokathe nikkunnath...all those tiny little udayipps are our core memories...</p>
-          <p>At that time, they were just things we did.</p>
-          <p><strong>Now? THEY'RE MEMORIES I'D GIVE ANYTHING TO RELIVE.</strong></p>
+  </div>
+</div>
 
-          <p class="chapter">THE PALA ERA — WHERE EVERY ROAD HAD A DILKU MEMORY</p>
-          <p>Pinne Palaaaaa!!! 😭</p>
-          <p>Honestly, Pala full nammalde memories aanu. Ikkk i wrote about this b4 too but its worth remembering again n again sooo...</p>
-          <p>Oru main krym pidichond weekil 7 days ondel 5 daysum palakk pokk aa... Annitto chuma karangi thirinj nadappum... 1 hr kond cheynda krym nml 7 business days um hoursum eduth aan theerkunee... ente ponno, nammal oru proper productive life jeevichittundo enn thanne samshayam aanu 😭😭😭</p>
-          <p>And the best part is, we never needed some grand plan to have fun. Sometimes nammal evide pokunnu enn polum ariyilla. Just oru place ilott irangum, pinne avidunn vere evidekko pokum, pinne food kittiyal athum kazhikkum, pinne random stories delulu tea parayum, pinne veetil ethumbo entha cheythe enn chodhichal proper answer polum undaavilla.....avide poyi block aayirunn ivide cashier illarnn bankile aal leave food kayikan poyi aana thenga chakka maanga again..</p>
-          <p>But those were some of my happiest days.</p>
-          <p>Because the place was never the main thing, Alku. It was who I was with.</p>
-          <p>And somehow, every ordinary place became special because you were there.</p>
+<!-- This layer covers the full scrolling document, not a gallery. -->
+<div id="memoryLayer" aria-label="Scattered Dilku memory Polaroids"></div>
 
-          <p class="chapter">THE LITTLE THINGS THAT TURNED INTO OUR THINGS</p>
-          <p>Nammde timeline il enik ettavum ishtam ulla oru part enthanenn ariyuvo?</p>
-          <p>How random things became ours.</p>
-          <p>Buses became ours. Ivideuthe aanelum aviduthe aanelum.. Food became ours. Oh please the random food stroll we dooo!! Certain songs became ours. Ullasa gaayikaa amsham... And what moree the memories that linger with certain songs - for dilku n dilkin! Random streets became ours. Getting ready together became ours. The whole concept of stalking became OUR PROFESSIONAL CAREER 😭😭😭</p>
-          <p>And don't even get me started on the boys' department. Ente ponnooo, aa oru sector il nammal cheytha research inu oru separate PhD venam. Chetanmare kaanan vendi orungi irangunnath, random places il poyi nokkunnath, pinne avar onnum cheythillenkilum avarde oru small action dissect cheyth hours discussion nadathunnath...WHAT A LIFE WE HAVE LIVED 😭</p>
-          <p>And through all this, we became more than two girls who enjoyed doing silly things together.</p>
-          <p>We became the people who knew what the other meant even when the explanation wasn't complete. The people who could turn a bad day into a slightly better one just by talking. The people who could fight, tease, complain, and still come back to each other.</p>
-          <p>Nammal perfect friends aayirunnilla. We had our own moods, misunderstandings, silly fights, and moments when we didn't know how to explain what we felt.</p>
-          <p>But somehow, we kept choosing this friendship.</p>
-          <p>And that's what makes our timeline special to me.</p>
-
-          <p class="chapter">THEN CAME GEORGIAAAAA 🇬🇪</p>
-          <p>And suddenly, everything changed.</p>
-          <p>China aayi Georgia aayi, familiar faces maari, familiar places maari, and life took us somewhere neither of us could have completely imagined.</p>
-          <p>SEU, then the whole tbilisi, those random journeys, hostel life, apartment life, uni life...BRO, GEORGIA LIFE = LIFE WITH ALKU.</p>
-          <p>I don't think I can ever explain how much those days mean to me. We weren't just making memories anymore. We were actually living a completely different chapter of our lives together.</p>
-          <p>New place, new people, new experiences, new problems, new things to complain about...and still, somehow, there was you.</p>
-          <p>And I think that's when I understood how much of a home a person can become.</p>
-          <p>Because home isn't always a building or a place where you grew up. Sometimes it's the person you can be completely ridiculous with after the longest day. The person you can sit beside without having to pretend you're okay. The person whose presence makes an unfamiliar place feel a little more familiar.</p>
-          <p>For me, so much of Georgia became home because I had you there.</p>
-          <p>And now when I think about Georgia, I don't just remember the country or the university. I remember US. (and dilkin too)</p>
-          <p>The food, the random outings, the photos, the videos, the memories, the conversations, the udayipps, the ordinary days that didn't feel ordinary at all. Special mention to all the vallis we have pidikkuka..</p>
-          <p>And honestly, I'm scared of the day when this chapter ends. One day, Georgia will become a place we visit in our memories, and we'll be busy with our own lives somewhere else.</p>
-          <p>But I hope that when that day comes, we'll look back at this chapter and smile because we got to live it together.</p>
-
-          <p class="chapter">AND THEN CAME THE DISTANCE ERA...</p>
-          <p>And suddenly, nammal same place il alla.</p>
-          <p>No more randomly coming to you whenever I feel like it. No more seeing you get ready, stealing little moments together, eating together, sleeping beside you, or just sitting around talking absolute nonsense.</p>
-          <p>Now, sometimes all I have is a message, a call, a photo, or a video.</p>
-          <p>And yes, I hate that part.</p>
-          <p>I hate that when something good happens, I can't immediately run to you and tell you everything. I hate that when I see something you'd love, my first thought is still, "Alku ivide ondarnel..." I hate that sometimes I want a hug from you and all I can do is stare at our pictures like a dramatic heroine in a Malayalam movie 😭</p>
-          <p><strong>BUT.</strong></p>
-          <p>I also love how distance hasn't changed the most important part of us.</p>
-          <p>We still share our nonsense. We still have things to tell each other. We still find reasons to laugh. We still miss each other. We still make plans for the reunion as if we're organising an international summit.</p>
-          <p>And every time I realise that we're still us, even from far away, I'm grateful.</p>
-          <p>Because maybe growing up means that we won't always be in the same place. Maybe life will keep moving us around. Maybe we'll have days when we're too busy, too tired, or too occupied with our own responsibilities.</p>
-          <p>But I hope we never stop making our way back to each other.</p>
-
-          <p class="chapter">SO, WHAT DOES OUR TIMELINE MEAN TO ME?</p>
-          <p>It means that a random girl who walked into our koottayma became someone I can't imagine my life without.</p>
-          <p>It means that all those ordinary conversations became years of memories.</p>
-          <p>It means that the girl I once tried so hard to get close to is now the person I can tell almost anything to.</p>
-          <p>It means that we went from being two separate people to being Dilku — a tiny little world of our own, filled with inside jokes, random adventures, questionable decisions, food, boys, tears, laughter, and an unreasonable amount of love.</p>
-          <p>And it means that no matter how much our lives change, there will always be a part of me that remembers every version of us.</p>
-          <p>The girls we were when we first met.</p>
-          <p>The girls who made Adhoc their own little world.</p>
-          <p>The girls who wandered around Pala with absolutely no proper plan.</p>
-          <p>The girls who made Georgia unforgettable.</p>
-          <p>And the girls who are learning how to love each other from a distance.</p>
-          <p>I love every version of us, Alku.</p>
-          <p>Even the embarrassing ones. ESPECIALLY THE EMBARRASSING ONES 😭😭😭</p>
-          <p>And if I could go back to the beginning, knowing everything I know now — all the memories, all the tears, all the silly fights, all the distance, all the missing — I'd still choose to walk up to you and try to become your friend. A bit early if i can for sure...</p>
-          <p>I'd still put in all that effort to valakkan you.</p>
-          <p>I'd still choose Dilku.</p>
-          <p><strong>I'd still choose you.</strong></p>
-          <p>And if Karthav allows us to, I hope our timeline keeps going for decades.</p>
-          <p>From our random days now, to our medical life, to our PG days, to our weddings, to our future families, to the day we're two old grandmas sitting together and complaining about our husbands, children, and the younger generation.</p>
-          <p>I hope we have a million more memories to look back on.</p>
-          <p>I hope one day we can sit together and say, "Orkkunno nammal first kandappo..." and then spend the next three hours narrating every single detail even though we both already know the story.</p>
-          <p>And I hope, when we're old and our memories aren't as sharp as they used to be, the thought of us still makes us smile.</p>
-          <p>Because this friendship has become one of my favourite parts of my life.</p>
-          <p>Thank you for being part of my timeline, Alku.</p>
-          <p>Thank you for making the ordinary extraordinary.</p>
-          <p>Thank you for being my best friend, my sister, my crime partner, my comfort person, and my Alku.</p>
-          <p>And thank you, Karthave, for letting our paths cross.</p>
-          <p>Our timeline isn't over, bbg. This is just the beginning of everything we haven't lived yet. 🫶🏻</p>
-          <p><strong>I love youuuuu, my Alkamol!!!</strong></p>
-          <div class="signature">Chakkara ummaaaaa 😘😘😘<br><br>Forever your Diyamol,<br>For her Alku. 💗</div>
-        </div>
-        <div class="flower-row" aria-label="Little flowers blooming">
-          <span class="flower"></span><span class="flower"></span><span class="flower"></span><span class="flower"></span>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="surprise">
-      <div class="tiny-label">04 · a tiny trap</div>
-      <h3>There is absolutely nothing here. 👀</h3>
-      <button class="dont-click" id="dontClick">DON'T CLICK</button>
-      <p class="surprise-message" id="surpriseMessage">You never listen. That's why you're my favourite. ♡</p>
-    </div>
-
-    <div class="feedback">
-      <h3>A little note back? ♡</h3>
-      <p>Tell me what you thought of today's little piece of us.</p>
-      <form id="feedbackForm">
-        <textarea id="feedbackText" placeholder="Anything you want to tell your Diyamol..." required></textarea>
-        <button class="btn" type="submit">Save my little note ♡</button>
-      </form>
-      <div class="feedback-status" id="feedbackStatus" aria-live="polite"></div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  made with all the love in my little heart ♡
-  <small>DILKU · OUR TIMELINE CONTINUES</small>
-</footer>
-
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged memory">
-  <button class="lightbox-close" id="lightboxClose" aria-label="Close photo">×</button>
-  <div class="lightbox-inner"><img id="lightboxImage" alt="A Dilku memory"><div class="lightbox-caption">a little piece of us ♡</div></div>
+<!-- Tap a Polaroid to enlarge it. -->
+<div class="lightbox" id="lightbox" role="dialog"
+  aria-modal="true" aria-label="Memory photograph">
+  <button class="lightbox-close" id="lightboxClose"
+    type="button" aria-label="Close photo">×</button>
+  <div class="lightbox-inner">
+    <img id="lightboxImage" src="" alt="Dilku memory">
+    <div class="lightbox-caption">A little piece of us ♡</div>
+  </div>
 </div>
 
 <script>
-/* All image files are expected to be in the same GitHub repository folder as day17.html. */
+/* --------------------------------------------------
+   YOUR GITHUB IMAGE FILENAMES
+   Upload these images to the same folder as day17.html.
+-------------------------------------------------- */
+
 const photoFiles = [
-  "IMG-20261014-WA0084.jpg","IMG-20261014-WA0078.jpg","IMG-20261014-WA0087.jpg",
-"IMG-20261014-WA0133.jpg","IMG-20261014-WA0128.jpg","IMG-20261014-WA0082.jpg",
-"IMG-20261014-WA0077.jpg","IMG-20261014-WA0088.jpg","IMG-20261014-WA0080.jpg",
-"IMG-20261014-WA0090.jpg","IMG-20261014-WA0092.jpg","IMG-20261014-WA0138.jpg",
-"IMG-20261014-WA0139.jpg","IMG-20261014-WA0136.jpg","IMG-20261014-WA0137.jpg",
-"IMG-20261014-WA0135.jpg","IMG-20261014-WA0134.jpg","IMG-20261014-WA0125.jpg",
-"IMG-20261014-WA0127.jpg","IMG-20261014-WA0129.jpg","IMG-20261014-WA0130.jpg",
-"IMG-20261014-WA0131.jpg","IMG-20261014-WA0126.jpg","IMG-20261014-WA0124.jpg",
-"IMG-20261014-WA0123.jpg","IMG-20261014-WA0122.jpg","IMG-20261014-WA0120.jpg",
-"IMG-20261014-WA0121.jpg","IMG-20261009-WA0094.jpg","IMG-20261014-WA0115.jpg",
-"IMG-20261014-WA0116.jpg","IMG-20261014-WA0117.jpg","IMG-20261014-WA0118.jpg",
-"IMG-20261014-WA0119.jpg","IMG-20261014-WA0113.jpg","IMG-20261014-WA0111.jpg",
-"IMG-20261014-WA0110.jpg","IMG-20261014-WA0109.jpg","IMG-20261014-WA0108.jpg",
-"IMG-20261014-WA0107.jpg","IMG-20261014-WA0100.jpg","IMG-20261014-WA0101.jpg",
-"IMG-20261014-WA0102.jpg","IMG-20261014-WA0103.jpg","IMG-20261014-WA0104.jpg",
-"IMG-20261014-WA0106.jpg","IMG-20261014-WA0098.jpg","IMG-20261014-WA0097.jpg",
-"IMG-20261014-WA0096.jpg","IMG-20261014-WA0105.jpg","IMG-20261014-WA0095.jpg",
-"IMG-20261014-WA0094.jpg","IMG-20261014-WA0093.jpg","IMG-20261014-WA0086.jpg",
-"IMG-20261014-WA0089.jpg","IMG-20261014-WA0083.jpg","IMG-20261014-WA0081.jpg",
-"IMG-20261014-WA0079.jpg","IMG-20261014-WA0091.jpg","IMG-20261014-WA0085.jpg"
+"IMG-20261014-WA0084.jpg",
+"IMG-20261014-WA0078.jpg",
+"IMG-20261014-WA0087.jpg",
+"IMG-20261014-WA0133.jpg",
+"IMG-20261014-WA0128.jpg",
+"IMG-20261014-WA0082.jpg",
+"IMG-20261014-WA0077.jpg",
+"IMG-20261014-WA0088.jpg",
+"IMG-20261014-WA0080.jpg",
+"IMG-20261014-WA0090.jpg",
+"IMG-20261014-WA0092.jpg",
+"IMG-20261014-WA0138.jpg",
+"IMG-20261014-WA0139.jpg",
+"IMG-20261014-WA0136.jpg",
+"IMG-20261014-WA0137.jpg",
+"IMG-20261014-WA0135.jpg",
+"IMG-20261014-WA0134.jpg",
+"IMG-20261014-WA0125.jpg",
+"IMG-20261014-WA0127.jpg",
+"IMG-20261014-WA0129.jpg",
+"IMG-20261014-WA0130.jpg",
+"IMG-20261014-WA0131.jpg",
+"IMG-20261014-WA0126.jpg",
+"IMG-20261014-WA0124.jpg",
+"IMG-20261014-WA0123.jpg",
+"IMG-20261014-WA0122.jpg",
+"IMG-20261014-WA0120.jpg",
+"IMG-20261014-WA0121.jpg",
+"IMG-20261009-WA0094.jpg",
+"IMG-20261014-WA0115.jpg",
+"IMG-20261014-WA0116.jpg",
+"IMG-20261014-WA0117.jpg",
+"IMG-20261014-WA0118.jpg",
+"IMG-20261014-WA0119.jpg",
+"IMG-20261014-WA0113.jpg",
+"IMG-20261014-WA0111.jpg",
+"IMG-20261014-WA0110.jpg",
+"IMG-20261014-WA0109.jpg",
+"IMG-20261014-WA0108.jpg",
+"IMG-20261014-WA0107.jpg",
+"IMG-20261014-WA0100.jpg",
+"IMG-20261014-WA0101.jpg",
+"IMG-20261014-WA0102.jpg",
+"IMG-20261014-WA0103.jpg",
+"IMG-20261014-WA0104.jpg",
+"IMG-20261014-WA0106.jpg",
+"IMG-20261014-WA0098.jpg",
+"IMG-20261014-WA0097.jpg",
+"IMG-20261014-WA0096.jpg",
+"IMG-20261014-WA0105.jpg",
+"IMG-20261014-WA0095.jpg",
+"IMG-20261014-WA0094.jpg",
+"IMG-20261014-WA0093.jpg",
+"IMG-20261014-WA0086.jpg",
+"IMG-20261014-WA0089.jpg",
+"IMG-20261014-WA0083.jpg",
+"IMG-20261014-WA0081.jpg",
+"IMG-20261014-WA0079.jpg",
+"IMG-20261014-WA0091.jpg",
+"IMG-20261014-WA0085.jpg"
 ];
 
-const field = document.getElementById('polaroidField');
+/* --------------------------------------------------
+   QUESTION GATE
+-------------------------------------------------- */
 
-photoFiles.forEach((file, index) => {
-  const frame = document.createElement('button');
-  frame.type = 'button';
-  frame.className = 'polaroid';
-  frame.style.setProperty(
-    '--rot',
-    `${(index % 2 ? 5 : -5) + (index % 3)}deg`
-  );
-  frame.setAttribute('aria-label', `Open memory photo ${index + 1}`);
+const questionForm = document.getElementById('questionForm');
+const answerInput = document.getElementById('questionAnswer');
+const answerMessage = document.getElementById('answerMessage');
+const unlockedContent = document.getElementById('unlockedContent');
 
-  const img = document.createElement('img');
-  img.src = file;
-  img.alt = `Dilku memory ${index + 1}`;
-  img.loading = 'lazy';
+questionForm.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-  // Hide a frame if its image filename cannot be found.
-  img.onerror = () => frame.remove();
+  if (!answerInput.value.trim()) {
+    answerInput.focus();
+    return;
+  }
 
-  const dot = document.createElement('span');
-  dot.className = 'tiny-dot';
-  dot.textContent = '♡';
+  // Keep the answer on this device only.
+  try {
+    localStorage.setItem('day17QuestionAnswer', answerInput.value.trim());
+  } catch (error) {}
 
-  frame.append(img, dot);
-  frame.addEventListener('click', () => openLightbox(file));
-  field.appendChild(frame);
+  answerMessage.textContent = 'Answer locked in, bestie. Now come see the rest ♡';
+  answerMessage.classList.add('show');
+  unlockedContent.classList.add('show');
+
+  setTimeout(() => {
+    document.getElementById('musicSection').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+
+    // Browsers may permit audio after the question interaction.
+    const song = document.getElementById('song');
+    song.play().then(() => {
+      document.getElementById('audioNote').textContent =
+        'Our soundtrack is playing. ♡';
+    }).catch(() => {
+      document.getElementById('audioNote').textContent =
+        'If music did not start, tap Play once. ♡';
+    });
+
+    layoutPolaroids();
+  }, 350);
 });
 
-// Photo enlargement.
+/* --------------------------------------------------
+   AUDIO AUTOPLAY ATTEMPT
+   Mobile browsers may require a tap before audio plays.
+-------------------------------------------------- */
+
+const song = document.getElementById('song');
+
+window.addEventListener('load', () => {
+  song.play().then(() => {
+    document.getElementById('audioNote').textContent =
+      'Our soundtrack is playing. ♡';
+  }).catch(() => {
+    document.getElementById('audioNote').textContent =
+      'Tap your answer or press Play to start our soundtrack. ♡';
+  });
+});
+
+/* --------------------------------------------------
+   THREE-STAR BIBLE VERSE
+-------------------------------------------------- */
+
+const litStars = new Set();
+
+document.querySelectorAll('[data-star]').forEach(button => {
+  button.addEventListener('click', () => {
+    const number = Number(button.dataset.star);
+
+    if (litStars.has(number)) return;
+
+    litStars.add(number);
+    button.classList.add('lit');
+
+    if (litStars.size === 3) {
+      document.getElementById('verseReveal').classList.add('show');
+    }
+  });
+});
+
+/* --------------------------------------------------
+   DON'T CLICK
+-------------------------------------------------- */
+
+document.getElementById('dontClick').addEventListener('click', () => {
+  document.getElementById('surpriseMessage').classList.add('show');
+  document.getElementById('dontClick').textContent = 'I KNEW IT ♡';
+});
+
+/* --------------------------------------------------
+   FEEDBACK
+   Saved in this browser only; not sent to the owner.
+-------------------------------------------------- */
+
+document.getElementById('feedbackForm').addEventListener('submit', event => {
+  event.preventDefault();
+
+  const field = document.getElementById('feedbackText');
+  const note = field.value.trim();
+
+  if (!note) return;
+
+  try {
+    const existing = JSON.parse(
+      localStorage.getItem('day17FeedbackNotes') || '[]'
+    );
+
+    existing.push({
+      message: note,
+      time: new Date().toISOString()
+    });
+
+    localStorage.setItem('day17FeedbackNotes', JSON.stringify(existing));
+
+    document.getElementById('feedbackStatus').textContent =
+      'Your note has been saved on this device. Thank you, Alku ♡';
+  } catch (error) {
+    document.getElementById('feedbackStatus').textContent =
+      'Thank you for leaving a little note, Alku ♡';
+  }
+
+  field.value = '';
+});
+
+/* --------------------------------------------------
+   LIGHTBOX
+-------------------------------------------------- */
+
 const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.getElementById('lightboxImage');
 
 function openLightbox(file) {
-  document.getElementById('lightboxImage').src = file;
+  lightboxImage.src = file;
   lightbox.classList.add('show');
+  document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
   lightbox.classList.remove('show');
-  document.getElementById('lightboxImage').src = '';
+  lightboxImage.src = '';
+  document.body.style.overflow = '';
 }
 
 document.getElementById('lightboxClose')
@@ -433,110 +1585,194 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeLightbox();
 });
 
-// Attempt autoplay. Some browsers require the visitor to tap Play.
-const song = document.getElementById('song');
+/* --------------------------------------------------
+   SCATTERED POLAROIDS THROUGHOUT THE ENTIRE PAGE
 
-song.play().then(() => {
-  document.getElementById('audioNote').textContent =
-    'The soundtrack is playing. ♡';
-}).catch(() => {
-  document.getElementById('audioNote').textContent =
-    'Tap play once if your browser blocks autoplay. ♡';
-});
+   Important:
+   - Photos are not inside one gallery.
+   - Each photo gets its own vertical position.
+   - They are distributed from the top to the bottom
+     of the complete page.
+   - Recalculate after the hidden content is revealed.
+-------------------------------------------------- */
 
-// Today's question.
-document.getElementById('questionForm')
-  .addEventListener('submit', event => {
-    event.preventDefault();
+const memoryLayer = document.getElementById('memoryLayer');
+const page = document.getElementById('page');
 
-    const answer = document.getElementById('questionAnswer')
-      .value.trim();
+let layoutTimer;
 
-    if (!answer) return;
+function shuffle(array) {
+  const result = [...array];
 
-    try {
-      localStorage.setItem('day17QuestionAnswer', answer);
-    } catch (_) {}
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
 
-    document.getElementById('answerMessage').classList.add('show');
-    document.getElementById('answerMessage').textContent =
-      'Answer locked in, bestie. ♡';
+  return result;
+}
 
-    document.getElementById('verseReveal')
-      .scrollIntoView({ behavior: 'smooth', block: 'center' });
+function createPolaroids() {
+  memoryLayer.innerHTML = '';
+
+  const shuffledPhotos = shuffle(photoFiles);
+
+  shuffledPhotos.forEach((file, index) => {
+    const frame = document.createElement('button');
+
+    frame.type = 'button';
+    frame.className = 'floating-polaroid';
+    frame.setAttribute('aria-label', 'Open memory photo ' + (index + 1));
+
+    frame.style.setProperty(
+      '--rotation',
+      (Math.random() * 14 - 7).toFixed(1) + 'deg'
+    );
+
+    const img = document.createElement('img');
+    img.src = file;
+    img.alt = 'Dilku memory ' + (index + 1);
+    img.loading = 'lazy';
+
+    img.onerror = () => {
+      frame.remove();
+    };
+
+    const heart = document.createElement('span');
+    heart.className = 'tiny-dot';
+    heart.textContent = '♡';
+
+    frame.appendChild(img);
+    frame.appendChild(heart);
+
+    frame.addEventListener('click', () => openLightbox(file));
+
+    memoryLayer.appendChild(frame);
   });
+}
 
-// The three-star Bible verse reveal.
-const litStars = new Set();
+function layoutPolaroids() {
+  clearTimeout(layoutTimer);
 
-document.querySelectorAll('[data-star]').forEach(star => {
-  star.addEventListener('click', () => {
-    const n = Number(star.dataset.star);
+  layoutTimer = setTimeout(() => {
+    const pageHeight = Math.max(
+      page.scrollHeight,
+      document.documentElement.scrollHeight
+    );
 
-    if (litStars.has(n)) return;
+    memoryLayer.style.height = pageHeight + 'px';
 
-    litStars.add(n);
-    star.classList.add('lit');
+    const frames = [...memoryLayer.querySelectorAll('.floating-polaroid')];
+    const viewportWidth = window.innerWidth;
+    const isMobile = viewportWidth <= 600;
 
-    const lines = document.querySelectorAll('.starline');
+    frames.forEach((frame, index) => {
+      // Spread the memories over the full page height.
+      const interval = pageHeight / (frames.length + 1);
 
-    if (n > 0) {
-      lines[n - 1].classList.add('lit');
-    }
+      // Small random offset makes the arrangement scrapbook-like.
+      const jitter = (Math.random() - 0.5) * Math.min(interval * 0.65, 170);
 
-    if (litStars.size === 3) {
-      document.getElementById('verseReveal').classList.add('show');
-
-      document.getElementById('verseReveal')
-        .scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  });
-});
-
-// The DON'T CLICK surprise.
-document.getElementById('dontClick')
-  .addEventListener('click', () => {
-    document.getElementById('surpriseMessage')
-      .classList.add('show');
-
-    document.getElementById('dontClick').textContent = 'I KNEW IT';
-  });
-
-// Feedback box.
-document.getElementById('feedbackForm')
-  .addEventListener('submit', event => {
-    event.preventDefault();
-
-    const note = document.getElementById('feedbackText')
-      .value.trim();
-
-    if (!note) return;
-
-    try {
-      const previous = JSON.parse(
-        localStorage.getItem('day17FeedbackNotes') || '[]'
+      const top = Math.max(
+        15,
+        Math.min(pageHeight - 100, interval * (index + 1) + jitter)
       );
 
-      previous.push({
-        note: note,
-        date: new Date().toISOString()
-      });
+      frame.style.top = top + 'px';
 
-      localStorage.setItem(
-        'day17FeedbackNotes',
-        JSON.stringify(previous)
-      );
+      const leftSide = index % 2 === 0;
+      const photoWidth = isMobile ? 45 : 76;
 
-      document.getElementById('feedbackStatus').textContent =
-        'Your note is saved on this device. ♡';
+      // Keep the Polaroids around the outside of the central content.
+      if (leftSide) {
+        frame.style.left = isMobile
+          ? '2px'
+          : Math.max(4, viewportWidth * 0.035) + 'px';
 
-    } catch (_) {
-      document.getElementById('feedbackStatus').textContent =
-        'Thank you for leaving a little note. ♡';
-    }
+        frame.style.right = 'auto';
+      } else {
+        frame.style.right = isMobile
+          ? '2px'
+          : Math.max(4, viewportWidth * 0.035) + 'px';
 
-    document.getElementById('feedbackText').value = '';
-  });
+        frame.style.left = 'auto';
+      }
+
+      frame.style.width = photoWidth + 'px';
+    });
+  }, 180);
+}
+
+/* --------------------------------------------------
+   WHITE DOODLES
+   Small hand-drawn-style decorations across the page.
+-------------------------------------------------- */
+
+function addDoodles() {
+  const doodles = [
+    { text: '♡', className: 'doodle doodle-heart' },
+    { text: '✧', className: 'doodle doodle-star' },
+    { text: '☆', className: 'doodle doodle-star' },
+    { text: '♪', className: 'doodle doodle-note' },
+    { text: '∞', className: 'doodle' },
+    { text: '♡', className: 'doodle doodle-heart' },
+    { text: '✩', className: 'doodle doodle-star' }
+  ];
+
+  const container = document.getElementById('page');
+
+  for (let i = 0; i < 24; i++) {
+    const data = doodles[i % doodles.length];
+    const element = document.createElement('span');
+
+    element.className = data.className;
+    element.textContent = data.text;
+    element.setAttribute('aria-hidden', 'true');
+
+    element.style.left = (3 + Math.random() * 92) + '%';
+    element.style.top = (250 + i * 290 + Math.random() * 100) + 'px';
+    element.style.setProperty(
+      '--tilt',
+      (Math.random() * 30 - 15) + 'deg'
+    );
+
+    container.appendChild(element);
+  }
+
+  // A few little two-girl line-art doodles.
+  for (let i = 0; i < 7; i++) {
+    const group = document.createElement('div');
+    group.className = 'doodle-girl';
+    group.setAttribute('aria-hidden', 'true');
+
+    group.style.left = i % 2 === 0 ? '4px' : 'auto';
+    group.style.right = i % 2 === 0 ? 'auto' : '4px';
+    group.style.top = (550 + i * 850) + 'px';
+
+    group.innerHTML = `
+      <span class="hair"></span>
+      <span class="head"></span>
+      <span class="body"></span>
+      <span class="arm left"></span>
+      <span class="arm right"></span>
+    `;
+
+    container.appendChild(group);
+  }
+}
+
+/* Build the memory layer once, then position after layout changes. */
+createPolaroids();
+addDoodles();
+
+window.addEventListener('load', layoutPolaroids);
+window.addEventListener('resize', layoutPolaroids);
+
+if ('ResizeObserver' in window) {
+  const observer = new ResizeObserver(() => layoutPolaroids());
+  observer.observe(page);
+}
 </script>
+
 </body>
 </html>
